@@ -31,6 +31,9 @@ struct AboutSettingsView: View {
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
 
+            Link(L10n.string("about.personalEdition"), destination: Constants.upstreamGitHubURL)
+                .font(.caption)
+
             Text(L10n.string("about.version") + " " + version)
                 .font(.caption)
                 .foregroundStyle(.tertiary)
@@ -57,7 +60,7 @@ struct AboutSettingsView: View {
                     appState.updaterService.checkForUpdates()
                 } label: {
                     Label {
-                        Text(L10n.string("update.checkNow"))
+                        Text(L10n.string(Constants.usesManualUpdates ? "update.manualReleases" : "update.checkNow"))
                     } icon: {
                         if isCheckingForUpdates {
                             ProgressView()

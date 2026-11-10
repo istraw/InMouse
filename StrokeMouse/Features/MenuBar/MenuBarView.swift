@@ -95,7 +95,7 @@ struct MenuBarView: View {
             Text(
                 appState.updaterService.isCheckingForUpdates
                     ? L10n.string("update.checking")
-                    : L10n.string("update.checkNow")
+                    : L10n.string(Constants.usesManualUpdates ? "update.manualReleases" : "update.checkNow")
             )
         }
         .disabled(appState.updaterService.isCheckingForUpdates)

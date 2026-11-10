@@ -25,6 +25,7 @@ final class UpdaterService: NSObject, SPUUpdaterDelegate {
 
     var automaticallyChecksForUpdates: Bool {
         get {
+            if Constants.usesManualUpdates { return false }
             if UserDefaults.standard.object(forKey: PreferenceKey.automaticallyChecksForUpdates) == nil {
                 return Self.defaultAutomaticallyChecksForUpdates
             }
@@ -42,6 +43,10 @@ final class UpdaterService: NSObject, SPUUpdaterDelegate {
     }
 
     func checkForUpdates() {
+        if Constants.usesManualUpdates {
+            NSWorkspace.shared.open(Constants.githubReleasesURL)
+            return
+        }
         switch installEnvironment.readiness {
         case .ready:
             guard let updater else { return }
@@ -86,7 +91,7 @@ final class UpdaterService: NSObject, SPUUpdaterDelegate {
     }
 
     private func configureSparkle() {
-        guard isAppBundle, UpdateInstallEnvironment.hasValidSparklePublicKey(sparklePublicKey) else {
+        guard !Constants.usesManualUpdates, isAppBundle, UpdateInstallEnvironment.hasValidSparklePublicKey(sparklePublicKey) else {
             return
         }
 

@@ -8,6 +8,12 @@ final class StrokeMouseSparkleUserDriverTests: XCTestCase {
         XCTAssertTrue(UpdaterService.defaultAutomaticallyChecksForUpdates)
     }
 
+    func testPersonalEditionDisablesAutomaticUpdates() {
+        XCTAssertTrue(Constants.usesManualUpdates)
+        XCTAssertFalse(UpdaterService().automaticallyChecksForUpdates)
+        XCTAssertEqual(Constants.githubReleasesURL.absoluteString, "https://github.com/istraw/StrokeMouse/releases")
+    }
+
     func testNetworkErrorsIncludeProxyHint() {
         let networkError = NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotConnectToHost)
         let sparkleError = NSError(

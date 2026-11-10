@@ -326,10 +326,12 @@ struct GeneralSettingsView: View {
             }
 
             Section {
-                Toggle(L10n.string("update.automaticallyChecks"), isOn: $automaticallyChecksForUpdates)
-                    .onChange(of: automaticallyChecksForUpdates) { _, newValue in
-                        appState.updaterService.automaticallyChecksForUpdates = newValue
-                    }
+                if !Constants.usesManualUpdates {
+                    Toggle(L10n.string("update.automaticallyChecks"), isOn: $automaticallyChecksForUpdates)
+                        .onChange(of: automaticallyChecksForUpdates) { _, newValue in
+                            appState.updaterService.automaticallyChecksForUpdates = newValue
+                        }
+                }
 
                 LabeledContent(L10n.string("update.currentVersion")) {
                     Text(appState.updaterService.currentVersionDisplay)
@@ -344,14 +346,14 @@ struct GeneralSettingsView: View {
                             ProgressView()
                                 .controlSize(.small)
                         }
-                        Text(L10n.string("update.checkNow"))
+                        Text(L10n.string(Constants.usesManualUpdates ? "update.manualReleases" : "update.checkNow"))
                     }
                 }
                 .disabled(appState.updaterService.isCheckingForUpdates)
             } header: {
                 Text(L10n.string("update.section"))
             } footer: {
-                Text(L10n.string("update.sectionFooter"))
+                Text(L10n.string(Constants.usesManualUpdates ? "update.personalFooter" : "update.sectionFooter"))
             }
 
             Section(L10n.string("general.config")) {

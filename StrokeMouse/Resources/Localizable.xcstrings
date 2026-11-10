@@ -42124,6 +42124,144 @@
           }
         }
       }
+    },
+    "about.personalEdition": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personal edition · Based on Licoy/StrokeMouse"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "个人定制版 · 基于 Licoy/StrokeMouse"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "個人自訂版 · 基於 Licoy/StrokeMouse"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "개인 버전 · Licoy/StrokeMouse 기반"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "個人カスタム版 · Licoy/StrokeMouse ベース"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Личная версия · На основе Licoy/StrokeMouse"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Édition personnelle · Basée sur Licoy/StrokeMouse"
+          }
+        }
+      }
+    },
+    "update.manualReleases": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "View personal releases"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看个人版发布"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看個人版發佈"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "개인 버전 릴리스 보기"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "個人版のリリースを見る"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Релизы личной версии"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voir les versions personnelles"
+          }
+        }
+      }
+    },
+    "update.personalFooter": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personal builds use manual downloads from istraw/StrokeMouse Releases. Automatic updates are disabled."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "个人版通过 istraw/StrokeMouse 的 Releases 手动下载更新，暂不启用自动更新。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "個人版透過 istraw/StrokeMouse 的 Releases 手動下載更新，暫不啟用自動更新。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "개인 버전은 istraw/StrokeMouse Releases에서 수동으로 업데이트합니다. 자동 업데이트는 비활성화되어 있습니다."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "個人版は istraw/StrokeMouse の Releases から手動で更新します。自動更新は無効です。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Личная версия обновляется вручную через Releases istraw/StrokeMouse. Автообновления отключены."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les mises à jour personnelles se téléchargent manuellement depuis Releases sur istraw/StrokeMouse. Les mises à jour automatiques sont désactivées."
+          }
+        }
+      }
     }
   },
   "version": "1.0"
