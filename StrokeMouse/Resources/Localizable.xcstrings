@@ -19922,43 +19922,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Control"
+            "value": "⌃ Control"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Control"
+            "value": "⌃ Control"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Control"
+            "value": "⌃ Control"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Control"
+            "value": "⌃ Control"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Control"
+            "value": "⌃ Control"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Control"
+            "value": "⌃ Control"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Control"
+            "value": "⌃ Control"
           }
         }
       }
@@ -19968,43 +19968,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Option"
+            "value": "⌥ Option"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Option"
+            "value": "⌥ Option"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Option"
+            "value": "⌥ Option"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Option"
+            "value": "⌥ Option"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Option"
+            "value": "⌥ Option"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Option"
+            "value": "⌥ Option"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Option"
+            "value": "⌥ Option"
           }
         }
       }
@@ -20014,43 +20014,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shift"
+            "value": "⇧ Shift"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shift"
+            "value": "⇧ Shift"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shift"
+            "value": "⇧ Shift"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shift"
+            "value": "⇧ Shift"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shift"
+            "value": "⇧ Shift"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shift"
+            "value": "⇧ Shift"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shift"
+            "value": "⇧ Shift"
           }
         }
       }
@@ -20060,43 +20060,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Command"
+            "value": "⌘ Command"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Command"
+            "value": "⌘ Command"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Command"
+            "value": "⌘ Command"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Command"
+            "value": "⌘ Command"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Command"
+            "value": "⌘ Command"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Command"
+            "value": "⌘ Command"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Command"
+            "value": "⌘ Command"
           }
         }
       }
