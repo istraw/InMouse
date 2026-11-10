@@ -34136,43 +34136,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "No features enabled"
+            "value": "Choose a scrolling feature below"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "未开启具体功能"
+            "value": "请选择下方的滚动增强功能"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "未開啟具體功能"
+            "value": "請選擇下方的捲動增強功能"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "켠 기능 없음"
+            "value": "아래에서 스크롤 기능을 선택하세요"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "有効な機能なし"
+            "value": "下でスクロール機能を選択してください"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Функции не включены"
+            "value": "Выберите функцию прокрутки ниже"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aucune fonction activée"
+            "value": "Choisissez une fonction de défilement ci-dessous"
           }
         }
       }
@@ -34274,43 +34274,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Scroll enhancement stays independent of gesture pause, so you can try it while Settings is open."
+            "value": "After turning on the main switch, enable reverse scrolling or smooth scrolling below. Scroll enhancement is independent of gesture pause, so you can try it here."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "滚动增强不受暂停手势影响，打开设置时也可以直接试滚。"
+            "value": "总开关开启后，还需在下方启用反向滚动或平滑滚动；滚动增强不受暂停手势影响，可在此直接试滚。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "捲動增強不受暫停手勢影響，打開設定時也可以直接試捲。"
+            "value": "總開關開啟後，還需在下方啟用反向捲動或平滑捲動；捲動增強不受暫停手勢影響，可在此直接試捲。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "스크롤 향상은 제스처 일시 정지와 별개이므로, 설정을 연 상태에서도 바로 시험할 수 있습니다."
+            "value": "전체 스위치를 켠 후 아래에서 역방향 스크롤이나 부드러운 스크롤을 활성화하세요. 제스처 일시 정지와 별개로 작동하며 여기에서 바로 시험할 수 있습니다."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "スクロール強化はジェスチャの一時停止とは独立しているため、設定を開いたまま試せます。"
+            "value": "全体のスイッチをオンにした後、下で逆スクロールまたはスムーズスクロールを有効にしてください。ジェスチャの一時停止とは独立して動作し、ここで試せます。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Улучшение прокрутки не зависит от паузы жестов, его можно проверить прямо в настройках."
+            "value": "После включения главного переключателя включите ниже обратную или плавную прокрутку. Улучшение прокрутки не зависит от паузы жестов, его можно проверить здесь."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Le défilement amélioré est indépendant de la pause des gestes, vous pouvez l’essayer pendant que les réglages sont ouverts."
+            "value": "Après avoir activé l’interrupteur principal, activez le défilement inversé ou fluide ci-dessous. Ces fonctions sont indépendantes de la pause des gestes et peuvent être essayées ici."
           }
         }
       }
