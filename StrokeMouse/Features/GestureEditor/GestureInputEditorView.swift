@@ -110,7 +110,7 @@ struct GestureInputEditorView: View {
                     selection: trackpadModifierKey
                 ) {
                     ForEach(GestureModifierKey.allCases) { key in
-                        Text(L10n.string(key.displayKey)).tag(key)
+                        key.pickerLabel.tag(key)
                     }
                 }
                 Text(L10n.string("editor.trackpadModifierHint"))
@@ -123,7 +123,7 @@ struct GestureInputEditorView: View {
                 selection: modifierKey
             ) {
                 ForEach(GestureModifierKey.allCases) { key in
-                    Text(L10n.string(key.displayKey)).tag(key)
+                    key.pickerLabel.tag(key)
                 }
             }
             Text(L10n.string("editor.modifierDrawHint"))
@@ -158,7 +158,7 @@ struct GestureInputEditorView: View {
                 selection: mappedModifier
             ) {
                 ForEach(GestureModifierKey.allCases) { key in
-                    Text(L10n.string(key.displayKey)).tag(key)
+                    key.pickerLabel.tag(key)
                 }
             }
         }

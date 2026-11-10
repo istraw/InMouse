@@ -1,6 +1,7 @@
 import Carbon.HIToolbox
 import CoreGraphics
 import Foundation
+import SwiftUI
 
 enum GestureInputCategory: String, CaseIterable, Identifiable {
     case all
@@ -90,6 +91,16 @@ extension GestureInput {
 
 extension GestureModifierKey {
     var displayKey: String { "modifier.\(rawValue)" }
+
+    @ViewBuilder
+    var pickerLabel: some View {
+        if self == .function {
+            Label(L10n.string(displayKey), systemImage: "globe")
+                .labelStyle(.titleAndIcon)
+        } else {
+            Text(L10n.string(displayKey))
+        }
+    }
 }
 
 extension DirectTrackpadGesture {

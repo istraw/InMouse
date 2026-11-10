@@ -87,7 +87,7 @@ struct GestureRecorderView: View {
                                 .foregroundStyle(.primary)
                                 .symbolRenderingMode(.hierarchical)
 
-                            Text(recordingTitle)
+                            recordingText(formatKey: "editor.recordModifier.title", fallback: recordingTitle)
                                 .font(.title3.weight(.bold))
                                 .multilineTextAlignment(.center)
 
@@ -97,7 +97,7 @@ struct GestureRecorderView: View {
                                 .multilineTextAlignment(.center)
                                 .frame(maxWidth: 280)
 
-                            Text(recordingBadge)
+                            recordingText(formatKey: "editor.recordModifier.badge", fallback: recordingBadge)
                                 .font(.caption.weight(.semibold))
                                 .padding(.horizontal, 12)
                                 .padding(.vertical, 6)
@@ -148,6 +148,15 @@ struct GestureRecorderView: View {
                 }
             }
         }
+    }
+
+    private func recordingText(formatKey: String, fallback: String) -> Text {
+        guard recordingModifier == .function else { return Text(verbatim: fallback) }
+        let parts = L10n.string(formatKey).components(separatedBy: "%@")
+        guard parts.count == 2 else { return Text(verbatim: fallback) }
+        return Text(verbatim: parts[0]) + Text(Image(systemName: "globe"))
+            + Text(verbatim: " " + L10n.string(GestureModifierKey.function.displayKey))
+            + Text(verbatim: parts[1])
     }
 
     private var recordingTitle: String {
