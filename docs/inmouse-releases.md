@@ -15,7 +15,7 @@ InMouse 使用独立的 Sparkle Ed25519 更新签名、公钥及 `com.istraw.inm
 
 ## 本机构建
 
-在 `project.yml` 更新 `MARKETING_VERSION` 与 `CURRENT_PROJECT_VERSION` 后生成工程。Build 独立于展示版本，必须高于所有已发布构建号。今天的改动统一为 0.1.0（build 1003），高于之前 0.1.2 的 build 1002，因此已安装用户仍可正常更新。日常修改默认不自动发版，待用户明确要求后再统一发布。
+在 `project.yml` 更新 `MARKETING_VERSION` 与 `CURRENT_PROJECT_VERSION` 后生成工程。Build 独立于展示版本，必须高于所有已发布构建号。今天的改动统一为 0.1.0，本次覆盖发布的 build 为 1004，高于此前 0.1.0 的 build 1003，因此已安装用户仍可正常更新。日常修改默认不自动发版，待用户明确要求后再统一发布。
 
 ```bash
 ./scripts/generate_project.sh

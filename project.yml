@@ -49,7 +49,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.strokemouse.app
         APP_DISPLAY_NAME: InMouse
         MARKETING_VERSION: "0.1.0"
-        CURRENT_PROJECT_VERSION: "1003"
+        CURRENT_PROJECT_VERSION: "1004"
         SPARKLE_PUBLIC_KEY: "5UKJ9bGhg6OCmFiD/m9U/jG6Cd3rEWkNDijwvz+CLhk="
         INFOPLIST_FILE: StrokeMouse/Resources/Info.plist
         SWIFT_OBJC_BRIDGING_HEADER: StrokeMouse/Core/Trackpad/MultitouchSupportBridge.h
