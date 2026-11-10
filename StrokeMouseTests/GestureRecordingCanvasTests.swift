@@ -1,6 +1,7 @@
 import AppKit
 import ApplicationServices
 import XCTest
+import SwiftUI
 @testable import StrokeMouse
 
 @MainActor
@@ -53,6 +54,83 @@ final class GestureRecordingCanvasTests: XCTestCase {
         view.onBegin = { _ in XCTFail("Unsupported button must not record") }
         view.otherMouseDown(with: try event(5, type: .otherMouseDown, x: 10))
         XCTAssertNil(view.menu(for: try event(1, type: .rightMouseDown, x: 10)))
+    }
+
+    func testModifierRecordingNeedsNoMousePressAndIncludesReleasePosition() {
+        for key in GestureModifierKey.allCases {
+            let view = ModifierGestureRecordingCanvasView(frame: NSRect(x: 0, y: 0, width: 200, height: 200))
+            view.modifier = key
+            var recording: [CGPoint]?
+            view.onEnd = { recording = $0 }
+            view.receive(keys: [key], point: CGPoint(x: 10, y: 20))
+            view.receive(keys: [key], point: CGPoint(x: 40, y: 35))
+            view.receive(keys: [], point: CGPoint(x: 80, y: 60))
+            XCTAssertEqual(recording, [CGPoint(x: 10, y: 20), CGPoint(x: 40, y: 35), CGPoint(x: 80, y: 60)])
+            view.stopMonitoring()
+        }
+    }
+
+    func testModifierRecordingCancelsForAdditionalKeysAndWaitsForFullRelease() {
+        let view = ModifierGestureRecordingCanvasView(frame: NSRect(x: 0, y: 0, width: 200, height: 200))
+        view.modifier = .control
+        var begins = 0, finishes = 0, cancellations = 0
+        view.onBegin = { _ in begins += 1 }
+        view.onEnd = { _ in finishes += 1 }
+        view.onCancel = { cancellations += 1 }
+        let point = CGPoint(x: 20, y: 20)
+        view.receive(keys: [.shift], point: point)
+        view.receive(keys: [], point: point)
+        XCTAssertEqual(begins, 0)
+        view.receive(keys: [.control], point: point)
+        view.receive(keys: [.control, .shift], point: point)
+        view.receive(keys: [.control], point: point)
+        view.receive(keys: [], point: point)
+        XCTAssertEqual(begins, 1)
+        XCTAssertEqual(finishes, 0)
+        XCTAssertEqual(cancellations, 1)
+        view.receive(keys: [.control], point: point)
+        view.receive(keys: [], point: CGPoint(x: 50, y: 50))
+        XCTAssertEqual(begins, 2)
+        XCTAssertEqual(finishes, 1)
+        view.stopMonitoring()
+    }
+
+    func testModifierRecordingDoesNotStartOutsideCanvasAndCancelsWhenFocusIsLost() {
+        let view = ModifierGestureRecordingCanvasView(frame: NSRect(x: 0, y: 0, width: 100, height: 100))
+        var begins = 0, ends = 0, cancels = 0
+        view.onBegin = { _ in begins += 1 }
+        view.onEnd = { _ in ends += 1 }
+        view.onCancel = { cancels += 1 }
+        view.receive(keys: [.function], point: CGPoint(x: 120, y: 20))
+        view.receive(keys: [.function], point: CGPoint(x: 20, y: 20))
+        view.receive(keys: [], point: CGPoint(x: 20, y: 20))
+        XCTAssertEqual(begins, 0)
+        view.receive(keys: [.function], point: CGPoint(x: 20, y: 20))
+        view.receive(keys: [.function], point: CGPoint(x: 30, y: 30), eligible: false)
+        view.receive(keys: [], point: CGPoint(x: 40, y: 40))
+        XCTAssertEqual(cancels, 1)
+        XCTAssertEqual(ends, 0)
+        view.receive(keys: [.function], point: CGPoint(x: 20, y: 20))
+        view.stopMonitoring()
+        XCTAssertEqual(cancels, 2)
+        XCTAssertEqual(ends, 0)
+    }
+
+    func testRenderModifierRecorderHint() throws {
+        guard ProcessInfo.processInfo.environment["INMOUSE_RENDER_MODIFIER"] == "1" else {
+            throw XCTSkip("Optional modifier recorder snapshot")
+        }
+        L10n.apply(.simplifiedChinese)
+        defer { L10n.apply(.system) }
+        let view = NSHostingView(rootView: GestureRecorderView(path: .constant([]), recordingModifier: .function)
+            .padding(20).frame(width: 600, height: 430))
+        view.frame = NSRect(x: 0, y: 0, width: 600, height: 430)
+        view.appearance = NSAppearance(named: .darkAqua)
+        view.layoutSubtreeIfNeeded()
+        let bitmap = try XCTUnwrap(view.bitmapImageRepForCachingDisplay(in: view.bounds))
+        view.cacheDisplay(in: view.bounds, to: bitmap)
+        try XCTUnwrap(bitmap.representation(using: .png, properties: [:]))
+            .write(to: URL(fileURLWithPath: "/tmp/inmouse-modifier-recorder.png"))
     }
 
     private func event(_ button: Int, type: CGEventType, x: CGFloat) throws -> NSEvent {

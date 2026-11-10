@@ -3,6 +3,7 @@ import SwiftUI
 
 struct GestureRecorderView: View {
     @Binding var path: [CodablePoint]
+    var recordingModifier: GestureModifierKey?
     var onRecordedButton: ((MouseTriggerButton) -> Void)?
     var onRecordedPath: (([CGPoint]) -> Void)?
     @State private var draft: [CGPoint] = []
@@ -10,10 +11,12 @@ struct GestureRecorderView: View {
 
     init(
         path: Binding<[CodablePoint]>,
+        recordingModifier: GestureModifierKey? = nil,
         onRecordedButton: ((MouseTriggerButton) -> Void)? = nil,
         onRecordedPath: (([CGPoint]) -> Void)? = nil
     ) {
         _path = path
+        self.recordingModifier = recordingModifier
         self.onRecordedPath = onRecordedPath
         self.onRecordedButton = onRecordedButton
     }
@@ -79,22 +82,22 @@ struct GestureRecorderView: View {
                     // Only supported gesture trigger buttons can record on this canvas.
                     if showHint {
                         VStack(spacing: 10) {
-                            Image(systemName: "computermouse.fill")
+                            Image(systemName: recordingModifier == nil ? "computermouse.fill" : "hand.draw.fill")
                                 .font(.system(size: 36, weight: .semibold))
                                 .foregroundStyle(.primary)
                                 .symbolRenderingMode(.hierarchical)
 
-                            Text(L10n.string("editor.recordUseMouseButtonTitle"))
+                            Text(recordingTitle)
                                 .font(.title3.weight(.bold))
                                 .multilineTextAlignment(.center)
 
-                            Text(L10n.string("editor.recordUseMouseButtonBody"))
+                            Text(L10n.string(recordingModifier == nil ? "editor.recordUseMouseButtonBody" : "editor.recordModifier.body"))
                                 .font(.callout)
                                 .foregroundStyle(.secondary)
                                 .multilineTextAlignment(.center)
                                 .frame(maxWidth: 280)
 
-                            Text(L10n.string("editor.recordUseMouseButtonBadge"))
+                            Text(recordingBadge)
                                 .font(.caption.weight(.semibold))
                                 .padding(.horizontal, 12)
                                 .padding(.vertical, 6)
@@ -105,14 +108,22 @@ struct GestureRecorderView: View {
                         .allowsHitTesting(false)
                     }
 
-                    // Capture right, middle and side-button drags locally via AppKit.
-                    MouseButtonDrawCatcher(
-                        isDrawing: $isDrawing,
-                        draft: $draft,
-                        onFinished: { points, button in
-                            commitDraft(points, button: button)
-                        }
-                    )
+                    if let recordingModifier {
+                        ModifierButtonDrawCatcher(
+                            modifier: recordingModifier,
+                            isDrawing: $isDrawing, draft: $draft,
+                            onFinished: { commitDraft($0) }
+                        )
+                    } else {
+                        // Capture right, middle and side-button drags locally via AppKit.
+                        MouseButtonDrawCatcher(
+                            isDrawing: $isDrawing,
+                            draft: $draft,
+                            onFinished: { points, button in
+                                commitDraft(points, button: button)
+                            }
+                        )
+                    }
                 }
             }
             .frame(minHeight: 220)
@@ -139,7 +150,17 @@ struct GestureRecorderView: View {
         }
     }
 
-    private func commitDraft(_ draftPoints: [CGPoint], button: MouseTriggerButton) {
+    private var recordingTitle: String {
+        guard let recordingModifier else { return L10n.string("editor.recordUseMouseButtonTitle") }
+        return String(format: L10n.string("editor.recordModifier.title"), L10n.string(recordingModifier.displayKey))
+    }
+
+    private var recordingBadge: String {
+        guard let recordingModifier else { return L10n.string("editor.recordUseMouseButtonBadge") }
+        return String(format: L10n.string("editor.recordModifier.badge"), L10n.string(recordingModifier.displayKey))
+    }
+
+    private func commitDraft(_ draftPoints: [CGPoint], button: MouseTriggerButton? = nil) {
         guard draftPoints.count >= 2 else {
             draft = []
             return
@@ -151,7 +172,7 @@ struct GestureRecorderView: View {
             return
         }
         path = recorded.map(CodablePoint.init)
-        onRecordedButton?(button)
+        if let button { onRecordedButton?(button) }
         onRecordedPath?(flipped)
         draft = []
     }

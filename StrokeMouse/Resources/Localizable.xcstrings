@@ -45206,6 +45206,144 @@
           }
         }
       }
+    },
+    "editor.recordModifier.title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hold %@ and move on the trackpad"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按住 %@，在触控板上移动绘制"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按住 %@，在觸控板上移動繪製"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 키를 누르고 트랙패드에서 움직이세요"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@を押しながらトラックパッドで描画"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удерживайте %@ и рисуйте на трекпаде"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maintenez %@ et dessinez sur le trackpad"
+          }
+        }
+      }
+    },
+    "editor.recordModifier.body": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep the pointer inside this canvas. Hold the selected modifier and move one finger on the trackpad, then release the key to finish. No click or trackpad press is needed."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "将指针放在画布内，按住所选修饰键，用一根手指在触控板上移动，松开按键结束录制，无需按下触控板。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "將游標放在畫布內，按住所選修飾鍵，用一根手指在觸控板上移動，放開按鍵結束錄製，無需按下觸控板。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "포인터를 캔버스 안에 두세요. 선택한 보조 키를 누른 채 트랙패드에서 한 손가락을 움직이고 키를 놓으면 완료됩니다. 클릭하거나 트랙패드를 누를 필요가 없습니다."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ポインタをキャンバス内に置き、選択した修飾キーを押しながらトラックパッドで1本指を動かしてください。キーを離すと終了し、クリックや押し込みは不要です。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оставьте указатель внутри холста. Удерживайте выбранную клавишу и двигайте одним пальцем по трекпаду. Отпустите клавишу для завершения; нажимать трекпад не нужно."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gardez le pointeur dans la zone. Maintenez la touche choisie et déplacez un doigt sur le trackpad, puis relâchez la touche pour terminer. Aucun clic ni appui sur le trackpad n’est nécessaire."
+          }
+        }
+      }
+    },
+    "editor.recordModifier.badge": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ + one-finger movement"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ + 单指移动"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ + 單指移動"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ + 한 손가락 이동"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ + 1本指の移動"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ + движение одним пальцем"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ + déplacement d’un doigt"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

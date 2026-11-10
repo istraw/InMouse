@@ -74,7 +74,11 @@ struct GestureInputEditorView: View {
 
     @ViewBuilder
     private func drawnEditor(_ drawn: DrawnGesture) -> some View {
-        GestureSampleEditorView(state: $sampleState) { button in
+        let recordingModifier: GestureModifierKey? = {
+            if case .modifier(let key) = drawn.activation { return key }
+            return nil
+        }()
+        GestureSampleEditorView(state: $sampleState, recordingModifier: recordingModifier) { button in
             // Modifier and edge gesture recording only changes the path.
             guard case .mouse = drawn.activation else { return }
             mouseButton.wrappedValue = button

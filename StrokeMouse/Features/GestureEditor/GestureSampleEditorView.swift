@@ -2,6 +2,7 @@ import SwiftUI
 
 struct GestureSampleEditorView: View {
     @Binding var state: GestureSampleEditorState
+    var recordingModifier: GestureModifierKey? = nil
     var onRecordedButton: ((MouseTriggerButton) -> Void)? = nil
 
     var body: some View {
@@ -138,7 +139,7 @@ struct GestureSampleEditorView: View {
         VStack(alignment: .leading, spacing: 16) {
             Text(L10n.string(recordingTitleKey))
                 .font(.title2.bold())
-            GestureRecorderView(path: pendingPath, onRecordedButton: { state.updatePendingButton($0) })
+            GestureRecorderView(path: pendingPath, recordingModifier: recordingModifier, onRecordedButton: { state.updatePendingButton($0) })
                 .frame(minWidth: 520, minHeight: 360)
             HStack {
                 Button(L10n.string("common.cancel")) {
