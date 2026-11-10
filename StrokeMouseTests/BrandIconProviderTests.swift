@@ -78,15 +78,15 @@ final class BrandIconProviderTests: XCTestCase {
         XCTAssertLessThanOrEqual(occupancy, 0.83)
     }
 
-    func testApplicationIconUsesSubtleNeutralBackgroundGradient() throws {
-        let image = BrandIconProvider.applicationIcon()
-        let bitmap = try bitmap(of: image)
-        let firstBand = try averageNeutralLuminance(in: bitmap, yRange: 0.20 ... 0.35)
-        let secondBand = try averageNeutralLuminance(in: bitmap, yRange: 0.65 ... 0.80)
-
-        XCTAssertGreaterThan(abs(firstBand - secondBand), 0.025)
-        XCTAssertGreaterThan(max(firstBand, secondBand), 0.97)
-        XCTAssertLessThan(min(firstBand, secondBand), 0.95)
+    func testApplicationIconHasTransparentOuterBackground() throws {
+        let bitmap = try bitmap(of: BrandIconProvider.applicationIcon())
+        XCTAssertTrue(bitmap.hasAlpha)
+        for point in [(0, 0), (bitmap.pixelsWide - 1, 0),
+                      (0, bitmap.pixelsHigh - 1), (bitmap.pixelsWide - 1, bitmap.pixelsHigh - 1)] {
+            XCTAssertEqual(try XCTUnwrap(bitmap.colorAt(x: point.0, y: point.1)).alphaComponent, 0, accuracy: 0.001)
+        }
+        let center = try XCTUnwrap(bitmap.colorAt(x: bitmap.pixelsWide / 2, y: bitmap.pixelsHigh / 2))
+        XCTAssertGreaterThan(center.alphaComponent, 0.99)
     }
 
     private func opaqueOccupancy(of image: NSImage) throws -> CGFloat {
@@ -111,29 +111,4 @@ final class BrandIconProviderTests: XCTestCase {
         return NSBitmapImageRep(cgImage: cgImage)
     }
 
-    private func averageNeutralLuminance(
-        in bitmap: NSBitmapImageRep,
-        yRange: ClosedRange<CGFloat>
-    ) throws -> CGFloat {
-        let xRange = Int(CGFloat(bitmap.pixelsWide) * 0.20) ... Int(CGFloat(bitmap.pixelsWide) * 0.80)
-        let rows = Int(CGFloat(bitmap.pixelsHigh) * yRange.lowerBound) ...
-            Int(CGFloat(bitmap.pixelsHigh) * yRange.upperBound)
-        var total: CGFloat = 0
-        var count = 0
-
-        for y in stride(from: rows.lowerBound, through: rows.upperBound, by: 4) {
-            for x in stride(from: xRange.lowerBound, through: xRange.upperBound, by: 4) {
-                guard let color = bitmap.colorAt(x: x, y: y)?.usingColorSpace(.sRGB),
-                      color.alphaComponent >= 0.95,
-                      color.saturationComponent <= 0.08
-                else { continue }
-                total += 0.2126 * color.redComponent
-                    + 0.7152 * color.greenComponent
-                    + 0.0722 * color.blueComponent
-                count += 1
-            }
-        }
-
-        return total / CGFloat(try XCTUnwrap(count > 0 ? count : nil))
-    }
 }
