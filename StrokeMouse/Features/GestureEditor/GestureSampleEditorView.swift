@@ -9,9 +9,15 @@ struct GestureSampleEditorView: View {
             selectedPreview
             sampleStrip
             controls
-            Text(L10n.string("editor.samples.recommendation"))
-                .font(.caption)
-                .foregroundStyle(.secondary)
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                Text(L10n.string("editor.samples.recommendation"))
+                Spacer(minLength: 0)
+                Text("\(state.samples.count)/\(DrawnGesture.maximumSampleCount)")
+                    .monospacedDigit()
+                    .fixedSize()
+            }
+            .font(.caption)
+            .foregroundStyle(.secondary)
         }
         .sheet(isPresented: recordingPresented) {
             recordingSheet
@@ -65,6 +71,9 @@ struct GestureSampleEditorView: View {
                             onSelect: { state.select(index) }
                         )
                     }
+                    if state.canAppend {
+                        appendSampleTile
+                    }
                 }
             }
             .frame(height: 88)
@@ -72,43 +81,57 @@ struct GestureSampleEditorView: View {
         }
     }
 
-    private var controls: some View {
-        HStack(spacing: 8) {
-            Button(L10n.string("editor.samples.add"), systemImage: "plus") {
-                state.beginAppend()
+    private var appendSampleTile: some View {
+        Button {
+            state.beginAppend()
+        } label: {
+            VStack(spacing: 4) {
+                Image(systemName: "plus")
+                    .font(.system(size: 22, weight: .medium))
+                    .frame(width: 68, height: 52)
+                Text(L10n.string("editor.samples.add"))
+                    .font(.caption2)
+                    .lineLimit(1)
             }
-            .disabled(!state.canAppend)
+            .padding(5)
+            .foregroundStyle(.secondary)
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color(nsColor: .controlBackgroundColor))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .strokeBorder(
+                        Color(nsColor: .separatorColor),
+                        style: StrokeStyle(lineWidth: 1, dash: [4, 3])
+                    )
+            )
+        }
+        .buttonStyle(.plain)
+    }
 
+    private var controls: some View {
+        HStack(spacing: 6) {
             Button(L10n.string("editor.samples.rerecord"), systemImage: "arrow.counterclockwise") {
                 state.beginReplaceSelected()
             }
             .disabled(state.selectedIndex == nil)
 
-            Menu {
-                Button(L10n.string("editor.samples.makePrimary"), systemImage: "star") {
-                    state.promoteSelected()
-                }
-                .disabled(state.selectedIndex == nil || state.selectedIndex == 0)
-                Divider()
-                Button(
-                    L10n.string("editor.samples.delete"),
-                    systemImage: "trash",
-                    role: .destructive
-                ) {
-                    state.deleteSelected()
-                }
-                .disabled(state.selectedIndex == nil)
-            } label: {
-                Image(systemName: "ellipsis.circle")
+            Button(L10n.string("editor.samples.makePrimary"), systemImage: "star") {
+                state.promoteSelected()
             }
-            .menuStyle(.borderlessButton)
-            .fixedSize()
+            .disabled(state.selectedIndex == nil || state.selectedIndex == 0)
 
-            Spacer()
-            Text("\(state.samples.count)/\(DrawnGesture.maximumSampleCount)")
-                .font(.caption.monospacedDigit())
-                .foregroundStyle(.secondary)
+            Button(L10n.string("editor.samples.delete"), systemImage: "trash", role: .destructive) {
+                state.deleteSelected()
+            }
+            .disabled(state.selectedIndex == nil)
         }
+        .buttonStyle(.bordered)
+        .controlSize(.small)
+        .font(.caption)
+        .lineLimit(1)
+        .minimumScaleFactor(0.75)
     }
 
     private var recordingSheet: some View {
