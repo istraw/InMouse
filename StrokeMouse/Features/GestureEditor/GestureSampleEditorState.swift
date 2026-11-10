@@ -18,6 +18,12 @@ struct GestureSampleEditorState: Equatable {
     }
 
     var canAppend: Bool { samples.count < DrawnGesture.maximumSampleCount }
+    var pendingInitialTriggerButton: MouseTriggerButton? {
+        guard samples.isEmpty, recordingTarget == .append, pendingPath.count >= 2 else {
+            return nil
+        }
+        return pendingButton
+    }
     var canSave: Bool {
         !samples.isEmpty
             && samples.count <= DrawnGesture.maximumSampleCount

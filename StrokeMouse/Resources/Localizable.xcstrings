@@ -42406,43 +42406,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Accepting a recording selects the button used to draw it. You can still change the trigger here."
+            "value": "Only the first sample automatically sets the trigger button. Adding or re-recording samples keeps your current choice. You can change it here."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "确认录制后，会自动选中绘制时使用的按键，也可在这里手动修改。"
+            "value": "仅首次录制样本时自动设置触发按键，追加或重录样本会保留当前设置，也可在这里手动修改。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "確認錄製後，會自動選中繪製時使用的按鍵，也可在此手動修改。"
+            "value": "僅首次錄製樣本時自動設定觸發按鍵，追加或重錄樣本會保留目前設定，也可在此手動修改。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "녹화를 적용하면 그릴 때 사용한 버튼이 선택됩니다. 여기에서 트리거를 변경할 수도 있습니다."
+            "value": "첫 샘플을 녹화할 때만 트리거 버튼이 자동 설정됩니다. 샘플을 추가하거나 다시 녹화해도 현재 설정은 유지되며, 여기에서 직접 변경할 수 있습니다."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "記録を確定すると描画に使ったボタンが選択されます。ここで手動変更もできます。"
+            "value": "最初のサンプルを記録したときだけトリガーボタンを自動設定します。追加や再記録では現在の設定を保持し、ここで手動変更できます。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "После подтверждения записи выбирается использованная кнопка. Её можно изменить здесь вручную."
+            "value": "Кнопка запуска задаётся автоматически только при записи первого образца. Добавление и перезапись образцов сохраняют текущую настройку. Её можно изменить здесь вручную."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Après validation, le bouton utilisé devient le déclencheur. Vous pouvez aussi le modifier ici."
+            "value": "Seul le premier échantillon définit automatiquement le bouton de déclenchement. Les ajouts et réenregistrements conservent le réglage actuel, modifiable ici."
           }
         }
       }

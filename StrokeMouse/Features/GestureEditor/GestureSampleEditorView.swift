@@ -124,7 +124,7 @@ struct GestureSampleEditorView: View {
                 .keyboardShortcut(.cancelAction)
                 Spacer()
                 Button(L10n.string("editor.samples.useRecording")) {
-                    let recordedButton = state.pendingButton
+                    let recordedButton = state.pendingInitialTriggerButton
                     if state.commitRecording(), let recordedButton {
                         onRecordedButton?(recordedButton)
                     }

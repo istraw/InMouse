@@ -170,6 +170,46 @@ final class GestureSampleEditorStateTests: XCTestCase {
         XCTAssertNil(state.pendingButton)
     }
 
+    func testOnlyFirstAcceptedSampleSelectsTriggerButton() {
+        var state = GestureSampleEditorState(paths: [])
+        var trigger: MouseTriggerButton = .sideBack
+
+        func acceptRecording() {
+            let button = state.pendingInitialTriggerButton
+            if state.commitRecording(), let button { trigger = button }
+        }
+
+        state.beginAppend()
+        state.updatePendingButton(.middle)
+        XCTAssertNil(state.pendingInitialTriggerButton)
+        state.cancelRecording()
+
+        state.beginAppend()
+        state.updatePendingPath(path(0))
+        state.updatePendingButton(.right)
+        acceptRecording()
+        XCTAssertEqual(trigger, .right)
+
+        state.beginAppend()
+        state.updatePendingPath(path(10))
+        state.updatePendingButton(.middle)
+        XCTAssertNil(state.pendingInitialTriggerButton)
+        acceptRecording()
+        XCTAssertEqual(trigger, .right)
+        XCTAssertEqual(state.samples.count, 2)
+
+        // Replacing the primary sample must also preserve manual trigger changes.
+        trigger = .sideForward
+        state.select(0)
+        state.beginReplaceSelected()
+        state.updatePendingPath(path(20))
+        state.updatePendingButton(.middle)
+        XCTAssertNil(state.pendingInitialTriggerButton)
+        acceptRecording()
+        XCTAssertEqual(trigger, .sideForward)
+        XCTAssertEqual(state.samples, [path(20), path(10)])
+    }
+
     private func path(_ offset: Double) -> [CodablePoint] {
         [
             CodablePoint(x: offset, y: offset),
