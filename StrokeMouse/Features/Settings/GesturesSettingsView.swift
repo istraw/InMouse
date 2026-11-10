@@ -838,8 +838,9 @@ struct GesturesSettingsView: View {
                 Text(gesture.input.displaySummary)
                     .lineLimit(1)
                     .foregroundStyle(.secondary)
+                    .help(gesture.input.displaySummary)
             }
-            .width(min: 64, ideal: 80, max: 100)
+            .width(min: 100, ideal: 180)
 
             TableColumn(L10n.string("gestures.col.action")) { gesture in
                 Text(actionLabel(for: gesture))
