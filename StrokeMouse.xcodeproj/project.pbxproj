@@ -58,6 +58,7 @@
 		3A13C104E590DDF69865A5AA /* PortableSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A41F19A38C5C79C34D5688 /* PortableSettings.swift */; };
 		3A323DCADAB3F26A2D3DA5A1 /* ShortcutActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE429C7D6F08B9879B8BD12 /* ShortcutActionTests.swift */; };
 		3A3767446F6A0FA47FED3516 /* ConfigModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E984684C8AA6EE77170D9FF /* ConfigModels.swift */; };
+		3B57039F6CE1EC42667DEDC7 /* PersonalMenuBarPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD435605CC422B96FF6EDBD4 /* PersonalMenuBarPreferences.swift */; };
 		3EEDA88119AD7CE70468561C /* WindowActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D875011E0516328DF699E78 /* WindowActions.swift */; };
 		40CE482C9648F3135B94C0D9 /* ShortcutConfigCompatibilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4D523700FF6CC1AD9FC324 /* ShortcutConfigCompatibilityTests.swift */; };
 		44B7279194D90FFBFE32AD2C /* GesturesSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3BBBB6E0585911BD547E7 /* GesturesSettingsView.swift */; };
@@ -179,6 +180,7 @@
 		DFA03D461BDA431C62C0B3EA /* UpdateStatusWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BF1333F568461C3FF2CD75 /* UpdateStatusWindowController.swift */; };
 		E01BA93602F40149667956C3 /* RecordedGestureRegressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FABE7557D75F04454A18D3 /* RecordedGestureRegressionTests.swift */; };
 		E1081DA18FE63C29FC82DB36 /* ScrollEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3608CECBDD5C041111D7E8D /* ScrollEngineTests.swift */; };
+		E2A6C09E90B1C5D2A2AE2053 /* PersonalMenuBarPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715F6C603EF782F6AA334AC4 /* PersonalMenuBarPreferencesTests.swift */; };
 		E8BB3613ABE70AA08389DEEA /* OnboardingStrokeAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E61EA321196174E22E38064 /* OnboardingStrokeAnimationView.swift */; };
 		E9DFC3A9210081869A4F16FD /* ConfigurationRestoreEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BCC6BB789312E4533A3B77 /* ConfigurationRestoreEngine.swift */; };
 		EBDB9210663352EE32C1E7CB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9500B04425951E23385935C9 /* Constants.swift */; };
@@ -321,6 +323,7 @@
 		6F31C8BDB8D6D17BAF30FEDF /* OnboardingDoneStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingDoneStep.swift; sourceTree = "<group>"; };
 		6F61904CB5320A9A03A3857F /* ConfigurationSyncPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationSyncPersistence.swift; sourceTree = "<group>"; };
 		707FE9775872B76695BCE3A0 /* WindowMaximizeConfigCompatibilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowMaximizeConfigCompatibilityTests.swift; sourceTree = "<group>"; };
+		715F6C603EF782F6AA334AC4 /* PersonalMenuBarPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalMenuBarPreferencesTests.swift; sourceTree = "<group>"; };
 		719F034F4A2DF61AA659C7B8 /* WindowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayout.swift; sourceTree = "<group>"; };
 		7290E58DD73EC17FE8EFD280 /* MacGestureTargetCaptureSystemClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacGestureTargetCaptureSystemClient.swift; sourceTree = "<group>"; };
 		7338842227D84CFBD5B0DA9F /* MacGestureTargetCapturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacGestureTargetCapturer.swift; sourceTree = "<group>"; };
@@ -368,6 +371,7 @@
 		B1433691AAC42589F503744F /* RecordedRoundedTurnGestureFixture.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecordedRoundedTurnGestureFixture.json; sourceTree = "<group>"; };
 		B7400A8A33B517DE0253EF12 /* GestureTargetScreenGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureTargetScreenGeometry.swift; sourceTree = "<group>"; };
 		BD25A226A057CAD42F39F24C /* StrokeMouseSparkleUserDriverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeMouseSparkleUserDriverTests.swift; sourceTree = "<group>"; };
+		BD435605CC422B96FF6EDBD4 /* PersonalMenuBarPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalMenuBarPreferences.swift; sourceTree = "<group>"; };
 		BF8BA55BED6FCCBEFCE7EDAE /* ExtendedWindowActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedWindowActions.swift; sourceTree = "<group>"; };
 		C3608CECBDD5C041111D7E8D /* ScrollEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollEngineTests.swift; sourceTree = "<group>"; };
 		C46207ECA1DFC7078D2A6581 /* GestureRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureRuntime.swift; sourceTree = "<group>"; };
@@ -508,6 +512,7 @@
 				0A6325A4B0A46C3C49892376 /* AdaptiveSegmentedPicker.swift */,
 				9500B04425951E23385935C9 /* Constants.swift */,
 				1D1B469595C655F3BB2885F2 /* L10n.swift */,
+				BD435605CC422B96FF6EDBD4 /* PersonalMenuBarPreferences.swift */,
 				2FF03EB401214EE4EEA24EC5 /* PersonalPreferencesMigration.swift */,
 				7A9936C0BB33B4D8EC8AB38B /* StrokeMouse.entitlements */,
 				C5D2CE5C0DBA0FAF5EFACD93 /* ThinScroller.swift */,
@@ -714,6 +719,7 @@
 				4919A3A10E7CD597FBAFAC76 /* MultiSampleGestureTests.swift */,
 				F4FE09D3666B7985788686EB /* MultitouchSupportAdapterTests.swift */,
 				F2ED089878497180E5171D33 /* PathSimplifierTests.swift */,
+				715F6C603EF782F6AA334AC4 /* PersonalMenuBarPreferencesTests.swift */,
 				040CEBBC5E0E7BBEDA539CE8 /* PersonalPreferencesMigrationTests.swift */,
 				1F95096A51EEB34D4E90128F /* PortableSettingsTests.swift */,
 				CD85978D19861D2746C30E95 /* RecordedCurveAGestureTests.swift */,
@@ -995,6 +1001,7 @@
 				ED7C395DE08771FA9A1F2E6D /* MultiSampleGestureTests.swift in Sources */,
 				6483D13638435CF3754CD2CF /* MultitouchSupportAdapterTests.swift in Sources */,
 				6D1F01F353DD34C2D2DED17C /* PathSimplifierTests.swift in Sources */,
+				E2A6C09E90B1C5D2A2AE2053 /* PersonalMenuBarPreferencesTests.swift in Sources */,
 				CD58FFA911E25BE22F3A3E93 /* PersonalPreferencesMigrationTests.swift in Sources */,
 				D6B620376FB1F6A13567B4CE /* PortableSettingsTests.swift in Sources */,
 				9E8EB6DDE308D9D83AC04EA4 /* RecordedCurveAGestureTests.swift in Sources */,
@@ -1110,6 +1117,7 @@
 				8158A8B851DFF34D24F12D31 /* PathTemplates.swift in Sources */,
 				178341CBA6AF4BBE91B73070 /* PermissionManager.swift in Sources */,
 				C5705C1D05286672AC505423 /* PermissionsSettingsView.swift in Sources */,
+				3B57039F6CE1EC42667DEDC7 /* PersonalMenuBarPreferences.swift in Sources */,
 				B9F91FB1912DBB5DE793E197 /* PersonalPreferencesMigration.swift in Sources */,
 				3A13C104E590DDF69865A5AA /* PortableSettings.swift in Sources */,
 				1DD6CF90791658CDFF8D6BE2 /* PortableSettingsMerge.swift in Sources */,
@@ -1269,7 +1277,7 @@
 				CODE_SIGN_IDENTITY = "StrokeMouse Dev";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1000;
+				CURRENT_PROJECT_VERSION = 1001;
 				ENABLE_DEBUG_DYLIB = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -1278,7 +1286,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.istraw.inmouse;
 				PRODUCT_MODULE_NAME = StrokeMouse;
 				PRODUCT_NAME = InMouse;
@@ -1366,7 +1374,7 @@
 				CODE_SIGN_IDENTITY = "StrokeMouse Dev";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1000;
+				CURRENT_PROJECT_VERSION = 1001;
 				ENABLE_DEBUG_DYLIB = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -1375,7 +1383,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.strokemouse.app.dev;
 				PRODUCT_MODULE_NAME = StrokeMouse;
 				PRODUCT_NAME = InMouse;

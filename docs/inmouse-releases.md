@@ -34,3 +34,7 @@ SPARKLE_PUBLIC_KEY='<项目公钥>' CODE_SIGN_IDENTITY='<签名证书>' ARCH=x86
 0.1.0 使用本机 Apple Development 证书签名，并使用独立 Ed25519 密钥签署更新档案；未进行 Apple 公证。首次从网络下载时，macOS 可能阻止启动，需要到“系统设置 → 隐私与安全性”允许打开。这与 Sparkle 更新包签名是两回事，不能宣称该包已通过 Developer ID 公证。
 
 若需要常规对外分发体验，后续须配置 Developer ID Application 证书与公证凭据，并保留现有 Sparkle 密钥。现有 GitHub Actions Release 工作流改为手动触发，仅在对应发布证书／公证 secrets 配好后使用；本地发布不导出 Apple 证书私钥到 GitHub。
+
+## 0.1.1 状态栏模式
+
+升级后首次启动会启用“隐藏 Dock 图标”，保持状态栏入口可见，并选用新的鼠标＋环绕轨迹单色模板图标。打开设置时 Dock 图标临时显示，关闭设置后自动隐藏，应用与手势继续运行；从状态栏菜单可以重新打开设置或退出。之后可在通用设置自行调整，后续启动不会反复覆盖选择。
