@@ -1,0 +1,217 @@
+**English** · [简体中文](./README_zh-Hans.md) · [繁體中文](./README_zh-Hant.md) · [한국어](./README_ko.md) · [日本語](./README_ja.md) · [Русский](./README_ru.md) · [Français](./README_fr.md)
+
+<div align="center">
+  <img src="design/logo/stroke-mouse-app-icon.png" width="128" alt="StrokeMouse" />
+  <h1>StrokeMouse</h1>
+  <p>
+    <a href="./LICENSE"><img alt="License: AGPL-3.0" src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg" /></a>
+  </p>
+</div>
+
+Custom mouse and trackpad gestures for macOS. Draw a stroke while holding a mouse button, draw with one modifier key (Trackpad Draw), or use experimental multi-finger Touch Gestures, then run shortcuts, open apps, window commands, media keys, Shell / AppleScript, and more. Gestures can be **global or app-scoped**, configs are **importable/exportable**, and everything runs locally from the menu bar.
+
+<p align="center">
+  <a href="https://strokemouse.com/video/strokemouse-promo.mp4?v=d269ecf1"><img src="website/static/video/strokemouse-promo-thumb.jpg" width="800" alt="StrokeMouse intro video" /></a>
+  <br />
+  <sub><a href="https://strokemouse.com/video/strokemouse-promo.mp4?v=d269ecf1">▶ Watch the 1:42 intro video (on-screen text in Simplified Chinese)</a></sub>
+</p>
+
+## Screenshots
+
+| Gesture list | Gesture test |
+|:---:|:---:|
+| <img src="website/static/screenshots/1.png" width="400" alt="Gesture list" /> | <img src="website/static/screenshots/2.png" width="400" alt="Gesture test" /> |
+
+| General settings | Permissions |
+|:---:|:---:|
+| <img src="website/static/screenshots/3.png" width="400" alt="General settings" /> | <img src="website/static/screenshots/4.png" width="400" alt="Permissions" /> |
+
+| Record stroke | App scope |
+|:---:|:---:|
+| <img src="website/static/screenshots/5.png" width="400" alt="Record stroke" /> | <img src="website/static/screenshots/6.png" width="400" alt="App scope" /> |
+
+## Features
+
+- **Menu bar app**: enable/disable gestures, open settings, quit; icon tints by status (normal / paused / needs permission); optional **hide menu bar icon** (confirm if Dock is also hidden; reopen via Dock or relaunch to open settings)
+- **Gesture library**: sidebar by **Global / per-app** (new gestures inherit the selected scope); search / filter / sort; multi-select batch enable, disable, delete; **JSON import/export** (skip or force-import duplicates); turn off global gestures in chosen apps from **General → Apps Without Global Gestures** or each app's sidebar entry
+- **Mouse drawing**: each gesture can independently use the right, middle, or a side button; only buttons referenced by enabled profiles are monitored; optionally add a **left-click secondary action**—click the left button once while drawing and only that action runs on release
+- **Mouse combinations**: hold right and scroll up/down, click left, or drag to scroll; at any display’s top/bottom/left/right edge, right-click or scroll to run an action without drawing, or draw a **Right-button gesture** that starts at the edge. Configure these under **Gestures → Add → Mouse Combinations**; app scopes and existing actions apply. [Details](docs/mouse-combinations.en.md).
+- **Mouse button mappings**: a single click on a side or middle button runs an action directly (e.g. back side button → ⌘[), no drawing needed, and can require one held modifier (e.g. only ⌘ + back side button); when the same button also draws gestures, a press under the minimum stroke distance counts as a click and a longer one as a drawing, so nothing fires twice; global / per-app scopes apply, and apps without a mapping keep the button's native behavior
+- **Trackpad Draw**: hold exactly one of Fn / Control / Option / Shift / Command (Fn by default) and move the pointer; pressing an additional supported modifier cancels that recognition attempt
+- **Experimental Touch Gestures**: the built-in trackpad supports 40 gesture classes—three- to five-finger taps, double taps, clicks, double clicks, and four-way swipes, plus two- to five-finger pinches, spreads, and clockwise / counterclockwise rotations
+- **Touch Gestures master switch**: disable Touch Gestures without deleting configured gestures; private-backend failures degrade only the trackpad channel, leaving mouse and Trackpad Draw available
+- **Scroll enhancement**: reverse the mouse wheel and the trackpad / Magic Mouse independently on each axis, and optionally smooth notched wheel scrolling (gentle / standard / responsive, or custom speed, duration, and acceleration). Exclusions match the frontmost app. These settings stay on this Mac and are not part of backup sync. Other scroll utilities can double-process events; apps that only read whole-line ticks (some games, VMs, remote desktops) should be excluded
+- **Per-gesture target**: choose the frontmost app or the app under the pointer at trigger-down; when a regular window exists, its exact window is frozen too, and app-scope checks and target-aware actions always reuse that target
+- **Free-path recognition**: record 1–5 samples per gesture (3 recommended), with the best-matching sample winning; elastic arc-length alignment that compares stroke direction first and position second, so curves, wobble and small end hooks are tolerated while reversed, mirrored, truncated or clearly extended strokes are rejected; live stroke HUD while holding the trigger that names the gesture releasing would run
+- **App scope**: global, or pick apps by icon from installed applications (search / browse `.app`)
+- **Actions**: system commands (Mission Control, Application Windows, previous / next Space, with customizable system shortcut bindings), shortcuts (including Fn/Globe alone or combined with other keys, optionally followed by more keys pressed in order, e.g. ⌘V then Return), open app (icon picker), URL, media keys, window actions, Shell / AppleScript (syntax-highlighted editor; AppleScript presets such as sleep, lock screen, empty trash, plus custom)
+- **Polish**: UI in English, Simplified Chinese, Traditional Chinese, Korean, Japanese, Russian, and French (or follow the system language), light/dark appearance (system or forced), launch at login, hide Dock / menu bar icon, Sparkle in-app updates (falls back to GitHub Releases on failure)
+
+## Requirements
+
+- macOS 14 Sonoma or later
+- Xcode 16+ (for development builds)
+- A mouse or trackpad can be used for drawn gestures; direct multi-touch primarily targets built-in Mac trackpads
+- External Magic Trackpad support is best effort and may vary by model or macOS release
+
+## Installation
+
+### Homebrew (recommended)
+
+Install from the [project-maintained Licoy Homebrew Tap](https://github.com/Licoy/homebrew-tap):
+
+```bash
+brew install --cask licoy/tap/strokemouse
+```
+
+StrokeMouse also supports in-app updates. To force Homebrew to check and install an upgrade, use:
+
+```bash
+brew upgrade --cask --greedy strokemouse
+```
+
+Uninstalling keeps your settings by default. Add `--zap` to remove them as well:
+
+```bash
+brew uninstall --cask strokemouse
+brew uninstall --cask --zap strokemouse
+```
+
+You can also download the DMG for your architecture from the [official download page](https://strokemouse.com/en/download). Releases since 0.0.40 are signed with Apple Developer ID and notarized by Apple. When upgrading from 0.0.39 or earlier, re-grant Accessibility once: click **Reset Authorization** on the Permissions page, then switch StrokeMouse on again.
+
+## Permissions
+
+| Permission | Purpose |
+|------------|---------|
+| **Accessibility** | Global mouse / modifier / scroll listening (`CGEventTap`), shortcut injection, window AX actions |
+| **Automation** | Optional; required when AppleScript controls other apps |
+
+On first launch or **Settings → Permissions**, use in-app **Guide Me**: open System Settings and drag StrokeMouse into the list. Without trust the engine will not pretend to listen.
+
+### Experimental Touch Gestures
+
+Touch Gestures load Apple's undocumented `MultitouchSupport` at runtime through `dlopen` / `dlsym`; the private framework is not statically linked. It may stop working after a macOS update. A missing framework, symbol, device, or startup failure is shown as a trackpad-channel failure while mouse and Trackpad Draw continue to work—there is no simulated fallback or silent retry.
+
+StrokeMouse does not intercept native trackpad gestures, so a macOS system gesture may occur alongside the bound action. The one exception is Click: pressing the trackpad with a finger count that has a Click gesture hands that click to the gesture, and applications no longer receive it. A touch sequence that physically pressed the trackpad is never recognized as a tap or swipe. Raw touch trajectories are neither stored nor logged. The first attempt to enable, save, or import enabled Touch Gesture profiles shows an experimental-risk confirmation. The master switch can later pause Touch Gestures without deleting those profiles.
+
+The 40 supported Touch Gesture classes are:
+
+| Family | Fingers | Variants | Count |
+|--------|---------|----------|-------|
+| Tap | Three / four / five | Single, double | 6 |
+| Click | Three / four / five | Single, double | 6 |
+| Swipe | Three / four / five | Up, down, left, right | 12 |
+| Scale | Two / three / four / five | Pinch, spread | 8 |
+| Rotate | Two / three / four / five | Counterclockwise, clockwise | 8 |
+| **Total** |  |  | **40** |
+
+The first release does not support two-finger taps / swipes, modifier combinations, specific finger identities, continuously repeated actions, or user-adjustable recognition thresholds.
+
+## Build & run
+
+### Dependencies
+
+```bash
+brew install xcodegen
+```
+
+### Generate the project and open
+
+```bash
+./scripts/generate_project.sh
+open StrokeMouse.xcodeproj
+```
+
+Or **Run** directly in Xcode (Scheme: `StrokeMouse`).
+
+### CLI build (recommended)
+
+Produces a stable path at `output/StrokeMouse.app`, which reduces repeated Accessibility prompts.  
+Debug shows as **StrokeMouse Dev** (Bundle ID `com.strokemouse.app.dev`) so it can be authorized separately from the release **StrokeMouse** app:
+
+```bash
+./scripts/build.sh           # Debug → output/StrokeMouse.app (Accessibility: StrokeMouse Dev)
+./scripts/build.sh --open    # open after build
+./scripts/build.sh --release # Release (same display name / Bundle ID as shipping builds)
+```
+
+### Release packaging
+
+Build ZIP, TAR.GZ, and DMG per architecture, and verify signature, entitlements, and artifact integrity:
+
+```bash
+# Notarize: add NOTARY_KEYCHAIN_PROFILE=<profile saved by xcrun notarytool store-credentials>
+SPARKLE_PUBLIC_KEY="..." ARCH=arm64 ./scripts/package-app.sh
+SPARKLE_PUBLIC_KEY="..." ARCH=x86_64 ./scripts/package-app.sh
+```
+
+Release packaging signs with the **Developer ID Application** identity from your keychain and notarizes when `NOTARY_*` credentials are set, so downloads pass Gatekeeper and Accessibility grants survive Sparkle updates. See `RELEASING.md` / `certs/README.md`.
+
+Bump versions with `./bump.sh -v x.y.z [-p]`. Re-tag the same version and push with `./bump.sh -v x.y.z --force`.
+
+### Tests
+
+```bash
+xcodebuild -scheme StrokeMouse -configuration Debug test
+```
+
+## Usage
+
+1. Launch the app; a mouse icon appears in the menu bar  
+2. Grant **Accessibility**, then enable gestures from the menu bar  
+3. Open **Settings → Gestures** to review defaults or create new ones  
+4. Choose an input: draw while holding a mouse trigger, Trackpad Draw while holding one modifier key, or perform a configured Touch Gesture
+5. On a successful match, the bound action runs  
+
+> **Short click vs gesture**: trigger down/up is temporarily captured by the engine. If you release before the minimum stroke distance, a normal click is replayed so the context menu still works. Once drawing starts, drag still moves the system cursor and stroke HUD, but the frontmost app does not receive a paired down/up—so no context menu appears or is selected. Buttons not configured as triggers always pass through. Left click passes through too, unless a gesture available in the target app has a **secondary action**: while you hold the trigger, a left click is consumed and, on release, only the matched gesture's secondary action runs (nothing runs if that gesture has none; a click without a stroke cancels). If the target app has a **mouse button mapping** for that button, a short click runs the mapping instead of being replayed. A **mouse combination** that holds the right button takes the wheel or left click first, ahead of a secondary action; once it runs, releasing right neither replays a click nor recognizes a stroke. Where right-button **Drag to scroll** applies in the target app, the click threshold is a fixed 10 points instead of the minimum stroke distance: releasing before the pointer moves that far still replays a right click, and once scrolling starts, release neither replays a click nor recognizes a stroke.
+
+> **Trackpad Draw**: modifier monitoring is listen-only and never consumes keyboard events; a short path runs no action. The path follows the system pointer, so either a trackpad or mouse can move it. StrokeMouse does not suppress the modifier's normal effect in the active app.
+
+> System commands use customizable shortcut bindings that must match Mission Control in System Settings; StrokeMouse does not change system settings. The editor reads System Settings › Keyboard › Keyboard Shortcuts › Mission Control, warns when that shortcut is turned off or differs from the one configured here, and offers **Use System Shortcut** to adopt it; if a command uses its default binding but the shortcut is turned off, running it shows an error instead of doing nothing. Application Windows activates the captured app and window first; Mission Control and Space navigation keep the current system context without activating the captured target. These are discrete commands, not native interactive four-finger animations.
+
+> Shortcuts activate the frozen app first and also bring its exact window forward when one was captured, which may switch focus or Spaces. Locations without a regular window, such as the Finder desktop, can still run shortcuts and **Hide App**; Close, Minimize, Zoom, Maximize Window, Full Screen, and Center still require an exact window. A short click never activates the target.
+
+To search for selected text, choose **Open URL → Use Selected Text** and enter a template such as `https://www.baidu.com/s?wd={0}`. The gesture copies from the captured window, leaves the text on the clipboard, and opens the resulting URL in your default browser.
+
+Release all modifier keys before starting shortcut recording, then press the keys in the order you want them replayed. Fn must be pressed physically; a key remapped to Fn in System Settings, such as Caps Lock, also works. Caps Lock may remain enabled once its key is released.
+
+Default gesture examples (right button by default; each gesture can use a different button):
+
+| Gesture | Action |
+|---------|--------|
+| ↑ | Mission Control (⌃↑) |
+| ↓ | Application windows (⌃↓) |
+| ↓← | Minimize window |
+| ↓→ | Close window |
+| ↑→ | Open Safari |
+| →← | Play / pause |
+| ↑← | Open GitHub |
+
+## Config file
+
+Path:
+
+```text
+~/Library/Application Support/StrokeMouse/gestures.json
+```
+
+Day to day, multi-select under **Settings → Gestures** to export / import JSON packages. For a full-library backup, copy the file above or edit by hand (keep the structure valid). Settings can **Reveal in Finder**.
+
+Libraries, exports, and backups containing a screen-edge **Right-button gesture** use gesture format **v7**. Otherwise, **Open URL → Use Selected Text** requires **v6**, Maximize Window **v5**, system actions and drag-to-scroll **v4**, Fn shortcuts **v3**, and other libraries use **v2**. Earlier formats remain readable, but older app versions cannot read newer formats.
+
+## Tech stack
+
+- Swift / SwiftUI (macOS 14+)
+- Lightweight MVVM + Service
+- `CGEventTap` for global mouse / modifier events
+- Runtime `dlopen` / `dlsym` loading of `MultitouchSupport` for experimental Touch Gestures (no static link)
+- JSON config persistence
+- [LaunchAtLogin-Modern](https://github.com/sindresorhus/LaunchAtLogin-Modern) for login launch
+- [Sparkle](https://github.com/sparkle-project/Sparkle) for signed in-app updates
+- XcodeGen for the Xcode project
+
+## License & disclaimer
+
+This project is licensed under the [GNU Affero General Public License v3.0 (AGPL-3.0)](./LICENSE).
+
+This is a local utility. Global event monitoring and script actions are powerful. Only add Shell / AppleScript you trust. The author is not responsible for misuse or accidental damage.
