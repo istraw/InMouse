@@ -12,7 +12,7 @@ final class StrokeMouseSparkleUserDriverTests: XCTestCase {
         XCTAssertFalse(Constants.usesManualUpdates)
         XCTAssertEqual(Constants.bundleID, "com.istraw.inmouse")
         XCTAssertEqual(Constants.githubReleasesLatestDownloadBase,
-                       "https://github.com/istraw/StrokeMouse/releases/latest/download")
+                       "https://github.com/istraw/InMouse/releases/latest/download")
     }
 
     func testNetworkErrorsIncludeProxyHint() {

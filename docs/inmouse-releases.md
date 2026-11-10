@@ -6,8 +6,8 @@ InMouse 使用独立的 Sparkle Ed25519 更新签名、公钥及 `com.istraw.inm
 
 “检查更新”通过 Sparkle 获取与运行架构对应的更新列表：
 
-- `https://github.com/istraw/StrokeMouse/releases/latest/download/appcast-arm64.xml`
-- `https://github.com/istraw/StrokeMouse/releases/latest/download/appcast-x86_64.xml`
+- `https://github.com/istraw/InMouse/releases/latest/download/appcast-arm64.xml`
+- `https://github.com/istraw/InMouse/releases/latest/download/appcast-x86_64.xml`
 
 0.0.41 的旧版本仍是手动更新入口，需先手动安装 0.1.0；后续版本可以检查、下载并安装更新。相同版本会提示已是最新版本。
 

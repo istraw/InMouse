@@ -124,8 +124,8 @@ jobs:
           cp "dist/InMouse-macos-$arch.zip" "dist/appcast-$arch/"
           printf '%s' "$SPARKLE_PRIVATE_KEY" | "$tool" \
             --ed-key-file - \
-            --download-url-prefix "https://github.com/istraw/StrokeMouse/releases/download/${GITHUB_REF_NAME}/" \
-            --link "https://github.com/istraw/StrokeMouse/releases/tag/${GITHUB_REF_NAME}" \
+            --download-url-prefix "https://github.com/istraw/InMouse/releases/download/${GITHUB_REF_NAME}/" \
+            --link "https://github.com/istraw/InMouse/releases/tag/${GITHUB_REF_NAME}" \
             -o "dist/appcast-$arch.xml" \
             "dist/appcast-$arch"
           xmllint --noout "dist/appcast-$arch.xml"
@@ -133,7 +133,7 @@ jobs:
           build="$(awk -F'"' '/CURRENT_PROJECT_VERSION:/ { print $2; exit }' project.yml)"
           grep -Fq "<sparkle:shortVersionString>$version</sparkle:shortVersionString>" "dist/appcast-$arch.xml"
           grep -Fq "<sparkle:version>$build</sparkle:version>" "dist/appcast-$arch.xml"
-          grep -Fq "https://github.com/istraw/StrokeMouse/releases/download/${GITHUB_REF_NAME}/InMouse-macos-$arch.zip" "dist/appcast-$arch.xml"
+          grep -Fq "https://github.com/istraw/InMouse/releases/download/${GITHUB_REF_NAME}/InMouse-macos-$arch.zip" "dist/appcast-$arch.xml"
           grep -Fq 'sparkle:edSignature=' "dist/appcast-$arch.xml"
           if [[ "$arch" == "arm64" ]]; then
             grep -Fq '<sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>' "dist/appcast-$arch.xml"

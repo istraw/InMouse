@@ -10,8 +10,8 @@ for arch in arm64 x86_64; do
   mkdir -p "$directory"
   cp "$ROOT/dist/InMouse-macos-$arch.zip" "$directory/"
   "$TOOL" --account "$ACCOUNT" \
-    --download-url-prefix "https://github.com/istraw/StrokeMouse/releases/download/v$VERSION/" \
-    --link "https://github.com/istraw/StrokeMouse/releases/tag/v$VERSION" \
+    --download-url-prefix "https://github.com/istraw/InMouse/releases/download/v$VERSION/" \
+    --link "https://github.com/istraw/InMouse/releases/tag/v$VERSION" \
     -o "$ROOT/dist/appcast-$arch.xml" "$directory"
   xmllint --noout "$ROOT/dist/appcast-$arch.xml"
 done

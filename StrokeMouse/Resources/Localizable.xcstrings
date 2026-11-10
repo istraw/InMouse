@@ -42222,43 +42222,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Personal builds use manual downloads from istraw/StrokeMouse Releases. Automatic updates are disabled."
+            "value": "Personal builds use manual downloads from istraw/InMouse Releases. Automatic updates are disabled."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "个人版通过 istraw/StrokeMouse 的 Releases 手动下载更新，暂不启用自动更新。"
+            "value": "个人版通过 istraw/InMouse 的 Releases 手动下载更新，暂不启用自动更新。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "個人版透過 istraw/StrokeMouse 的 Releases 手動下載更新，暫不啟用自動更新。"
+            "value": "個人版透過 istraw/InMouse 的 Releases 手動下載更新，暫不啟用自動更新。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "개인 버전은 istraw/StrokeMouse Releases에서 수동으로 업데이트합니다. 자동 업데이트는 비활성화되어 있습니다."
+            "value": "개인 버전은 istraw/InMouse Releases에서 수동으로 업데이트합니다. 자동 업데이트는 비활성화되어 있습니다."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "個人版は istraw/StrokeMouse の Releases から手動で更新します。自動更新は無効です。"
+            "value": "個人版は istraw/InMouse の Releases から手動で更新します。自動更新は無効です。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Личная версия обновляется вручную через Releases istraw/StrokeMouse. Автообновления отключены."
+            "value": "Личная версия обновляется вручную через Releases istraw/InMouse. Автообновления отключены."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Les mises à jour personnelles se téléchargent manuellement depuis Releases sur istraw/StrokeMouse. Les mises à jour automatiques sont désactivées."
+            "value": "Les mises à jour personnelles se téléchargent manuellement depuis Releases sur istraw/InMouse. Les mises à jour automatiques sont désactivées."
           }
         }
       }
