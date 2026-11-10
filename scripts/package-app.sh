@@ -182,7 +182,11 @@ fi
 cd "$ROOT"
 ./scripts/generate_project.sh
 
-rm -rf "$DERIVED" "$APP_DIR" "$DMG_ROOT"
+# CLEAN_BUILD=0 reuses this architecture's build cache when iterating on a release.
+if [[ "${CLEAN_BUILD:-1}" == "1" ]]; then
+  rm -rf "$DERIVED"
+fi
+rm -rf "$APP_DIR" "$DMG_ROOT"
 rm -f "$ZIP" "$TAR_GZ" "$DMG"
 mkdir -p "$DERIVED" "$SOURCE_PACKAGES" "$APP_DIR" "$DIST"
 

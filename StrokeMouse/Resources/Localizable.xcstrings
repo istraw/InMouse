@@ -42130,43 +42130,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Personal edition · Based on Licoy/StrokeMouse"
+            "value": "Based on Licoy/StrokeMouse"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "个人定制版 · 基于 Licoy/StrokeMouse"
+            "value": "基于 Licoy/StrokeMouse"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "個人自訂版 · 基於 Licoy/StrokeMouse"
+            "value": "基於 Licoy/StrokeMouse"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "개인 버전 · Licoy/StrokeMouse 기반"
+            "value": "Licoy/StrokeMouse 기반"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "個人カスタム版 · Licoy/StrokeMouse ベース"
+            "value": "Licoy/StrokeMouse ベース"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Личная версия · На основе Licoy/StrokeMouse"
+            "value": "На основе Licoy/StrokeMouse"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Édition personnelle · Basée sur Licoy/StrokeMouse"
+            "value": "Basée sur Licoy/StrokeMouse"
           }
         }
       }

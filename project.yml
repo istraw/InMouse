@@ -48,9 +48,9 @@ targets:
         PRODUCT_MODULE_NAME: StrokeMouse
         PRODUCT_BUNDLE_IDENTIFIER: com.strokemouse.app
         APP_DISPLAY_NAME: InMouse
-        MARKETING_VERSION: "0.0.41"
-        CURRENT_PROJECT_VERSION: "41"
-        SPARKLE_PUBLIC_KEY: "__REPLACE_WITH_SPARKLE_PUBLIC_ED_KEY__"
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1000"
+        SPARKLE_PUBLIC_KEY: "5UKJ9bGhg6OCmFiD/m9U/jG6Cd3rEWkNDijwvz+CLhk="
         INFOPLIST_FILE: StrokeMouse/Resources/Info.plist
         SWIFT_OBJC_BRIDGING_HEADER: StrokeMouse/Core/Trackpad/MultitouchSupportBridge.h
         CODE_SIGN_ENTITLEMENTS: StrokeMouse/Supporting/StrokeMouse.entitlements
@@ -73,7 +73,7 @@ targets:
           PRODUCT_BUNDLE_IDENTIFIER: com.strokemouse.app.dev
           APP_DISPLAY_NAME: InMouse
         Release:
-          PRODUCT_BUNDLE_IDENTIFIER: com.strokemouse.app
+          PRODUCT_BUNDLE_IDENTIFIER: com.istraw.inmouse
           APP_DISPLAY_NAME: InMouse
     dependencies:
       - package: LaunchAtLogin

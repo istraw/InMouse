@@ -8,10 +8,11 @@ final class StrokeMouseSparkleUserDriverTests: XCTestCase {
         XCTAssertTrue(UpdaterService.defaultAutomaticallyChecksForUpdates)
     }
 
-    func testPersonalEditionDisablesAutomaticUpdates() {
-        XCTAssertTrue(Constants.usesManualUpdates)
-        XCTAssertFalse(UpdaterService().automaticallyChecksForUpdates)
-        XCTAssertEqual(Constants.githubReleasesURL.absoluteString, "https://github.com/istraw/StrokeMouse/releases")
+    func testPersonalEditionUsesIndependentAutomaticUpdateFeed() {
+        XCTAssertFalse(Constants.usesManualUpdates)
+        XCTAssertEqual(Constants.bundleID, "com.istraw.inmouse")
+        XCTAssertEqual(Constants.githubReleasesLatestDownloadBase,
+                       "https://github.com/istraw/StrokeMouse/releases/latest/download")
     }
 
     func testNetworkErrorsIncludeProxyHint() {

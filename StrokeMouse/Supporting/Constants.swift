@@ -2,7 +2,7 @@ import Foundation
 
 enum Constants {
     static let appName = "InMouse"
-    static let bundleID = "com.strokemouse.app"
+    static let bundleID = "com.istraw.inmouse"
     static let supportDirectoryName = "StrokeMouse"
     /// Previous Application Support folder name (pre-rename migration).
     static let legacySupportDirectoryName = "BetterMouse"
@@ -18,8 +18,8 @@ enum Constants {
     static let edgeDrawingConfigVersion = 7
     static let windowLayoutConfigVersion = 8
 
-    /// Personal builds use manual releases until an independent update feed is configured.
-    static let usesManualUpdates = true
+    /// Personal releases use an independent signed Sparkle update feed.
+    static let usesManualUpdates = false
     static let upstreamGitHubURL = URL(string: "https://github.com/Licoy/StrokeMouse")!
 
     /// Public repository (About → GitHub).

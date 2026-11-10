@@ -1,9 +1,9 @@
 name: Release
 
+# Automatic tag releases require Developer ID / notarization secrets.
+# Personal releases can be built and signed locally; dispatch CI only once those secrets exist.
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_dispatch:
 
 permissions:
   contents: write

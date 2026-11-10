@@ -61,6 +61,7 @@ final class AppState {
     }
 
     init() {
+        PersonalPreferencesMigration.runIfNeeded()
         Self.preconfigureLocalization()
 
         let configStore = ConfigStore()
