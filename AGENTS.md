@@ -204,4 +204,4 @@ SPARKLE_PUBLIC_KEY="..." ARCH=x86_64 ./scripts/package-app.sh
 - 日常需求默认只修改代码、测试和本地打包，不自动创建 GitHub Release 或版本 tag；必须得到用户明确的发版指令后才发布，避免一天为每个小改动发一个版本。
 - 2026-11-10 的所有修改统一到展示版本 0.1.0（build 1003），0.1.1、0.1.2 仅保留为历史草稿。
 - 展示版本与内部 build 独立，内部 build 必须始终高于已发布构建号，以便 Sparkle 正确识别更新；不能因合并展示版本而降低 build。
-- 个人仓库是 istraw/InMouse，个人开发分支为 personal，推送使用 fork remote，origin 是原作者仓库。
+- 个人仓库是 istraw/InMouse，主开发分支为 main，upstream 分支用于同步原作者代码；推送使用 fork remote，origin 是原作者仓库。

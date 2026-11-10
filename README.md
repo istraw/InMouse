@@ -1,7 +1,7 @@
 <div align="center">
   <img src="StrokeMouse/Resources/Assets.xcassets/BrandAppIcon.imageset/BrandAppIcon.png" width="128" alt="InMouse 图标" />
   <h1>InMouse</h1>
-  <p>macOS 鼠标与触控板手势工具，让窗口操作跟随鼠标。</p>
+  <p>用鼠标手势，完成窗口整理与日常操作。</p>
   <p>
     <a href="https://github.com/istraw/InMouse/releases/latest">下载 InMouse</a> ·
     <a href="https://github.com/istraw/InMouse/issues">反馈问题</a> ·
@@ -9,7 +9,11 @@
   </p>
 </div>
 
-InMouse 基于 [Licoy/StrokeMouse](https://github.com/Licoy/StrokeMouse) 开发，在原有手势能力上扩展窗口控制、状态栏体验和独立应用内更新。本仓库的默认开发分支为 **`personal`**；`main` 保留用于跟随上游项目。
+**InMouse 是一款面向 macOS 的鼠标与触控板手势工具。** 按住鼠标右键绘制轨迹，就能整理窗口、执行快捷键、打开应用或控制媒体，让常用操作集中在鼠标手边。
+
+你可以把鼠标移到未激活的窗口上，直接用手势调整它的位置和大小、最小化或关闭；也可以为不同应用配置不同动作，建立适合自己工作习惯的手势库。InMouse 常驻状态栏，关闭设置后仍在后台运行，并支持配置导入导出和应用内更新。
+
+项目基于 [Licoy/StrokeMouse](https://github.com/Licoy/StrokeMouse) 开发，在原有手势能力上重点扩展窗口控制与状态栏体验。**`main`** 是 InMouse 的主开发和默认展示分支，**`upstream`** 用于保留并同步原作者代码。
 
 ## 下载与安装
 
@@ -26,7 +30,16 @@ InMouse 基于 [Licoy/StrokeMouse](https://github.com/Licoy/StrokeMouse) 开发�
 
 已安装正式版后，可在应用内点击 **“检查更新”**。安装包与更新列表来自本仓库，更新档案使用独立的 Sparkle Ed25519 密钥签名。
 
-## InMouse 的新增与调整
+## 适合哪些操作
+
+| 使用场景 | 可以配置的操作 |
+| --- | --- |
+| 整理多个窗口 | 左右分屏、居中、自定义尺寸、恢复原布局、移到下一屏幕 |
+| 操作后台窗口 | 鼠标移到目标窗口后，用手势调整布局、最小化或关闭 |
+| 减少重复按键 | 用手势执行快捷键、连续按键或打开常用应用 |
+| 按应用定制习惯 | 为浏览器、编辑器和其他应用分别设置手势与按键映射 |
+
+## 主要功能
 
 ### 更完整的窗口控制
 
@@ -52,15 +65,22 @@ InMouse 基于 [Licoy/StrokeMouse](https://github.com/Licoy/StrokeMouse) 开发�
 - 使用面性单色鼠标图标，自动适配 macOS 明暗背景。
 - 可在通用设置中调整 Dock 和状态栏显示偏好。
 
-### 独立更新与版本管理
+### 应用内更新
 
-窗口控制、图标与状态栏调整统一在 **0.1.0 整合版（build 1003）**。展示版本与内部构建号独立，Sparkle 按递增的 build 判断更新，因此早期 0.1.1、0.1.2 构建也可更新到整合版。
-
-日常修改先累积并验证，需要正式发布时再统一发版。
+在应用内点击“检查更新”，即可获取本仓库发布的版本。更新档案会经过签名校验，安装包与发布说明也可以在 [Releases 页面](https://github.com/istraw/InMouse/releases)查看。
 
 [发布与更新说明](docs/inmouse-releases.md)
 
-## 保留的基础能力
+## 快速上手
+
+1. 安装并打开 InMouse，完成辅助功能授权。
+2. 从状态栏打开设置，在手势列表中添加或编辑手势。
+3. 录制轨迹，选择要执行的窗口操作、快捷键或其他动作，并按需设置应用范围。
+4. 将鼠标移到目标窗口上，按住触发键绘制轨迹，松开后执行动作。
+
+默认触发键为鼠标右键，也可以为手势选择中键、侧键或其他支持的输入方式。
+
+## 更多手势能力
 
 继承上游的鼠标绘制、鼠标按键映射、鼠标组合、触控板绘制、实验性多指触控手势、滚动增强、按应用配置、手势导入导出，以及快捷键、打开应用、媒体控制、Shell / AppleScript 等动作。
 
@@ -94,4 +114,4 @@ CODE_SIGN_IDENTITY='<本机签名证书>' ./scripts/build.sh --release
 
 ## 来源与许可证
 
-感谢 [Licoy/StrokeMouse](https://github.com/Licoy/StrokeMouse) 提供原始实现。InMouse 保留原项目的 [AGPL-3.0 许可证](LICENSE) 和来源信息，本仓库的个人功能修改在 `personal` 分支维护。
+感谢 [Licoy/StrokeMouse](https://github.com/Licoy/StrokeMouse) 提供原始实现。InMouse 保留原项目的 [AGPL-3.0 许可证](LICENSE) 和来源信息，InMouse 的功能修改在 `main` 分支维护，上游同步代码保留在 `upstream` 分支。

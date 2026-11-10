@@ -23,7 +23,7 @@ enum Constants {
     static let upstreamGitHubURL = URL(string: "https://github.com/Licoy/StrokeMouse")!
 
     /// Public repository (About → GitHub).
-    static let githubURL = URL(string: "https://github.com/istraw/InMouse/tree/personal")!
+    static let githubURL = URL(string: "https://github.com/istraw/InMouse/tree/main")!
     /// Latest release page for manual download fallback when in-app update fails.
     static let githubReleasesURL = URL(string: "https://github.com/istraw/InMouse/releases")!
     /// Base URL for Sparkle appcast assets on GitHub Releases.
@@ -33,7 +33,7 @@ enum Constants {
     /// GitHub Issues 新建页
     static let githubIssuesURL = URL(string: "https://github.com/istraw/InMouse/issues/new")!
     /// License 文件（GitHub blob 页面）
-    static let licenseURL = URL(string: "https://github.com/istraw/InMouse/blob/personal/LICENSE")!
+    static let licenseURL = URL(string: "https://github.com/istraw/InMouse/blob/main/LICENSE")!
 
     /// Minimum path length (points) before a gesture is considered intentional.
     static let defaultMinStrokeDistance: CGFloat = 40
