@@ -30,6 +30,7 @@ struct GestureTestView: View {
     @State private var rawPointCount = 0
     @State private var sessionID = UUID()
     @State private var diagnosticSession: GestureDiagnosticSession?
+    @State private var canvasSuppression: GestureCaptureSuppression?
     @State private var didSaveLog = false
     @State private var logError: String?
     @State private var replaySummary: String?
@@ -56,6 +57,7 @@ struct GestureTestView: View {
         .onAppear(perform: beginSession)
         .onDisappear(perform: endSession)
         .onChange(of: inputMode) { _, _ in
+            updateCanvasSuppression()
             previewPath = []
             evaluation = nil
             rawPointCount = 0
@@ -66,6 +68,7 @@ struct GestureTestView: View {
             rawPointCount = 0
         }
         .onChange(of: mouseCaptureMode) { _, _ in
+            updateCanvasSuppression()
             previewPath = []
             evaluation = nil
             rawPointCount = 0
@@ -554,9 +557,24 @@ struct GestureTestView: View {
             selectedButton = trigger.button
         }
         diagnosticSession = appState.gestureRuntime.beginDiagnostics()
+        updateCanvasSuppression()
+    }
+
+    private func updateCanvasSuppression() {
+        let usesLocalCanvas = diagnosticSession != nil && inputMode == .mouseDraw && mouseCaptureMode == .canvas
+        if usesLocalCanvas {
+            if canvasSuppression == nil {
+                canvasSuppression = appState.gestureRuntime.suppress(reason: .settings)
+            }
+        } else {
+            canvasSuppression?.release()
+            canvasSuppression = nil
+        }
     }
 
     private func endSession() {
+        canvasSuppression?.release()
+        canvasSuppression = nil
         diagnosticSession?.end()
         diagnosticSession = nil
     }

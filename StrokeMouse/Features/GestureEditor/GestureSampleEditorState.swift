@@ -9,6 +9,7 @@ struct GestureSampleEditorState: Equatable {
     private(set) var samples: [[CodablePoint]]
     private(set) var selectedIndex: Int?
     private(set) var recordingTarget: RecordingTarget?
+    private(set) var pendingButton: MouseTriggerButton?
     private(set) var pendingPath: [CodablePoint] = []
 
     init(paths: [[CodablePoint]]) {
@@ -54,17 +55,25 @@ struct GestureSampleEditorState: Equatable {
         guard canAppend else { return }
         recordingTarget = .append
         pendingPath = []
+        pendingButton = nil
     }
 
     mutating func beginReplaceSelected() {
         guard let selectedIndex else { return }
         recordingTarget = .replace(selectedIndex)
         pendingPath = []
+        pendingButton = nil
     }
 
     mutating func updatePendingPath(_ path: [CodablePoint]) {
         guard recordingTarget != nil else { return }
         pendingPath = path
+        if path.isEmpty { pendingButton = nil }
+    }
+
+    mutating func updatePendingButton(_ button: MouseTriggerButton) {
+        guard recordingTarget != nil else { return }
+        pendingButton = button
     }
 
     @discardableResult
@@ -87,6 +96,7 @@ struct GestureSampleEditorState: Equatable {
     mutating func cancelRecording() {
         recordingTarget = nil
         pendingPath = []
+        pendingButton = nil
     }
 
     mutating func deleteSelected() {

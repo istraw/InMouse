@@ -74,7 +74,11 @@ struct GestureInputEditorView: View {
 
     @ViewBuilder
     private func drawnEditor(_ drawn: DrawnGesture) -> some View {
-        GestureSampleEditorView(state: $sampleState)
+        GestureSampleEditorView(state: $sampleState) { button in
+            // Modifier and edge gesture recording only changes the path.
+            guard case .mouse = drawn.activation else { return }
+            mouseButton.wrappedValue = button
+        }
 
         switch drawn.activation {
         case .mouse:
@@ -86,6 +90,9 @@ struct GestureInputEditorView: View {
                     Text(L10n.string(button.displayKey)).tag(button)
                 }
             }
+            Text(L10n.string("editor.triggerRecordedButtonHint"))
+                .font(.caption)
+                .foregroundStyle(.secondary)
             Text(L10n.string("editor.triggerPerGestureHint"))
                 .font(.caption)
                 .foregroundStyle(.secondary)

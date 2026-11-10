@@ -2,6 +2,7 @@ import SwiftUI
 
 struct GestureSampleEditorView: View {
     @Binding var state: GestureSampleEditorState
+    var onRecordedButton: ((MouseTriggerButton) -> Void)? = nil
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -114,7 +115,7 @@ struct GestureSampleEditorView: View {
         VStack(alignment: .leading, spacing: 16) {
             Text(L10n.string(recordingTitleKey))
                 .font(.title2.bold())
-            GestureRecorderView(path: pendingPath)
+            GestureRecorderView(path: pendingPath, onRecordedButton: { state.updatePendingButton($0) })
                 .frame(minWidth: 520, minHeight: 360)
             HStack {
                 Button(L10n.string("common.cancel")) {
@@ -123,7 +124,10 @@ struct GestureSampleEditorView: View {
                 .keyboardShortcut(.cancelAction)
                 Spacer()
                 Button(L10n.string("editor.samples.useRecording")) {
-                    state.commitRecording()
+                    let recordedButton = state.pendingButton
+                    if state.commitRecording(), let recordedButton {
+                        onRecordedButton?(recordedButton)
+                    }
                 }
                 .buttonStyle(.borderedProminent)
                 .keyboardShortcut(.defaultAction)

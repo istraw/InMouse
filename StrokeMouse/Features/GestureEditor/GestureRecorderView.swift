@@ -3,16 +3,19 @@ import SwiftUI
 
 struct GestureRecorderView: View {
     @Binding var path: [CodablePoint]
+    var onRecordedButton: ((MouseTriggerButton) -> Void)?
     var onRecordedPath: (([CGPoint]) -> Void)?
     @State private var draft: [CGPoint] = []
     @State private var isDrawing = false
 
     init(
         path: Binding<[CodablePoint]>,
+        onRecordedButton: ((MouseTriggerButton) -> Void)? = nil,
         onRecordedPath: (([CGPoint]) -> Void)? = nil
     ) {
         _path = path
         self.onRecordedPath = onRecordedPath
+        self.onRecordedButton = onRecordedButton
     }
 
     var body: some View {
@@ -73,7 +76,7 @@ struct GestureRecorderView: View {
                             .position(last)
                     }
 
-                    // Center hint: left mouse button — only when empty
+                    // Only supported gesture trigger buttons can record on this canvas.
                     if showHint {
                         VStack(spacing: 10) {
                             Image(systemName: "computermouse.fill")
@@ -81,17 +84,17 @@ struct GestureRecorderView: View {
                                 .foregroundStyle(.primary)
                                 .symbolRenderingMode(.hierarchical)
 
-                            Text(L10n.string("editor.recordUseLeftButtonTitle"))
+                            Text(L10n.string("editor.recordUseMouseButtonTitle"))
                                 .font(.title3.weight(.bold))
                                 .multilineTextAlignment(.center)
 
-                            Text(L10n.string("editor.recordUseLeftButtonBody"))
+                            Text(L10n.string("editor.recordUseMouseButtonBody"))
                                 .font(.callout)
                                 .foregroundStyle(.secondary)
                                 .multilineTextAlignment(.center)
                                 .frame(maxWidth: 280)
 
-                            Text(L10n.string("editor.recordUseLeftButtonBadge"))
+                            Text(L10n.string("editor.recordUseMouseButtonBadge"))
                                 .font(.caption.weight(.semibold))
                                 .padding(.horizontal, 12)
                                 .padding(.vertical, 6)
@@ -102,12 +105,12 @@ struct GestureRecorderView: View {
                         .allowsHitTesting(false)
                     }
 
-                    // Capture right-button (primary) and left-button drags via AppKit.
-                    RightButtonDrawCatcher(
+                    // Capture right, middle and side-button drags locally via AppKit.
+                    MouseButtonDrawCatcher(
                         isDrawing: $isDrawing,
                         draft: $draft,
-                        onFinished: { points in
-                            commitDraft(points)
+                        onFinished: { points, button in
+                            commitDraft(points, button: button)
                         }
                     )
                 }
@@ -136,7 +139,7 @@ struct GestureRecorderView: View {
         }
     }
 
-    private func commitDraft(_ draftPoints: [CGPoint]) {
+    private func commitDraft(_ draftPoints: [CGPoint], button: MouseTriggerButton) {
         guard draftPoints.count >= 2 else {
             draft = []
             return
@@ -148,6 +151,7 @@ struct GestureRecorderView: View {
             return
         }
         path = recorded.map(CodablePoint.init)
+        onRecordedButton?(button)
         onRecordedPath?(flipped)
         draft = []
     }
@@ -166,95 +170,87 @@ struct GestureRecorderView: View {
     }
 }
 
-// MARK: - Right-button (and left) drag capture
+// MARK: - Local recording canvas
 
-/// AppKit view so right-mouse drag works (SwiftUI `DragGesture` only tracks left button).
-private struct RightButtonDrawCatcher: NSViewRepresentable {
+private struct MouseButtonDrawCatcher: NSViewRepresentable {
     @Binding var isDrawing: Bool
     @Binding var draft: [CGPoint]
-    var onFinished: ([CGPoint]) -> Void
+    var onFinished: ([CGPoint], MouseTriggerButton) -> Void
 
-    func makeNSView(context: Context) -> DrawCatcherNSView {
-        let view = DrawCatcherNSView()
+    func makeNSView(context: Context) -> GestureRecordingCanvasView {
+        let view = GestureRecordingCanvasView()
+        updateCallbacks(view)
+        return view
+    }
+
+    func updateNSView(_ view: GestureRecordingCanvasView, context: Context) {
+        updateCallbacks(view)
+    }
+
+    private func updateCallbacks(_ view: GestureRecordingCanvasView) {
         view.onBegin = { point in
             isDrawing = true
             draft = [point]
         }
-        view.onMove = { point in
-            draft.append(point)
-        }
-        view.onEnd = { points in
+        view.onMove = { point in draft.append(point) }
+        view.onEnd = { points, button in
             isDrawing = false
-            onFinished(points)
-        }
-        return view
-    }
-
-    func updateNSView(_ nsView: DrawCatcherNSView, context: Context) {
-        nsView.onBegin = { point in
-            isDrawing = true
-            draft = [point]
-        }
-        nsView.onMove = { point in
-            draft.append(point)
-        }
-        nsView.onEnd = { points in
-            isDrawing = false
-            onFinished(points)
+            onFinished(points, button)
         }
     }
+}
 
-    final class DrawCatcherNSView: NSView {
-        var onBegin: ((CGPoint) -> Void)?
-        var onMove: ((CGPoint) -> Void)?
-        var onEnd: (([CGPoint]) -> Void)?
+/// Receives local AppKit mouse events only; global capture is suppressed by the editor.
+/// Each stroke is owned by its initial button, so another button cannot finish it.
+final class GestureRecordingCanvasView: NSView {
+    var onBegin: ((CGPoint) -> Void)?
+    var onMove: ((CGPoint) -> Void)?
+    var onEnd: (([CGPoint], MouseTriggerButton) -> Void)?
+    private var points: [CGPoint] = []
+    private var activeButton: MouseTriggerButton?
 
-        private var points: [CGPoint] = []
-        private var trackingLeft = false
-        private var trackingRight = false
+    override var acceptsFirstResponder: Bool { true }
+    override var isFlipped: Bool { true }
+    override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
+    override func menu(for event: NSEvent) -> NSMenu? { nil }
 
-        override var acceptsFirstResponder: Bool { true }
-        override var isFlipped: Bool { true } // match SwiftUI top-left origin
+    // Deliberately ignore left recording, including a click during another stroke.
+    override func mouseDown(with event: NSEvent) {}
+    override func mouseDragged(with event: NSEvent) {}
+    override func mouseUp(with event: NSEvent) {}
+    override func rightMouseDown(with event: NSEvent) { begin(with: event) }
+    override func rightMouseDragged(with event: NSEvent) { move(with: event) }
+    override func rightMouseUp(with event: NSEvent) { end(with: event) }
+    override func otherMouseDown(with event: NSEvent) { begin(with: event) }
+    override func otherMouseDragged(with event: NSEvent) { move(with: event) }
+    override func otherMouseUp(with event: NSEvent) { end(with: event) }
 
-        override func hitTest(_ point: NSPoint) -> NSView? { self }
+    private func begin(with event: NSEvent) {
+        guard activeButton == nil,
+              let button = MouseTriggerButton(recordingButtonNumber: event.buttonNumber) else { return }
+        window?.makeFirstResponder(self)
+        activeButton = button
+        let point = convert(event.locationInWindow, from: nil)
+        points = [point]
+        onBegin?(point)
+    }
 
-        // Primary: left mouse button drag to record.
-        override func mouseDown(with event: NSEvent) {
-            begin(with: event)
-        }
+    private func move(with event: NSEvent) {
+        guard let activeButton,
+              MouseTriggerButton(recordingButtonNumber: event.buttonNumber) == activeButton else { return }
+        let point = convert(event.locationInWindow, from: nil)
+        if let last = points.last, hypot(point.x - last.x, point.y - last.y) < 1 { return }
+        points.append(point)
+        onMove?(point)
+    }
 
-        override func mouseDragged(with event: NSEvent) {
-            guard trackingLeft else { return }
-            move(with: event)
-        }
-
-        override func mouseUp(with event: NSEvent) {
-            guard trackingLeft else { return }
-            end()
-        }
-
-        private func begin(with event: NSEvent) {
-            window?.makeFirstResponder(self)
-            trackingLeft = true
-            trackingRight = false
-            let p = convert(event.locationInWindow, from: nil)
-            points = [p]
-            onBegin?(p)
-        }
-
-        private func move(with event: NSEvent) {
-            let p = convert(event.locationInWindow, from: nil)
-            if let last = points.last, hypot(p.x - last.x, p.y - last.y) < 1 { return }
-            points.append(p)
-            onMove?(p)
-        }
-
-        private func end() {
-            let finished = points
-            points = []
-            trackingLeft = false
-            trackingRight = false
-            onEnd?(finished)
-        }
+    private func end(with event: NSEvent) {
+        guard let button = activeButton,
+              MouseTriggerButton(recordingButtonNumber: event.buttonNumber) == button else { return }
+        move(with: event)
+        let finished = points
+        points = []
+        activeButton = nil
+        onEnd?(finished, button)
     }
 }

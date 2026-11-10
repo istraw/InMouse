@@ -42262,6 +42262,190 @@
           }
         }
       }
+    },
+    "editor.recordUseMouseButtonTitle": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Draw with the right, middle or side button"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按住右键、中键或侧键绘制"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按住右鍵、中鍵或側鍵繪製"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오른쪽·가운데·측면 버튼으로 그리기"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "右・中央・サイドボタンで描画"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рисуйте правой, средней или боковой кнопкой"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dessinez avec le bouton droit, central ou latéral"
+          }
+        }
+      }
+    },
+    "editor.recordUseMouseButtonBody": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hold a supported mouse button and drag on this canvas. Left-button drawing is disabled."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按住右键、中键或前后侧键，在画布中拖动录制，左键不参与录制。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按住右鍵、中鍵或前後側鍵，在畫布中拖曳錄製，左鍵不參與錄製。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지원되는 마우스 버튼을 누른 채 캔버스에서 드래그하세요. 왼쪽 버튼으로는 녹화할 수 없습니다."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "対応するマウスボタンを押してキャンバス上をドラッグします。左ボタンでは記録できません。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зажмите поддерживаемую кнопку мыши и рисуйте на холсте. Левая кнопка не используется."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maintenez un bouton pris en charge et glissez sur le canevas. Le bouton gauche ne permet pas l’enregistrement."
+          }
+        }
+      }
+    },
+    "editor.recordUseMouseButtonBadge": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Right / middle / side button"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "右键 / 中键 / 侧键"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "右鍵 / 中鍵 / 側鍵"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오른쪽 / 가운데 / 측면"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "右 / 中央 / サイド"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правая / средняя / боковая"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Droit / central / latéral"
+          }
+        }
+      }
+    },
+    "editor.triggerRecordedButtonHint": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accepting a recording selects the button used to draw it. You can still change the trigger here."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "确认录制后，会自动选中绘制时使用的按键，也可在这里手动修改。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "確認錄製後，會自動選中繪製時使用的按鍵，也可在此手動修改。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹화를 적용하면 그릴 때 사용한 버튼이 선택됩니다. 여기에서 트리거를 변경할 수도 있습니다."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記録を確定すると描画に使ったボタンが選択されます。ここで手動変更もできます。"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "После подтверждения записи выбирается использованная кнопка. Её можно изменить здесь вручную."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Après validation, le bouton utilisé devient le déclencheur. Vous pouvez aussi le modifier ici."
+          }
+        }
+      }
     }
   },
   "version": "1.0"

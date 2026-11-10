@@ -138,6 +138,38 @@ final class GestureSampleEditorStateTests: XCTestCase {
         XCTAssertEqual(state.samples, [path(0), path(10)])
     }
 
+    func testRecordingButtonMetadataIsDiscardedOnCancelAndReset() {
+        var state = GestureSampleEditorState(paths: [path(0)])
+        state.beginAppend()
+        state.updatePendingPath(path(10))
+        state.updatePendingButton(.sideForward)
+        XCTAssertEqual(state.pendingButton, .sideForward)
+        state.cancelRecording()
+        XCTAssertNil(state.pendingButton)
+        XCTAssertEqual(state.samples, [path(0)])
+        state.beginReplaceSelected()
+        XCTAssertNil(state.pendingButton)
+        state.updatePendingPath(path(20))
+        state.updatePendingButton(.middle)
+        state.updatePendingPath([])
+        XCTAssertNil(state.pendingButton)
+        XCTAssertFalse(state.commitRecording())
+    }
+
+    func testLatestRecordingButtonIsAvailableUntilRecordingIsAccepted() {
+        var state = GestureSampleEditorState(paths: [])
+        state.beginAppend()
+        state.updatePendingPath(path(10))
+        state.updatePendingButton(.right)
+        state.updatePendingPath(path(20))
+        state.updatePendingButton(.sideBack)
+        let button = state.pendingButton
+        XCTAssertTrue(state.commitRecording())
+        XCTAssertEqual(button, .sideBack)
+        XCTAssertEqual(state.samples, [path(20)])
+        XCTAssertNil(state.pendingButton)
+    }
+
     private func path(_ offset: Double) -> [CodablePoint] {
         [
             CodablePoint(x: offset, y: offset),

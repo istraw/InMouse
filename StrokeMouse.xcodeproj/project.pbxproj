@@ -136,6 +136,7 @@
 		A161B13B72694F804D1564C1 /* ScrollEventClassifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847CD618B10FEA07E3F50A1E /* ScrollEventClassifierTests.swift */; };
 		A4B89431562F557A3DB2DECA /* TrackpadGestureClassifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8150B920A4A65C4D952582 /* TrackpadGestureClassifierTests.swift */; };
 		A6700B7379CB973218A9EB59 /* GestureTestLogReplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2D4B11DAD90E7359815643 /* GestureTestLogReplay.swift */; };
+		A79CCB9BC7D1D12ED931C007 /* GestureRecordingCanvasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5CE715BC2DA95BEE015335 /* GestureRecordingCanvasTests.swift */; };
 		A7B23D645D4EBBE765A5F46F /* TrackpadPressArbiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C00AFFBC610C8F17586BE38 /* TrackpadPressArbiter.swift */; };
 		AC120BF8923544C793A151B2 /* GestureSessionGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938BFD171C47D40366CCBB4E /* GestureSessionGate.swift */; };
 		ACC22C5934BAC6C3D508658C /* RecordedPeakGestureFixture.json in Resources */ = {isa = PBXBuildFile; fileRef = E7D00A1B0CD2EDA8D001D417 /* RecordedPeakGestureFixture.json */; };
@@ -398,6 +399,7 @@
 		DB33D514C7CC79329D22B212 /* SystemAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemAction.swift; sourceTree = "<group>"; };
 		DD4D523700FF6CC1AD9FC324 /* ShortcutConfigCompatibilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutConfigCompatibilityTests.swift; sourceTree = "<group>"; };
 		DF04FC438C4799C017CB2865 /* TrackpadClickEventTap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadClickEventTap.swift; sourceTree = "<group>"; };
+		DF5CE715BC2DA95BEE015335 /* GestureRecordingCanvasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureRecordingCanvasTests.swift; sourceTree = "<group>"; };
 		E15E8E5195AD4B6C021BA5D9 /* TrackpadGestureClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpadGestureClassifier.swift; sourceTree = "<group>"; };
 		E274C0BB3CD32706BC07696A /* GestureEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureEditorView.swift; sourceTree = "<group>"; };
 		E79923BB946697A53725B3AE /* ScriptTextArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptTextArea.swift; sourceTree = "<group>"; };
@@ -696,6 +698,7 @@
 				3F9B2AA436B8CCF6AA8B824D /* GesturePreviewGeometryTests.swift */,
 				54CA52355745A5A6D9B973A2 /* GestureRecognitionEvaluationTests.swift */,
 				FF73E5022A41E8DECDE05684 /* GestureRecognitionTestSupport.swift */,
+				DF5CE715BC2DA95BEE015335 /* GestureRecordingCanvasTests.swift */,
 				A5321F89AFC319DE8B26D634 /* GestureRuntimeTests.swift */,
 				E8B6A61B8BDF8920B848AA7E /* GestureSampleEditorStateTests.swift */,
 				1CBD687F412774AB57EF266A /* GestureSessionGateTests.swift */,
@@ -978,6 +981,7 @@
 				D9B76A9D12CB36947ADC7CF0 /* GesturePreviewGeometryTests.swift in Sources */,
 				8D995A28C1B846AA0A41FFDA /* GestureRecognitionEvaluationTests.swift in Sources */,
 				330B56DE19318DEA2E4AEFCB /* GestureRecognitionTestSupport.swift in Sources */,
+				A79CCB9BC7D1D12ED931C007 /* GestureRecordingCanvasTests.swift in Sources */,
 				535786A45EE9A7031DB247C4 /* GestureRuntimeTests.swift in Sources */,
 				5F0381FD59968D0201734A70 /* GestureSampleEditorStateTests.swift in Sources */,
 				D7420DE820BA3DCCF762CD80 /* GestureSessionGateTests.swift in Sources */,

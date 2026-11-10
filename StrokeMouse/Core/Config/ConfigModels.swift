@@ -31,6 +31,18 @@ enum MouseTriggerButton: String, Codable, CaseIterable, Identifiable, Sendable {
         }
     }
 
+    /// Recording uses the same physical button numbers as the runtime, with
+    /// left intentionally excluded so it cannot become a global drag trigger.
+    init?(recordingButtonNumber: Int) {
+        switch recordingButtonNumber {
+        case 1: self = .right
+        case 2: self = .middle
+        case 3: self = .sideBack
+        case 4: self = .sideForward
+        default: return nil
+        }
+    }
+
     var usesRightMouseEvents: Bool { self == .right }
 }
 
