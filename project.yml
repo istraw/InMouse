@@ -44,9 +44,10 @@ targets:
           - "**/.DS_Store"
     settings:
       base:
-        PRODUCT_NAME: StrokeMouse
+        PRODUCT_NAME: InMouse
+        PRODUCT_MODULE_NAME: StrokeMouse
         PRODUCT_BUNDLE_IDENTIFIER: com.strokemouse.app
-        APP_DISPLAY_NAME: StrokeMouse
+        APP_DISPLAY_NAME: InMouse
         MARKETING_VERSION: "0.0.41"
         CURRENT_PROJECT_VERSION: "41"
         SPARKLE_PUBLIC_KEY: "__REPLACE_WITH_SPARKLE_PUBLIC_ED_KEY__"
@@ -70,10 +71,10 @@ targets:
         # Separate display name + bundle ID so Debug coexists with Release in Accessibility TCC.
         Debug:
           PRODUCT_BUNDLE_IDENTIFIER: com.strokemouse.app.dev
-          APP_DISPLAY_NAME: StrokeMouse Dev
+          APP_DISPLAY_NAME: InMouse
         Release:
           PRODUCT_BUNDLE_IDENTIFIER: com.strokemouse.app
-          APP_DISPLAY_NAME: StrokeMouse
+          APP_DISPLAY_NAME: InMouse
     dependencies:
       - package: LaunchAtLogin
         product: LaunchAtLogin
@@ -98,5 +99,5 @@ targets:
         CODE_SIGN_IDENTITY: "StrokeMouse Dev"
         CODE_SIGN_STYLE: Manual
         PROVISIONING_PROFILE_SPECIFIER: ""
-        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/StrokeMouse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/StrokeMouse"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/InMouse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/InMouse"
         BUNDLE_LOADER: "$(TEST_HOST)"

@@ -1228,7 +1228,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.strokemouse.app.tests;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StrokeMouse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/StrokeMouse";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InMouse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/InMouse";
 			};
 			name = Release;
 		};
@@ -1248,14 +1248,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.strokemouse.app.tests;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StrokeMouse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/StrokeMouse";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InMouse.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/InMouse";
 			};
 			name = Debug;
 		};
 		B0241C7F84597BA605A2EBCA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_DISPLAY_NAME = StrokeMouse;
+				APP_DISPLAY_NAME = InMouse;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StrokeMouse/Supporting/StrokeMouse.entitlements;
 				CODE_SIGN_IDENTITY = "StrokeMouse Dev";
@@ -1272,7 +1272,8 @@
 				);
 				MARKETING_VERSION = 0.0.41;
 				PRODUCT_BUNDLE_IDENTIFIER = com.strokemouse.app;
-				PRODUCT_NAME = StrokeMouse;
+				PRODUCT_MODULE_NAME = StrokeMouse;
+				PRODUCT_NAME = InMouse;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SPARKLE_PUBLIC_KEY = __REPLACE_WITH_SPARKLE_PUBLIC_ED_KEY__;
@@ -1351,7 +1352,7 @@
 		DCAAFFCDBAB04560ED623FBC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APP_DISPLAY_NAME = "StrokeMouse Dev";
+				APP_DISPLAY_NAME = InMouse;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = StrokeMouse/Supporting/StrokeMouse.entitlements;
 				CODE_SIGN_IDENTITY = "StrokeMouse Dev";
@@ -1368,7 +1369,8 @@
 				);
 				MARKETING_VERSION = 0.0.41;
 				PRODUCT_BUNDLE_IDENTIFIER = com.strokemouse.app.dev;
-				PRODUCT_NAME = StrokeMouse;
+				PRODUCT_MODULE_NAME = StrokeMouse;
+				PRODUCT_NAME = InMouse;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SPARKLE_PUBLIC_KEY = __REPLACE_WITH_SPARKLE_PUBLIC_ED_KEY__;

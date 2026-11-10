@@ -1,7 +1,7 @@
 import Foundation
 
 enum Constants {
-    static let appName = "StrokeMouse"
+    static let appName = "InMouse"
     static let bundleID = "com.strokemouse.app"
     static let supportDirectoryName = "StrokeMouse"
     /// Previous Application Support folder name (pre-rename migration).

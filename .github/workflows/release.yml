@@ -121,11 +121,11 @@ jobs:
           tool="build/SourcePackages/artifacts/sparkle/Sparkle/bin/generate_appcast"
           test -x "$tool" || { echo "Sparkle generate_appcast tool not found"; exit 1; }
           mkdir -p "dist/appcast-$arch"
-          cp "dist/StrokeMouse-macos-$arch.zip" "dist/appcast-$arch/"
+          cp "dist/InMouse-macos-$arch.zip" "dist/appcast-$arch/"
           printf '%s' "$SPARKLE_PRIVATE_KEY" | "$tool" \
             --ed-key-file - \
-            --download-url-prefix "https://github.com/Licoy/StrokeMouse/releases/download/${GITHUB_REF_NAME}/" \
-            --link "https://github.com/Licoy/StrokeMouse/releases/tag/${GITHUB_REF_NAME}" \
+            --download-url-prefix "https://github.com/istraw/StrokeMouse/releases/download/${GITHUB_REF_NAME}/" \
+            --link "https://github.com/istraw/StrokeMouse/releases/tag/${GITHUB_REF_NAME}" \
             -o "dist/appcast-$arch.xml" \
             "dist/appcast-$arch"
           xmllint --noout "dist/appcast-$arch.xml"
@@ -133,18 +133,18 @@ jobs:
           build="$(awk -F'"' '/CURRENT_PROJECT_VERSION:/ { print $2; exit }' project.yml)"
           grep -Fq "<sparkle:shortVersionString>$version</sparkle:shortVersionString>" "dist/appcast-$arch.xml"
           grep -Fq "<sparkle:version>$build</sparkle:version>" "dist/appcast-$arch.xml"
-          grep -Fq "https://github.com/Licoy/StrokeMouse/releases/download/${GITHUB_REF_NAME}/StrokeMouse-macos-$arch.zip" "dist/appcast-$arch.xml"
+          grep -Fq "https://github.com/istraw/StrokeMouse/releases/download/${GITHUB_REF_NAME}/InMouse-macos-$arch.zip" "dist/appcast-$arch.xml"
           grep -Fq 'sparkle:edSignature=' "dist/appcast-$arch.xml"
           if [[ "$arch" == "arm64" ]]; then
             grep -Fq '<sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>' "dist/appcast-$arch.xml"
           fi
       - uses: actions/upload-artifact@v7
         with:
-          name: StrokeMouse-macos-${{ matrix.arch }}
+          name: InMouse-macos-${{ matrix.arch }}
           path: |
-            dist/StrokeMouse-macos-${{ matrix.arch }}.zip
-            dist/StrokeMouse-macos-${{ matrix.arch }}.app.tar.gz
-            dist/StrokeMouse-macos-${{ matrix.arch }}.dmg
+            dist/InMouse-macos-${{ matrix.arch }}.zip
+            dist/InMouse-macos-${{ matrix.arch }}.app.tar.gz
+            dist/InMouse-macos-${{ matrix.arch }}.dmg
             dist/appcast-${{ matrix.arch }}.xml
 
   release-notes:
@@ -186,7 +186,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v8
         with:
-          pattern: StrokeMouse-macos-*
+          pattern: InMouse-macos-*
           path: dist
           merge-multiple: true
       - uses: actions/download-artifact@v8
@@ -196,9 +196,9 @@ jobs:
       - name: Verify release assets
         run: |
           for arch in arm64 x86_64; do
-            test -f "dist/StrokeMouse-macos-$arch.zip"
-            test -f "dist/StrokeMouse-macos-$arch.app.tar.gz"
-            test -f "dist/StrokeMouse-macos-$arch.dmg"
+            test -f "dist/InMouse-macos-$arch.zip"
+            test -f "dist/InMouse-macos-$arch.app.tar.gz"
+            test -f "dist/InMouse-macos-$arch.dmg"
             test -f "dist/appcast-$arch.xml"
           done
       - name: Create GitHub release
@@ -209,12 +209,12 @@ jobs:
           gh release create "$tag" \
             --repo "$GITHUB_REPOSITORY" \
             --verify-tag \
-            dist/StrokeMouse-macos-arm64.zip \
-            dist/StrokeMouse-macos-x86_64.zip \
-            dist/StrokeMouse-macos-arm64.app.tar.gz \
-            dist/StrokeMouse-macos-x86_64.app.tar.gz \
-            dist/StrokeMouse-macos-arm64.dmg \
-            dist/StrokeMouse-macos-x86_64.dmg \
+            dist/InMouse-macos-arm64.zip \
+            dist/InMouse-macos-x86_64.zip \
+            dist/InMouse-macos-arm64.app.tar.gz \
+            dist/InMouse-macos-x86_64.app.tar.gz \
+            dist/InMouse-macos-arm64.dmg \
+            dist/InMouse-macos-x86_64.dmg \
             dist/appcast-arm64.xml \
             dist/appcast-x86_64.xml \
             --title "$tag" \

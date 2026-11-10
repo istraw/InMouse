@@ -41,12 +41,12 @@ DERIVED="$ROOT/build/release-$ARCH"
 SOURCE_PACKAGES="$ROOT/build/SourcePackages"
 DIST="$ROOT/dist"
 APP_DIR="$DIST/$ARCH"
-APP="$APP_DIR/StrokeMouse.app"
-ZIP="$DIST/StrokeMouse-macos-$ARCH.zip"
-TAR_GZ="$DIST/StrokeMouse-macos-$ARCH.app.tar.gz"
-DMG="$DIST/StrokeMouse-macos-$ARCH.dmg"
+APP="$APP_DIR/InMouse.app"
+ZIP="$DIST/InMouse-macos-$ARCH.zip"
+TAR_GZ="$DIST/InMouse-macos-$ARCH.app.tar.gz"
+DMG="$DIST/InMouse-macos-$ARCH.dmg"
 DMG_ROOT="$DIST/dmg-$ARCH"
-NOTARY_ZIP="$DIST/StrokeMouse-macos-$ARCH-notary.zip"
+NOTARY_ZIP="$DIST/InMouse-macos-$ARCH-notary.zip"
 ENTITLEMENTS="$ROOT/StrokeMouse/Supporting/StrokeMouse.entitlements"
 ENTITLEMENTS_DUMP=""
 ARCHIVE_LIST=""
@@ -186,7 +186,7 @@ rm -rf "$DERIVED" "$APP_DIR" "$DMG_ROOT"
 rm -f "$ZIP" "$TAR_GZ" "$DMG"
 mkdir -p "$DERIVED" "$SOURCE_PACKAGES" "$APP_DIR" "$DIST"
 
-echo "==> Building StrokeMouse Release ($ARCH)"
+echo "==> Building InMouse Release ($ARCH)"
 echo "    code sign identity: $IDENTITY"
 # Build with ad-hoc first so Xcode does not require the release identity at compile
 # time (CI builds may sign only the final bundle). Final re-sign applies IDENTITY.
@@ -205,7 +205,7 @@ xcodebuild \
   SPARKLE_PUBLIC_KEY="$PUBLIC_KEY" \
   build
 
-BUILT_APP="$DERIVED/Build/Products/Release/StrokeMouse.app"
+BUILT_APP="$DERIVED/Build/Products/Release/InMouse.app"
 [[ -d "$BUILT_APP" ]] || {
   echo "Release product not found: $BUILT_APP" >&2
   exit 1
@@ -248,7 +248,7 @@ if [[ "$IDENTITY" != "-" ]]; then
   codesign -dvv "$APP" 2>&1 | grep -E '^(Authority|TeamIdentifier|Identifier)=' || true
 fi
 
-EXECUTABLE="$APP/Contents/MacOS/StrokeMouse"
+EXECUTABLE="$APP/Contents/MacOS/InMouse"
 ACTUAL_ARCHS="$(lipo -archs "$EXECUTABLE")"
 [[ "$ACTUAL_ARCHS" == "$ARCH" ]] || {
   echo "Expected executable architecture $ARCH, got: $ACTUAL_ARCHS" >&2
@@ -311,18 +311,18 @@ if (( ${#NOTARY_ARGS[@]} > 0 )); then
   spctl --assess --type execute --verbose=2 "$APP"
 fi
 
-echo "==> Packaging StrokeMouse $VERSION ($BUILD)"
+echo "==> Packaging InMouse $VERSION ($BUILD)"
 (
   cd "$APP_DIR"
-  ditto -c -k --keepParent "StrokeMouse.app" "$ZIP"
-  COPYFILE_DISABLE=1 tar -czf "$TAR_GZ" "StrokeMouse.app"
+  ditto -c -k --keepParent "InMouse.app" "$ZIP"
+  COPYFILE_DISABLE=1 tar -czf "$TAR_GZ" "InMouse.app"
 )
 
 mkdir -p "$DMG_ROOT"
-ditto "$APP" "$DMG_ROOT/StrokeMouse.app"
+ditto "$APP" "$DMG_ROOT/InMouse.app"
 ln -s /Applications "$DMG_ROOT/Applications"
 hdiutil_retry create \
-  -volname "StrokeMouse" \
+  -volname "InMouse" \
   -srcfolder "$DMG_ROOT" \
   -ov \
   -format UDZO \
@@ -343,14 +343,14 @@ tar -tzf "$TAR_GZ" >/dev/null
 hdiutil_retry verify "$DMG"
 ARCHIVE_LIST="$(mktemp)"
 unzip -Z1 "$ZIP" >"$ARCHIVE_LIST"
-grep -Fqx 'StrokeMouse.app/Contents/MacOS/StrokeMouse' "$ARCHIVE_LIST"
+grep -Fqx 'InMouse.app/Contents/MacOS/InMouse' "$ARCHIVE_LIST"
 tar -tzf "$TAR_GZ" >"$ARCHIVE_LIST"
-grep -Fqx 'StrokeMouse.app/Contents/MacOS/StrokeMouse' "$ARCHIVE_LIST"
+grep -Fqx 'InMouse.app/Contents/MacOS/InMouse' "$ARCHIVE_LIST"
 
 DMG_MOUNT="$(mktemp -d)"
 hdiutil_retry attach "$DMG" -readonly -nobrowse -mountpoint "$DMG_MOUNT"
-[[ -x "$DMG_MOUNT/StrokeMouse.app/Contents/MacOS/StrokeMouse" ]]
-codesign --verify --deep --strict "$DMG_MOUNT/StrokeMouse.app"
+[[ -x "$DMG_MOUNT/InMouse.app/Contents/MacOS/InMouse" ]]
+codesign --verify --deep --strict "$DMG_MOUNT/InMouse.app"
 hdiutil_retry detach "$DMG_MOUNT"
 rmdir "$DMG_MOUNT"
 DMG_MOUNT=""

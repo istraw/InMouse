@@ -972,43 +972,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keep this the same as System Settings › Keyboard › Keyboard Shortcuts › Mission Control. StrokeMouse does not change system shortcuts."
+            "value": "Keep this the same as System Settings › Keyboard › Keyboard Shortcuts › Mission Control. InMouse does not change system shortcuts."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "请与系统设置 › 键盘 › 键盘快捷键 › 调度中心中的快捷键保持一致，StrokeMouse 不会修改系统快捷键。"
+            "value": "请与系统设置 › 键盘 › 键盘快捷键 › 调度中心中的快捷键保持一致，InMouse 不会修改系统快捷键。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "請與系統設定 › 鍵盤 › 鍵盤快速鍵 › 指揮中心中的快速鍵保持一致，StrokeMouse 不會修改系統快速鍵。"
+            "value": "請與系統設定 › 鍵盤 › 鍵盤快速鍵 › 指揮中心中的快速鍵保持一致，InMouse 不會修改系統快速鍵。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "시스템 설정 › 키보드 › 키보드 단축키 › Mission Control의 단축키와 같게 맞추세요. StrokeMouse는 시스템 단축키를 변경하지 않습니다."
+            "value": "시스템 설정 › 키보드 › 키보드 단축키 › Mission Control의 단축키와 같게 맞추세요. InMouse는 시스템 단축키를 변경하지 않습니다."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "システム設定 › キーボード › キーボードショートカット › Mission Controlのショートカットに合わせてください。StrokeMouseはシステムのショートカットを変更しません。"
+            "value": "システム設定 › キーボード › キーボードショートカット › Mission Controlのショートカットに合わせてください。InMouseはシステムのショートカットを変更しません。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сочетание должно совпадать с Системные настройки › Клавиатура › Сочетания клавиш › Mission Control. StrokeMouse не меняет системные сочетания."
+            "value": "Сочетание должно совпадать с Системные настройки › Клавиатура › Сочетания клавиш › Mission Control. InMouse не меняет системные сочетания."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Utilisez le même raccourci que dans Réglages Système › Clavier › Raccourcis clavier › Mission Control. StrokeMouse ne modifie pas les raccourcis système."
+            "value": "Utilisez le même raccourci que dans Réglages Système › Clavier › Raccourcis clavier › Mission Control. InMouse ne modifie pas les raccourcis système."
           }
         }
       }
@@ -1892,43 +1892,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse"
+            "value": "InMouse"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse"
+            "value": "InMouse"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse"
+            "value": "InMouse"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse"
+            "value": "InMouse"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse"
+            "value": "InMouse"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse"
+            "value": "InMouse"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse"
+            "value": "InMouse"
           }
         }
       }
@@ -2146,7 +2146,7 @@
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouseについて"
+            "value": "InMouseについて"
           }
         },
         "ru": {
@@ -2214,43 +2214,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quit StrokeMouse"
+            "value": "Quit InMouse"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "退出 StrokeMouse"
+            "value": "退出 InMouse"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "退出 StrokeMouse"
+            "value": "退出 InMouse"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 종료"
+            "value": "InMouse 종료"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouseを終了"
+            "value": "InMouseを終了"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Завершить StrokeMouse"
+            "value": "Завершить InMouse"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quitter StrokeMouse"
+            "value": "Quitter InMouse"
           }
         }
       }
@@ -2858,43 +2858,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse-gestures"
+            "value": "InMouse-gestures"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse-gestures"
+            "value": "InMouse-gestures"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse-gestures"
+            "value": "InMouse-gestures"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse-제스처"
+            "value": "InMouse-제스처"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse-ジェスチャ"
+            "value": "InMouse-ジェスチャ"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse-жесты"
+            "value": "InMouse-жесты"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse-gestes"
+            "value": "InMouse-gestes"
           }
         }
       }
@@ -6950,43 +6950,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Required to observe mouse buttons and inject keyboard / window actions. If the system toggle is on but this page still shows denied, remove StrokeMouse from Privacy → Accessibility, quit the app, reopen it, then enable it again (common after re-signing)."
+            "value": "Required to observe mouse buttons and inject keyboard / window actions. If the system toggle is on but this page still shows denied, remove InMouse from Privacy → Accessibility, quit the app, reopen it, then enable it again (common after re-signing)."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "用于监听鼠标按键，以及注入快捷键 / 窗口操作；若系统开关已打开但此处仍显示未授权，请在「隐私与安全性 → 辅助功能」中移除 StrokeMouse，完全退出应用后重新打开，再重新打开开关（更换签名证书后常见）。"
+            "value": "用于监听鼠标按键，以及注入快捷键 / 窗口操作；若系统开关已打开但此处仍显示未授权，请在「隐私与安全性 → 辅助功能」中移除 InMouse，完全退出应用后重新打开，再重新打开开关（更换签名证书后常见）。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "用於監聽滑鼠按鍵，以及注入快捷鍵 / 視窗操作；若系統開關已開啟但此處仍顯示未授權，請在「隱私與安全性 → 輔助使用」中移除 StrokeMouse，完全退出應用後重新開啟，再重新開啟開關（更換簽名證書後常見）。"
+            "value": "用於監聽滑鼠按鍵，以及注入快捷鍵 / 視窗操作；若系統開關已開啟但此處仍顯示未授權，請在「隱私與安全性 → 輔助使用」中移除 InMouse，完全退出應用後重新開啟，再重新開啟開關（更換簽名證書後常見）。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "마우스 버튼 관찰과 키보드 / 윈도우 동작 주입에 필요하며, 시스템 스위치가 켜져 있는데도 이 페이지가 거부됨으로 표시되면 개인 정보 보호 → 손쉬운 사용에서 StrokeMouse를 제거한 뒤 앱을 종료하고 다시 연 다음 다시 켜세요(서명 변경 후 흔함)."
+            "value": "마우스 버튼 관찰과 키보드 / 윈도우 동작 주입에 필요하며, 시스템 스위치가 켜져 있는데도 이 페이지가 거부됨으로 표시되면 개인 정보 보호 → 손쉬운 사용에서 InMouse를 제거한 뒤 앱을 종료하고 다시 연 다음 다시 켜세요(서명 변경 후 흔함)."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "マウスボタンの監視と、キーボード／ウインドウ操作の注入に必要です。システムのスイッチはオンなのにこのページが未許可のままなら、「プライバシーとセキュリティ → アクセシビリティ」からStrokeMouseを取り除き、アプリを終了して開き直し、もう一度オンにしてください（署名のやり直し後によくあります）。"
+            "value": "マウスボタンの監視と、キーボード／ウインドウ操作の注入に必要です。システムのスイッチはオンなのにこのページが未許可のままなら、「プライバシーとセキュリティ → アクセシビリティ」からInMouseを取り除き、アプリを終了して開き直し、もう一度オンにしてください（署名のやり直し後によくあります）。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Необходимо для отслеживания кнопок мыши и внедрения действий клавиатуры и окон. Если системный переключатель включён, но на этой странице по-прежнему указано «не разрешено», удалите StrokeMouse из «Конфиденциальность и безопасность → Универсальный доступ», полностью завершите приложение, откройте его снова и включите доступ ещё раз (часто требуется после повторной подписи)."
+            "value": "Необходимо для отслеживания кнопок мыши и внедрения действий клавиатуры и окон. Если системный переключатель включён, но на этой странице по-прежнему указано «не разрешено», удалите InMouse из «Конфиденциальность и безопасность → Универсальный доступ», полностью завершите приложение, откройте его снова и включите доступ ещё раз (часто требуется после повторной подписи)."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nécessaire pour observer les boutons de la souris et injecter des actions clavier ou de fenêtre. Si l’option système est activée mais que cette page indique encore un refus, retirez StrokeMouse de Confidentialité et sécurité → Accessibilité, quittez l’app, rouvrez-la, puis réactivez l’option (fréquent après une nouvelle signature)."
+            "value": "Nécessaire pour observer les boutons de la souris et injecter des actions clavier ou de fenêtre. Si l’option système est activée mais que cette page indique encore un refus, retirez InMouse de Confidentialité et sécurité → Accessibilité, quittez l’app, rouvrez-la, puis réactivez l’option (fréquent après une nouvelle signature)."
           }
         }
       }
@@ -8330,43 +8330,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Welcome to StrokeMouse"
+            "value": "Welcome to InMouse"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "欢迎使用 StrokeMouse"
+            "value": "欢迎使用 InMouse"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "歡迎使用 StrokeMouse"
+            "value": "歡迎使用 InMouse"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse에 오신 것을 환영합니다"
+            "value": "InMouse에 오신 것을 환영합니다"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouseへようこそ"
+            "value": "InMouseへようこそ"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добро пожаловать в StrokeMouse"
+            "value": "Добро пожаловать в InMouse"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bienvenue dans StrokeMouse"
+            "value": "Bienvenue dans InMouse"
           }
         }
       }
@@ -8468,43 +8468,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse needs Accessibility to listen for mouse buttons and run gestures. We’ll open System Settings and show a helper so you can drag the app into the list."
+            "value": "InMouse needs Accessibility to listen for mouse buttons and run gestures. We’ll open System Settings and show a helper so you can drag the app into the list."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 需要「辅助功能」权限才能监听鼠标按键并执行手势，我们会打开系统设置，并显示悬浮辅助面板，方便你把应用拖入列表。"
+            "value": "InMouse 需要「辅助功能」权限才能监听鼠标按键并执行手势，我们会打开系统设置，并显示悬浮辅助面板，方便你把应用拖入列表。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 需要「輔助使用」許可權才能監聽滑鼠按鍵並執行手勢，我們會開啟系統設定，並顯示懸浮輔助面板，方便你把應用拖入列表。"
+            "value": "InMouse 需要「輔助使用」許可權才能監聽滑鼠按鍵並執行手勢，我們會開啟系統設定，並顯示懸浮輔助面板，方便你把應用拖入列表。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse는 마우스 버튼을 수신하고 제스처를 실행하려면 손쉬운 사용이 필요하며, 시스템 설정을 열고 앱을 목록에 끌어 넣을 수 있도록 도우미를 표시합니다."
+            "value": "InMouse는 마우스 버튼을 수신하고 제스처를 실행하려면 손쉬운 사용이 필요하며, 시스템 설정을 열고 앱을 목록에 끌어 넣을 수 있도록 도우미를 표시합니다."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouseがマウスボタンを監視してジェスチャを実行するには、アクセシビリティが必要です。システム設定を開き、アプリをリストにドラッグできるよう補助パネルを表示します。"
+            "value": "InMouseがマウスボタンを監視してジェスチャを実行するには、アクセシビリティが必要です。システム設定を開き、アプリをリストにドラッグできるよう補助パネルを表示します。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse требуется «Универсальный доступ», чтобы отслеживать кнопки мыши и выполнять жесты. Мы откроем «Системные настройки» и покажем вспомогательную панель, чтобы вы могли перетащить приложение в список."
+            "value": "InMouse требуется «Универсальный доступ», чтобы отслеживать кнопки мыши и выполнять жесты. Мы откроем «Системные настройки» и покажем вспомогательную панель, чтобы вы могли перетащить приложение в список."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse a besoin de l’Accessibilité pour écouter les boutons de la souris et exécuter les gestes. Nous ouvrirons Réglages Système et afficherons un assistant pour que vous puissiez glisser l’app dans la liste."
+            "value": "InMouse a besoin de l’Accessibilité pour écouter les boutons de la souris et exécuter les gestes. Nous ouvrirons Réglages Système et afficherons un assistant pour que vous puissiez glisser l’app dans la liste."
           }
         }
       }
@@ -8698,43 +8698,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Drag StrokeMouse from the floating panel into the list."
+            "value": "Drag InMouse from the floating panel into the list."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "从悬浮面板把 StrokeMouse 拖入授权列表。"
+            "value": "从悬浮面板把 InMouse 拖入授权列表。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "從懸浮面板把 StrokeMouse 拖入授權列表。"
+            "value": "從懸浮面板把 InMouse 拖入授權列表。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "플로팅 패널에서 StrokeMouse를 목록으로 끌어다 놓습니다."
+            "value": "플로팅 패널에서 InMouse를 목록으로 끌어다 놓습니다."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "フローティングパネルからStrokeMouseをリストへドラッグします。"
+            "value": "フローティングパネルからInMouseをリストへドラッグします。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Перетащите StrokeMouse из плавающей панели в список."
+            "value": "Перетащите InMouse из плавающей панели в список."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Glissez StrokeMouse depuis le panneau flottant vers la liste."
+            "value": "Glissez InMouse depuis le panneau flottant vers la liste."
           }
         }
       }
@@ -13160,7 +13160,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "When this gesture matches, StrokeMouse will launch the selected app."
+            "value": "When this gesture matches, InMouse will launch the selected app."
           }
         },
         "zh-Hans": {
@@ -13178,25 +13178,25 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "이 제스처가 일치하면 StrokeMouse가 선택한 앱을 실행합니다."
+            "value": "이 제스처가 일치하면 InMouse가 선택한 앱을 실행합니다."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "このジェスチャが一致すると、StrokeMouseは選択したアプリを起動します。"
+            "value": "このジェスチャが一致すると、InMouseは選択したアプリを起動します。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "При совпадении этого жеста StrokeMouse запустит выбранное приложение."
+            "value": "При совпадении этого жеста InMouse запустит выбранное приложение."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lorsque ce geste correspond, StrokeMouse lancera l’app sélectionnée."
+            "value": "Lorsque ce geste correspond, InMouse lancera l’app sélectionnée."
           }
         }
       }
@@ -15046,43 +15046,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse Settings"
+            "value": "InMouse Settings"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 设置"
+            "value": "InMouse 设置"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 設定"
+            "value": "InMouse 設定"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 설정"
+            "value": "InMouse 설정"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse設定"
+            "value": "InMouse設定"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Настройки StrokeMouse"
+            "value": "Настройки InMouse"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Réglages de StrokeMouse"
+            "value": "Réglages de InMouse"
           }
         }
       }
@@ -17806,43 +17806,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The update service could not start. Relaunch StrokeMouse and try again."
+            "value": "The update service could not start. Relaunch InMouse and try again."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "更新服务无法启动，请重新启动 StrokeMouse 后再试。"
+            "value": "更新服务无法启动，请重新启动 InMouse 后再试。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "更新服務無法啟動，請重新啟動 StrokeMouse 後再試。"
+            "value": "更新服務無法啟動，請重新啟動 InMouse 後再試。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "업데이트 서비스를 시작하지 못했으니 StrokeMouse를 다시 연 뒤 시도하세요."
+            "value": "업데이트 서비스를 시작하지 못했으니 InMouse를 다시 연 뒤 시도하세요."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "アップデートサービスを開始できませんでした。StrokeMouseを再起動してからやり直してください。"
+            "value": "アップデートサービスを開始できませんでした。InMouseを再起動してからやり直してください。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не удалось запустить службу обновлений. Перезапустите StrokeMouse и повторите попытку."
+            "value": "Не удалось запустить службу обновлений. Перезапустите InMouse и повторите попытку."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Le service de mise à jour n’a pas pu démarrer. Relancez StrokeMouse, puis réessayez."
+            "value": "Le service de mise à jour n’a pas pu démarrer. Relancez InMouse, puis réessayez."
           }
         }
       }
@@ -17990,43 +17990,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse %@ is available. Would you like to download and install it?"
+            "value": "InMouse %@ is available. Would you like to download and install it?"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse %@ 已发布，是否下载并安装？"
+            "value": "InMouse %@ 已发布，是否下载并安装？"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse %@ 已釋出，是否下載並安裝？"
+            "value": "InMouse %@ 已釋出，是否下載並安裝？"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse %@를 사용할 수 있습니다. 다운로드하여 설치할까요?"
+            "value": "InMouse %@를 사용할 수 있습니다. 다운로드하여 설치할까요?"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse %@ が利用できます。ダウンロードしてインストールしますか？"
+            "value": "InMouse %@ が利用できます。ダウンロードしてインストールしますか？"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Доступна StrokeMouse %@. Загрузить и установить?"
+            "value": "Доступна InMouse %@. Загрузить и установить?"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse %@ est disponible. Voulez-vous le télécharger et l’installer ?"
+            "value": "InMouse %@ est disponible. Voulez-vous le télécharger et l’installer ?"
           }
         }
       }
@@ -18036,43 +18036,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse %@ has been downloaded and is ready to install."
+            "value": "InMouse %@ has been downloaded and is ready to install."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse %@ 已下载完成，可以安装。"
+            "value": "InMouse %@ 已下载完成，可以安装。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse %@ 已下載完成，可以安裝。"
+            "value": "InMouse %@ 已下載完成，可以安裝。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse %@ 다운로드가 완료되어 설치할 준비가 되었습니다."
+            "value": "InMouse %@ 다운로드가 완료되어 설치할 준비가 되었습니다."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse %@ のダウンロードが完了し、インストールできます。"
+            "value": "InMouse %@ のダウンロードが完了し、インストールできます。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse %@ загружена и готова к установке."
+            "value": "InMouse %@ загружена и готова к установке."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse %@ a été téléchargé et est prêt à être installé."
+            "value": "InMouse %@ a été téléchargé et est prêt à être installé."
           }
         }
       }
@@ -18496,43 +18496,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse has been updated successfully."
+            "value": "InMouse has been updated successfully."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 已成功更新。"
+            "value": "InMouse 已成功更新。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 已成功更新。"
+            "value": "InMouse 已成功更新。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse가 성공적으로 업데이트되었습니다."
+            "value": "InMouse가 성공적으로 업데이트되었습니다."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouseは正常にアップデートされました。"
+            "value": "InMouseは正常にアップデートされました。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse успешно обновлён."
+            "value": "InMouse успешно обновлён."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse a été mis à jour avec succès."
+            "value": "InMouse a été mis à jour avec succès."
           }
         }
       }
@@ -18680,43 +18680,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "When the menu bar icon is hidden, open StrokeMouse again from the Dock, Launchpad, or Spotlight to show Settings. If both icons are hidden, use Spotlight or Launchpad. Quit from General settings or press ⌘Q while Settings is frontmost."
+            "value": "When the menu bar icon is hidden, open InMouse again from the Dock, Launchpad, or Spotlight to show Settings. If both icons are hidden, use Spotlight or Launchpad. Quit from General settings or press ⌘Q while Settings is frontmost."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "隐藏菜单栏图标后，可通过 Dock、启动台或聚焦搜索再次打开 StrokeMouse 进入设置；若同时隐藏 Dock 图标，请使用聚焦搜索或启动台打开；退出请到「通用」设置，或在设置窗口前台时按 ⌘Q。"
+            "value": "隐藏菜单栏图标后，可通过 Dock、启动台或聚焦搜索再次打开 InMouse 进入设置；若同时隐藏 Dock 图标，请使用聚焦搜索或启动台打开；退出请到「通用」设置，或在设置窗口前台时按 ⌘Q。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "隱藏選單欄圖示後，可透過 Dock、啟動臺或聚焦搜尋再次開啟 StrokeMouse 進入設定；若同時隱藏 Dock 圖示，請使用聚焦搜尋或啟動臺開啟；退出請到「通用」設定，或在設定視窗前臺時按 ⌘Q。"
+            "value": "隱藏選單欄圖示後，可透過 Dock、啟動臺或聚焦搜尋再次開啟 InMouse 進入設定；若同時隱藏 Dock 圖示，請使用聚焦搜尋或啟動臺開啟；退出請到「通用」設定，或在設定視窗前臺時按 ⌘Q。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "메뉴 막대 아이콘을 가리면 Dock, Launchpad 또는 Spotlight에서 StrokeMouse를 다시 열어 설정을 표시하며, 두 아이콘을 모두 가리면 Spotlight나 Launchpad를 사용하고, 일반 설정에서 종료하거나 설정이 전면일 때 ⌘Q를 누르세요."
+            "value": "메뉴 막대 아이콘을 가리면 Dock, Launchpad 또는 Spotlight에서 InMouse를 다시 열어 설정을 표시하며, 두 아이콘을 모두 가리면 Spotlight나 Launchpad를 사용하고, 일반 설정에서 종료하거나 설정이 전면일 때 ⌘Q를 누르세요."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "メニューバーアイコンを非表示にした場合は、Dock、Launchpad、またはSpotlightからStrokeMouseを再度開いて設定を表示します。両方のアイコンを非表示にしている場合は、SpotlightまたはLaunchpadを使ってください。終了するには「一般」設定を使うか、設定が最前面のときに⌘Qを押します。"
+            "value": "メニューバーアイコンを非表示にした場合は、Dock、Launchpad、またはSpotlightからInMouseを再度開いて設定を表示します。両方のアイコンを非表示にしている場合は、SpotlightまたはLaunchpadを使ってください。終了するには「一般」設定を使うか、設定が最前面のときに⌘Qを押します。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Если значок в строке меню скрыт, снова откройте StrokeMouse из Dock, Launchpad или Spotlight, чтобы показать Настройки. Если скрыты оба значка, используйте Spotlight или Launchpad. Завершите работу в разделе «Основные» или нажмите ⌘Q, когда окно Настроек активно."
+            "value": "Если значок в строке меню скрыт, снова откройте InMouse из Dock, Launchpad или Spotlight, чтобы показать Настройки. Если скрыты оба значка, используйте Spotlight или Launchpad. Завершите работу в разделе «Основные» или нажмите ⌘Q, когда окно Настроек активно."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lorsque l’icône de la barre des menus est masquée, rouvrez StrokeMouse depuis le Dock, Launchpad ou Spotlight pour afficher les Réglages. Si les deux icônes sont masquées, utilisez Spotlight ou Launchpad. Quittez depuis les réglages Général, ou appuyez sur ⌘Q lorsque les Réglages sont au premier plan."
+            "value": "Lorsque l’icône de la barre des menus est masquée, rouvrez InMouse depuis le Dock, Launchpad ou Spotlight pour afficher les Réglages. Si les deux icônes sont masquées, utilisez Spotlight ou Launchpad. Quittez depuis les réglages Général, ou appuyez sur ⌘Q lorsque les Réglages sont au premier plan."
           }
         }
       }
@@ -18726,43 +18726,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quit StrokeMouse"
+            "value": "Quit InMouse"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "退出 StrokeMouse"
+            "value": "退出 InMouse"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "退出 StrokeMouse"
+            "value": "退出 InMouse"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 종료"
+            "value": "InMouse 종료"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouseを終了"
+            "value": "InMouseを終了"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Завершить StrokeMouse"
+            "value": "Завершить InMouse"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quitter StrokeMouse"
+            "value": "Quitter InMouse"
           }
         }
       }
@@ -18910,43 +18910,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse will keep running in the background with no Dock or menu bar icon. Open it again from Spotlight or Launchpad to reach Settings, and quit from General settings (or ⌘Q while Settings is open)."
+            "value": "InMouse will keep running in the background with no Dock or menu bar icon. Open it again from Spotlight or Launchpad to reach Settings, and quit from General settings (or ⌘Q while Settings is open)."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 将在后台继续运行，且没有 Dock 与菜单栏图标；请通过聚焦搜索或启动台再次打开以进入设置；退出请到「通用」设置（或在设置打开时按 ⌘Q）。"
+            "value": "InMouse 将在后台继续运行，且没有 Dock 与菜单栏图标；请通过聚焦搜索或启动台再次打开以进入设置；退出请到「通用」设置（或在设置打开时按 ⌘Q）。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 將在後臺繼續執行，且沒有 Dock 與選單欄圖示；請透過聚焦搜尋或啟動臺再次開啟以進入設定；退出請到「通用」設定（或在設定開啟時按 ⌘Q）。"
+            "value": "InMouse 將在後臺繼續執行，且沒有 Dock 與選單欄圖示；請透過聚焦搜尋或啟動臺再次開啟以進入設定；退出請到「通用」設定（或在設定開啟時按 ⌘Q）。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse는 Dock이나 메뉴 막대 아이콘 없이 백그라운드에서 계속 실행되며, Spotlight나 Launchpad에서 다시 열어 설정에 들어가고, 일반 설정에서 종료하세요(또는 설정이 열려 있을 때 ⌘Q)."
+            "value": "InMouse는 Dock이나 메뉴 막대 아이콘 없이 백그라운드에서 계속 실행되며, Spotlight나 Launchpad에서 다시 열어 설정에 들어가고, 일반 설정에서 종료하세요(또는 설정이 열려 있을 때 ⌘Q)."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouseはDockもメニューバーアイコンもないままバックグラウンドで動作し続けます。設定を開くにはSpotlightまたはLaunchpadから再度開き、「一般」設定から終了してください（設定を開いているときは⌘Qでも終了できます）。"
+            "value": "InMouseはDockもメニューバーアイコンもないままバックグラウンドで動作し続けます。設定を開くにはSpotlightまたはLaunchpadから再度開き、「一般」設定から終了してください（設定を開いているときは⌘Qでも終了できます）。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse продолжит работать в фоне без значков Dock и строки меню. Снова откройте его через Spotlight или Launchpad, чтобы перейти в Настройки, и завершите работу в разделе «Основные» (или нажмите ⌘Q, когда Настройки открыты)."
+            "value": "InMouse продолжит работать в фоне без значков Dock и строки меню. Снова откройте его через Spotlight или Launchpad, чтобы перейти в Настройки, и завершите работу в разделе «Основные» (или нажмите ⌘Q, когда Настройки открыты)."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse continuera de s’exécuter en arrière-plan sans icône dans le Dock ni dans la barre des menus. Rouvrez-le depuis Spotlight ou Launchpad pour accéder aux Réglages, et quittez depuis les réglages Général (ou ⌘Q lorsque les Réglages sont ouverts)."
+            "value": "InMouse continuera de s’exécuter en arrière-plan sans icône dans le Dock ni dans la barre des menus. Rouvrez-le depuis Spotlight ou Launchpad pour accéder aux Réglages, et quittez depuis les réglages Général (ou ⌘Q lorsque les Réglages sont ouverts)."
           }
         }
       }
@@ -23648,43 +23648,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Couldn't reset automatically. Remove StrokeMouse under Privacy & Security → Accessibility, then add it again."
+            "value": "Couldn't reset automatically. Remove InMouse under Privacy & Security → Accessibility, then add it again."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "无法自动重置，请在「隐私与安全性 → 辅助功能」中移除 StrokeMouse 后重新添加"
+            "value": "无法自动重置，请在「隐私与安全性 → 辅助功能」中移除 InMouse 后重新添加"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "無法自動重設，請在「隱私與安全性 → 輔助使用」中移除 StrokeMouse 後重新加入"
+            "value": "無法自動重設，請在「隱私與安全性 → 輔助使用」中移除 InMouse 後重新加入"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "자동으로 재설정하지 못했습니다. 개인정보 보호 및 보안 → 손쉬운 사용에서 StrokeMouse를 제거한 뒤 다시 추가하세요."
+            "value": "자동으로 재설정하지 못했습니다. 개인정보 보호 및 보안 → 손쉬운 사용에서 InMouse를 제거한 뒤 다시 추가하세요."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "自動でリセットできませんでした。「プライバシーとセキュリティ → アクセシビリティ」で StrokeMouse を取り除いてから、もう一度追加してください。"
+            "value": "自動でリセットできませんでした。「プライバシーとセキュリティ → アクセシビリティ」で InMouse を取り除いてから、もう一度追加してください。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не удалось сбросить автоматически. Удалите StrokeMouse в разделе «Конфиденциальность и безопасность → Универсальный доступ» и добавьте снова."
+            "value": "Не удалось сбросить автоматически. Удалите InMouse в разделе «Конфиденциальность и безопасность → Универсальный доступ» и добавьте снова."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Réinitialisation automatique impossible. Retirez StrokeMouse dans Confidentialité et sécurité → Accessibilité, puis ajoutez-le à nouveau."
+            "value": "Réinitialisation automatique impossible. Retirez InMouse dans Confidentialité et sécurité → Accessibilité, puis ajoutez-le à nouveau."
           }
         }
       }
@@ -23694,43 +23694,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Switched on in System Settings but still not granted? The old record doesn't match this build's signature (common when upgrading from 0.0.39 or earlier). Reset it, then switch StrokeMouse on again."
+            "value": "Switched on in System Settings but still not granted? The old record doesn't match this build's signature (common when upgrading from 0.0.39 or earlier). Reset it, then switch InMouse on again."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "系统设置里已打开但这里仍未授权？旧授权记录与当前签名不匹配（从 0.0.39 及更早版本升级时常见），重置后重新打开 StrokeMouse 的开关即可"
+            "value": "系统设置里已打开但这里仍未授权？旧授权记录与当前签名不匹配（从 0.0.39 及更早版本升级时常见），重置后重新打开 InMouse 的开关即可"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "系統設定裡已開啟但這裡仍未授權？舊授權記錄與目前簽署不相符（從 0.0.39 及更早版本升級時常見），重設後重新開啟 StrokeMouse 的開關即可"
+            "value": "系統設定裡已開啟但這裡仍未授權？舊授權記錄與目前簽署不相符（從 0.0.39 及更早版本升級時常見），重設後重新開啟 InMouse 的開關即可"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "시스템 설정에서 켜져 있는데도 아직 허용되지 않았나요? 이전 기록이 현재 빌드의 서명과 맞지 않습니다(0.0.39 이하에서 업그레이드할 때 흔함). 재설정한 뒤 StrokeMouse를 다시 켜세요."
+            "value": "시스템 설정에서 켜져 있는데도 아직 허용되지 않았나요? 이전 기록이 현재 빌드의 서명과 맞지 않습니다(0.0.39 이하에서 업그레이드할 때 흔함). 재설정한 뒤 InMouse를 다시 켜세요."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "システム設定ではオンなのに未許可のままですか？以前の記録が現在のビルドの署名と一致していません（0.0.39 以前からのアップグレード時によくあります）。リセットしてから StrokeMouse をもう一度オンにしてください。"
+            "value": "システム設定ではオンなのに未許可のままですか？以前の記録が現在のビルドの署名と一致していません（0.0.39 以前からのアップグレード時によくあります）。リセットしてから InMouse をもう一度オンにしてください。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "В Системных настройках включено, но доступ всё ещё не предоставлен? Старая запись не соответствует подписи этой сборки (часто после обновления с 0.0.39 и ранее). Сбросьте её и снова включите StrokeMouse."
+            "value": "В Системных настройках включено, но доступ всё ещё не предоставлен? Старая запись не соответствует подписи этой сборки (часто после обновления с 0.0.39 и ранее). Сбросьте её и снова включите InMouse."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Activé dans Réglages Système mais toujours pas autorisé ? L’ancien enregistrement ne correspond plus à la signature de cette version (fréquent en venant de la 0.0.39 ou antérieure). Réinitialisez-le, puis réactivez StrokeMouse."
+            "value": "Activé dans Réglages Système mais toujours pas autorisé ? L’ancien enregistrement ne correspond plus à la signature de cette version (fréquent en venant de la 0.0.39 ou antérieure). Réinitialisez-le, puis réactivez InMouse."
           }
         }
       }
@@ -25764,43 +25764,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse will preserve the existing file byte-for-byte in a new recovery backup, then replace it with the seven default mouse gestures."
+            "value": "InMouse will preserve the existing file byte-for-byte in a new recovery backup, then replace it with the seven default mouse gestures."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 会先将现有文件原样保存为新的恢复备份，再用七条默认鼠标手势替换它。"
+            "value": "InMouse 会先将现有文件原样保存为新的恢复备份，再用七条默认鼠标手势替换它。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 會先將現有檔案原樣儲存為新的恢復備份，再用七條預設滑鼠手勢替換它。"
+            "value": "InMouse 會先將現有檔案原樣儲存為新的恢復備份，再用七條預設滑鼠手勢替換它。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse는 기존 파일을 바이트 단위로 새 복구 백업에 보존한 다음 기본 마우스 제스처 7개로 교체합니다."
+            "value": "InMouse는 기존 파일을 바이트 단위로 새 복구 백업에 보존한 다음 기본 마우스 제스처 7개로 교체합니다."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouseは既存ファイルをバイト単位で新しい復元バックアップに保存してから、7つのデフォルトマウスジェスチャで置き換えます。"
+            "value": "InMouseは既存ファイルをバイト単位で新しい復元バックアップに保存してから、7つのデフォルトマウスジェスチャで置き換えます。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse сохранит существующий файл побайтово в новой резервной копии восстановления, затем заменит его семью жестами рисования мышью по умолчанию."
+            "value": "InMouse сохранит существующий файл побайтово в новой резервной копии восстановления, затем заменит его семью жестами рисования мышью по умолчанию."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse conservera le fichier existant octet par octet dans une nouvelle sauvegarde de récupération, puis le remplacera par les sept gestes de souris par défaut."
+            "value": "InMouse conservera le fichier existant octet par octet dans une nouvelle sauvegarde de récupération, puis le remplacera par les sept gestes de souris par défaut."
           }
         }
       }
@@ -28340,43 +28340,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Back up 60 seconds after configuration changes and check hourly; runs only while StrokeMouse is open."
+            "value": "Back up 60 seconds after configuration changes and check hourly; runs only while InMouse is open."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "配置停止变化 60 秒后备份，并每小时检查一次；仅在 StrokeMouse 运行时执行。"
+            "value": "配置停止变化 60 秒后备份，并每小时检查一次；仅在 InMouse 运行时执行。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "配置停止變化 60 秒後備份，並每小時檢查一次；僅在 StrokeMouse 執行時執行。"
+            "value": "配置停止變化 60 秒後備份，並每小時檢查一次；僅在 InMouse 執行時執行。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "구성이 바뀐 뒤 60초에 백업하고 매시간 확인하며, StrokeMouse가 열려 있을 때만 실행됩니다."
+            "value": "구성이 바뀐 뒤 60초에 백업하고 매시간 확인하며, InMouse가 열려 있을 때만 실행됩니다."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "設定の変更が止まってから60秒後にバックアップし、1時間ごとに確認します。StrokeMouseの起動中のみ実行されます。"
+            "value": "設定の変更が止まってから60秒後にバックアップし、1時間ごとに確認します。InMouseの起動中のみ実行されます。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Резервная копия создаётся через 60 секунд после изменения конфигурации, затем выполняется ежечасная проверка; только пока открыт StrokeMouse."
+            "value": "Резервная копия создаётся через 60 секунд после изменения конфигурации, затем выполняется ежечасная проверка; только пока открыт InMouse."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sauvegarde 60 secondes après les modifications de configuration et vérification toutes les heures ; uniquement lorsque StrokeMouse est ouvert."
+            "value": "Sauvegarde 60 secondes après les modifications de configuration et vérification toutes les heures ; uniquement lorsque InMouse est ouvert."
           }
         }
       }
@@ -29306,43 +29306,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse will stop scheduling backups and remove local credentials. Remote Gist or WebDAV files will remain unchanged."
+            "value": "InMouse will stop scheduling backups and remove local credentials. Remote Gist or WebDAV files will remain unchanged."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 将停止定时备份并删除本机凭据；远端 Gist 或 WebDAV 文件保持不变。"
+            "value": "InMouse 将停止定时备份并删除本机凭据；远端 Gist 或 WebDAV 文件保持不变。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse 將停止定時備份並刪除本機憑據；遠端 Gist 或 WebDAV 檔案保持不變。"
+            "value": "InMouse 將停止定時備份並刪除本機憑據；遠端 Gist 或 WebDAV 檔案保持不變。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse는 예약 백업을 멈추고 로컬 자격 증명을 제거하며, 원격 Gist 또는 WebDAV 파일은 그대로 둡니다."
+            "value": "InMouse는 예약 백업을 멈추고 로컬 자격 증명을 제거하며, 원격 Gist 또는 WebDAV 파일은 그대로 둡니다."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouseは定期バックアップを停止し、ローカルの認証情報を削除します。リモートのGistまたはWebDAVファイルはそのまま残ります。"
+            "value": "InMouseは定期バックアップを停止し、ローカルの認証情報を削除します。リモートのGistまたはWebDAVファイルはそのまま残ります。"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse перестанет планировать резервное копирование и удалит локальные учётные данные. Удалённые файлы Gist или WebDAV останутся без изменений."
+            "value": "InMouse перестанет планировать резервное копирование и удалит локальные учётные данные. Удалённые файлы Gist или WebDAV останутся без изменений."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "StrokeMouse cessera de planifier les sauvegardes et supprimera les identifiants locaux. Les fichiers Gist ou WebDAV distants resteront inchangés."
+            "value": "InMouse cessera de planifier les sauvegardes et supprimera les identifiants locaux. Les fichiers Gist ou WebDAV distants resteront inchangés."
           }
         }
       }

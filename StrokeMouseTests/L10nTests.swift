@@ -299,7 +299,7 @@ final class L10nTests: XCTestCase {
             "general.enableGestures",
             "general.language",
         ]
-        let properNounAllowlist: Set<String> = ["StrokeMouse"]
+        let properNounAllowlist: Set<String> = ["StrokeMouse", "InMouse"]
 
         L10n.apply(.english)
         let english = Dictionary(uniqueKeysWithValues: keys.map { ($0, L10n.string($0)) })

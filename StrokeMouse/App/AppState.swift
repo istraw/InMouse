@@ -289,7 +289,7 @@ final class AppState {
             return true
         }
         let title = window.title
-        if title.localizedCaseInsensitiveContains("StrokeMouse") {
+        if title.localizedCaseInsensitiveContains(Constants.appName) {
             return true
         }
         let localizedTitle = L10n.string("settings.windowTitle")

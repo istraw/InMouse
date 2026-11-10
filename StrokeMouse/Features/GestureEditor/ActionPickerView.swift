@@ -58,7 +58,7 @@ struct ActionPickerView: View {
     @State private var urlString = "https://"
     @State private var usesSelectedText = false
     @State private var selectionURLTemplate = ""
-    @State private var shellCommand = "echo 'Hello from StrokeMouse'"
+    @State private var shellCommand = "echo 'Hello from InMouse'"
     @State private var mediaCommand: MediaCommand = .playPause
     @State private var windowActionSelection: WindowActionSelection = .window(.minimize)
     @State private var windowLayout = WindowLayout()
@@ -67,7 +67,7 @@ struct ActionPickerView: View {
     @State private var appleScriptPreset: AppleScriptPreset = .sleep
     @State private var appleScript = AppleScriptPreset.sleep.source ?? ""
     /// Draft kept while the user is on a built-in so switching back to Custom restores it.
-    @State private var customAppleScriptDraft = "display notification \"StrokeMouse\" with title \"Gesture\""
+    @State private var customAppleScriptDraft = "display notification \"InMouse\" with title \"Gesture\""
     @State private var isRecordingShortcut = false
     @State private var shortcutLivePreview = ""
     @State private var didHydrate = false

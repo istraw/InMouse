@@ -3,7 +3,7 @@
 # so Accessibility / code-sign TCC entries do not need re-grant every build.
 #
 # Usage:
-#   ./scripts/build.sh              # Debug → output/StrokeMouse.app
+#   ./scripts/build.sh              # Debug → output/InMouse.app
 #   ./scripts/build.sh --open       # build then open
 #   ./scripts/build.sh --release    # Release configuration
 #   ./scripts/build.sh --release --open
@@ -25,7 +25,7 @@ CONFIGURATION="${CONFIGURATION:-Debug}"
 IDENTITY="${CODE_SIGN_IDENTITY:-StrokeMouse Dev}"
 DERIVED="${DERIVED_DATA_PATH:-$ROOT/build}"
 OUTPUT_DIR="${OUTPUT_DIR:-$ROOT/output}"
-APP_NAME="StrokeMouse.app"
+APP_NAME="InMouse.app"
 OPEN_AFTER=0
 RUN_GENERATE=1
 
@@ -34,7 +34,7 @@ usage() {
 Usage: ./scripts/build.sh [options]
 
 Options:
-  --open           Open output/StrokeMouse.app after a successful build
+  --open           Open output/InMouse.app after a successful build
   --release        Build Release (default: Debug)
   --debug          Build Debug
   --no-generate    Skip xcodegen (use existing .xcodeproj)
@@ -140,12 +140,12 @@ repair_stale_swiftpm_state
 # Quit a running instance that was launched from the stable output path,
 # so we can replace the bundle without "app is in use" errors.
 if [[ -d "$OUTPUT_APP" ]]; then
-  pkill -f "$OUTPUT_APP/Contents/MacOS/StrokeMouse" 2>/dev/null || true
+  pkill -f "$OUTPUT_APP/Contents/MacOS/InMouse" 2>/dev/null || true
   # Brief wait for process exit / file locks
   sleep 0.3
 fi
 
-echo "==> Building StrokeMouse ($CONFIGURATION)"
+echo "==> Building InMouse ($CONFIGURATION)"
 echo "    identity: $IDENTITY"
 echo "    derived:  $DERIVED"
 echo "    output:   $OUTPUT_APP"
@@ -249,12 +249,12 @@ if [[ "$OPEN_AFTER" -eq 1 ]]; then
   open "$OUTPUT_APP"
   # Confirm LaunchServices actually kept the process alive (ASP kills show as instant quit).
   sleep 0.8
-  if pgrep -x StrokeMouse >/dev/null 2>&1; then
-    echo "    StrokeMouse is running."
+  if pgrep -x InMouse >/dev/null 2>&1; then
+    echo "    InMouse is running."
   else
-    echo "WARNING: StrokeMouse did not stay running after open." >&2
+    echo "WARNING: InMouse did not stay running after open." >&2
     echo "  Check Console for: ASP: Security policy would not allow process" >&2
-    echo "  Binary: $OUTPUT_APP/Contents/MacOS/StrokeMouse" >&2
+    echo "  Binary: $OUTPUT_APP/Contents/MacOS/InMouse" >&2
     exit 1
   fi
 fi

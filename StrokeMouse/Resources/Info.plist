@@ -29,7 +29,7 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSAppleEventsUsageDescription</key>
-	<string>StrokeMouse needs Apple Events to run AppleScript actions and control other applications.</string>
+	<string>InMouse needs Apple Events to run AppleScript actions and control other applications.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<!-- User-configured WebDAV endpoints may explicitly use HTTP. The sync adapter
