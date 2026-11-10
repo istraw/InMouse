@@ -80,8 +80,9 @@ hdiutil_retry() {
   while (( n <= attempts )); do
     if hdiutil "$@"; then
       return 0
+    else
+      status=$?
     fi
-    status=$?
     if (( n == attempts )); then
       echo "hdiutil $* failed after ${attempts} attempts (exit $status)" >&2
       return "$status"
