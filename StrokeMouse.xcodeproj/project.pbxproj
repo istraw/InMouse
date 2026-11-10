@@ -83,6 +83,7 @@
 		543E9746C988D0E9FF494CB9 /* InstalledAppPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822A88F82CA58D4ED1CE45FF /* InstalledAppPickerSheet.swift */; };
 		5481CC5F8E2F2A01D0CF2EEF /* SettingsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BF1D107974DDF46B0DCC31 /* SettingsRootView.swift */; };
 		5AC6E0CD6F03DEB61DDDC472 /* GestureTargetSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BB52C6E5D7B37651B0CB62 /* GestureTargetSessionTests.swift */; };
+		5AC79D1D1ED7CAB30A2C2047 /* BuiltinActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D4324D1E0B82085815A2B0 /* BuiltinActions.swift */; };
 		5D906CE6A65B02532286C950 /* AppMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C90F056B7D89A8550B1E1A /* AppMatching.swift */; };
 		5EA7404C8913ADD8822F09B2 /* SystemAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB33D514C7CC79329D22B212 /* SystemAction.swift */; };
 		5F0381FD59968D0201734A70 /* GestureSampleEditorStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B6A61B8BDF8920B848AA7E /* GestureSampleEditorStateTests.swift */; };
@@ -130,6 +131,7 @@
 		9AADCAE8E18ABFBE9F6EA07F /* MultitouchSupportAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A6CB92C90661525BDA6D5 /* MultitouchSupportAdapter.swift */; };
 		9AF4F38E4BB7019918F6F668 /* CurveRecognitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149DCCAEC0DB53271E65469 /* CurveRecognitionTests.swift */; };
 		9CBF622F25393865A8BB8953 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BE8EFED858C370814810DF /* AppState.swift */; };
+		9CE7954F97465E783977B286 /* BuiltinAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00620CD9552D78E4E052CCB2 /* BuiltinAction.swift */; };
 		9E8EB6DDE308D9D83AC04EA4 /* RecordedCurveAGestureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD85978D19861D2746C30E95 /* RecordedCurveAGestureTests.swift */; };
 		9F37854DA1AF762096CCF218 /* ActionExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C8E981A8BD544C4280EBF2 /* ActionExecutor.swift */; };
 		A05785D7C9718C89E7EF360C /* BackupRemoteAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43EA01F5571563CE898BC4A /* BackupRemoteAdapterTests.swift */; };
@@ -155,6 +157,7 @@
 		B9C7977DC5CD3A9DFBE67483 /* GestureInputCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AF912BB42787B967675B7F /* GestureInputCatalog.swift */; };
 		B9C9F65019AB0739CAAA8D27 /* AppScopeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0EFAFC9FCCFA90E3875CE0 /* AppScopeEditorView.swift */; };
 		B9F91FB1912DBB5DE793E197 /* PersonalPreferencesMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF03EB401214EE4EEA24EC5 /* PersonalPreferencesMigration.swift */; };
+		BA8910085C664421C05B3CC4 /* BuiltinActionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F187AFA007D0182068CD35C8 /* BuiltinActionsTests.swift */; };
 		BFF8B7A493E39618CF197002 /* MouseMovementConflictTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249C465431E1A6F3C1351F66 /* MouseMovementConflictTests.swift */; };
 		C17AD4EA4BE6FA1A7CAC2DD2 /* ShortcutAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED9091D8ED32A1C4482A7B9 /* ShortcutAction.swift */; };
 		C25F1F437546584684E4D2F3 /* BackupMergePlannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4A4174386E01996C2659FC /* BackupMergePlannerTests.swift */; };
@@ -221,6 +224,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00620CD9552D78E4E052CCB2 /* BuiltinAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuiltinAction.swift; sourceTree = "<group>"; };
 		028665E78A611CE3540B0F40 /* WideTurnGestureRegressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WideTurnGestureRegressionTests.swift; sourceTree = "<group>"; };
 		039525A70024F5658EF1DADF /* MultitouchSupportBridge.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = MultitouchSupportBridge.c; sourceTree = "<group>"; };
 		040CEBBC5E0E7BBEDA539CE8 /* PersonalPreferencesMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPreferencesMigrationTests.swift; sourceTree = "<group>"; };
@@ -413,10 +417,12 @@
 		ED0EFAFC9FCCFA90E3875CE0 /* AppScopeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScopeEditorView.swift; sourceTree = "<group>"; };
 		EE591A553B1A68F053129464 /* PermissionFlow */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PermissionFlow; path = Vendor/PermissionFlow; sourceTree = SOURCE_ROOT; };
 		F15CF81789BF49CEF3BBB408 /* L10nTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10nTests.swift; sourceTree = "<group>"; };
+		F187AFA007D0182068CD35C8 /* BuiltinActionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuiltinActionsTests.swift; sourceTree = "<group>"; };
 		F2ED089878497180E5171D33 /* PathSimplifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathSimplifierTests.swift; sourceTree = "<group>"; };
 		F36DF0DA04B3B5564C71B573 /* CredentialVault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialVault.swift; sourceTree = "<group>"; };
 		F4FE09D3666B7985788686EB /* MultitouchSupportAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultitouchSupportAdapterTests.swift; sourceTree = "<group>"; };
 		F5BF1D107974DDF46B0DCC31 /* SettingsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRootView.swift; sourceTree = "<group>"; };
+		F5D4324D1E0B82085815A2B0 /* BuiltinActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuiltinActions.swift; sourceTree = "<group>"; };
 		F61007FCE8C8E0DAB1B56887 /* WebDAVBackupAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVBackupAdapter.swift; sourceTree = "<group>"; };
 		F650D208EF74E02DBE3D6370 /* PermissionsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsSettingsView.swift; sourceTree = "<group>"; };
 		F70FB66BC8ACE0CE6A7E15BD /* GestureToastController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureToastController.swift; sourceTree = "<group>"; };
@@ -492,6 +498,8 @@
 			isa = PBXGroup;
 			children = (
 				C5C8E981A8BD544C4280EBF2 /* ActionExecutor.swift */,
+				00620CD9552D78E4E052CCB2 /* BuiltinAction.swift */,
+				F5D4324D1E0B82085815A2B0 /* BuiltinActions.swift */,
 				BF8BA55BED6FCCBEFCE7EDAE /* ExtendedWindowActions.swift */,
 				B7400A8A33B517DE0253EF12 /* GestureTargetScreenGeometry.swift */,
 				5D5F5E5A6350820990E34130 /* KeyCodeNames.swift */,
@@ -686,6 +694,7 @@
 				EA4A4174386E01996C2659FC /* BackupMergePlannerTests.swift */,
 				D43EA01F5571563CE898BC4A /* BackupRemoteAdapterTests.swift */,
 				3CBD29CCBDF8CF4D7E74B146 /* BrandIconProviderTests.swift */,
+				F187AFA007D0182068CD35C8 /* BuiltinActionsTests.swift */,
 				E911CC105E9403F5FDDBCD5E /* ConfigStoreAppRulesTests.swift */,
 				9AD5BBAB7701804C86968E56 /* ConfigStoreBackupTests.swift */,
 				98D9162552C06A30E1C09BE2 /* ConfigStoreTests.swift */,
@@ -969,6 +978,7 @@
 				C25F1F437546584684E4D2F3 /* BackupMergePlannerTests.swift in Sources */,
 				A05785D7C9718C89E7EF360C /* BackupRemoteAdapterTests.swift in Sources */,
 				2D902E742A9EE33E7EEB9764 /* BrandIconProviderTests.swift in Sources */,
+				BA8910085C664421C05B3CC4 /* BuiltinActionsTests.swift in Sources */,
 				18AC6CBEA3D6D4BE35D0C440 /* ConfigStoreAppRulesTests.swift in Sources */,
 				F11908CF89551B0E88F64302 /* ConfigStoreBackupTests.swift in Sources */,
 				FBDA4146289AB98BC90DDFC7 /* ConfigStoreTests.swift in Sources */,
@@ -1055,6 +1065,8 @@
 				FBCFFA99085CB8344F3FBE31 /* BackupMergePlanner.swift in Sources */,
 				5073361A2245CC9E9C1FCAC2 /* BackupModels.swift in Sources */,
 				7FE102E9A15CB153DFB95524 /* BackupRemoteAdapter.swift in Sources */,
+				9CE7954F97465E783977B286 /* BuiltinAction.swift in Sources */,
+				5AC79D1D1ED7CAB30A2C2047 /* BuiltinActions.swift in Sources */,
 				3A3767446F6A0FA47FED3516 /* ConfigModels.swift in Sources */,
 				28E44A84AA72BC6A41FD8523 /* ConfigStore.swift in Sources */,
 				E9DFC3A9210081869A4F16FD /* ConfigurationRestoreEngine.swift in Sources */,

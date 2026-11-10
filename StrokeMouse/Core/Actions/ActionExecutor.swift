@@ -115,6 +115,7 @@ final class ActionExecutor {
     private let pasteboard: NSPasteboard?
     private let urlOpener: (URL) -> Bool
     private var isCopyingSelection = false
+    private let builtinPerformer: (BuiltinAction) async throws -> Void
 
     init(
         targetPlatform: (any GestureTargetActionPlatform)? = nil,
@@ -122,8 +123,10 @@ final class ActionExecutor {
         globalChordPoster: ((ShortcutChord) throws -> Void)? = nil,
         systemShortcutStatus: ((SystemCommand) -> SystemShortcutStatus)? = nil,
         pasteboard: NSPasteboard? = nil,
+        builtinPerformer: ((BuiltinAction) async throws -> Void)? = nil,
         urlOpener: ((URL) -> Bool)? = nil
     ) {
+        self.builtinPerformer = builtinPerformer ?? { try await BuiltinActions.shared.perform($0) }
         self.targetPlatform = targetPlatform ?? WindowActions()
         self.applicationSwitcher = applicationSwitcher ?? MacApplicationSwitcher()
         self.systemShortcutStatus = systemShortcutStatus ?? { $0.currentSystemShortcut() }
@@ -185,6 +188,21 @@ final class ActionExecutor {
         switch action {
         case .none:
             return
+        case .builtin(let builtin):
+            if let legacy = builtin.command.legacySystemCommand {
+                try await perform(.system(SystemAction(command: legacy)), target: target)
+            } else if let chord = builtin.command.browserChord {
+                let context = try target.requireContext()
+                guard let bundleID = context.bundleIdentifier,
+                      BuiltinAction.supportedBrowsers.contains(bundleID) else {
+                    throw BuiltinActionError.unsupportedBrowser
+                }
+                try await targetPlatform.performShortcut(
+                    keyCode: chord.legacyKeyCode, modifiers: chord.legacyModifiers,
+                    orderedChord: chord, target: context)
+            } else {
+                try await builtinPerformer(builtin)
+            }
         case .shortcut(let keyCode, let modifiers, _, let orderedChord):
             try await targetPlatform.performShortcut(
                 keyCode: keyCode,
@@ -326,6 +344,9 @@ extension GestureAction {
             return true
         case .system(let system):
             return system.command.requiresCapturedTarget
+        case .builtin(let builtin):
+            return builtin.command.group == .browser
+                || builtin.command.legacySystemCommand?.requiresCapturedTarget == true
         case .none, .openApp, .openURL, .shell, .media,
              .applicationSwitch, .appleScript:
             return false

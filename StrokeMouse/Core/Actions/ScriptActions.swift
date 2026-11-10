@@ -31,6 +31,25 @@ enum ScriptActions {
         }
     }
 
+    static func appleScriptString(_ source: String) async throws -> String {
+        try await withCheckedThrowingContinuation { continuation in
+            DispatchQueue.global(qos: .userInitiated).async {
+                var error: NSDictionary?
+                guard let script = NSAppleScript(source: source) else {
+                    continuation.resume(throwing: ScriptError.appleScriptFailed(L10n.string("builtin.error.unavailable")))
+                    return
+                }
+                let result = script.executeAndReturnError(&error)
+                if let error {
+                    continuation.resume(throwing: ScriptError.appleScriptFailed(
+                        error[NSAppleScript.errorMessage] as? String ?? L10n.string("builtin.error.unavailable")))
+                } else {
+                    continuation.resume(returning: result.stringValue ?? "")
+                }
+            }
+        }
+    }
+
     static func runAppleScript(_ source: String) async throws {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             DispatchQueue.global(qos: .userInitiated).async {

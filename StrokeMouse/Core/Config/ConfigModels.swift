@@ -729,6 +729,7 @@ enum GestureAction: Equatable, Sendable {
     case customWindow(WindowLayout)
     case applicationSwitch(ApplicationSwitchCommand)
     case system(SystemAction)
+    case builtin(BuiltinAction)
     case appleScript(String)
     /// Two or more chords posted in order to the same frozen target.
     case shortcutSequence([ShortcutChord])
@@ -743,7 +744,8 @@ enum GestureAction: Equatable, Sendable {
         case .media: return "action.media"
         case .window, .customWindow: return "action.window"
         case .applicationSwitch: return "action.window"
-        case .system: return "action.system"
+        case .system: return "action.desktop"
+        case .builtin(let action): return action.command.group.titleKey
         case .appleScript: return "action.appleScript"
         }
     }
@@ -771,6 +773,8 @@ enum GestureAction: Equatable, Sendable {
             return L10n.string(command.displayKey)
         case .system(let system):
             return L10n.string(system.command.displayKey)
+        case .builtin(let action):
+            return L10n.string(action.command.displayKey)
         case .appleScript(let script):
             let preset = AppleScriptPreset.matching(source: script)
             if preset != .custom {
@@ -817,6 +821,7 @@ private enum PersistedGestureAction: Codable {
     case customWindow(WindowLayout)
     case applicationSwitch(ApplicationSwitchCommand)
     case system(SystemAction)
+    case builtin(BuiltinAction)
     case appleScript(String)
 
     init(runtimeAction action: GestureAction) {
@@ -845,6 +850,7 @@ private enum PersistedGestureAction: Codable {
                 orderedChord: chord
             )
         case .system(let system): self = .system(system)
+        case .builtin(let builtin): self = .builtin(builtin)
         case .appleScript(let source): self = .appleScript(source)
         case .shortcutSequence(let chords):
             let first = chords[0]
@@ -887,6 +893,7 @@ private enum PersistedGestureAction: Codable {
         case .customWindow(let layout): return .customWindow(layout)
         case .applicationSwitch(let command): return .applicationSwitch(command)
         case .system(let system): return .system(system)
+        case .builtin(let builtin): return .builtin(builtin)
         case .appleScript(let source): return .appleScript(source)
         }
     }
@@ -1249,6 +1256,9 @@ struct GestureConfigFile: Codable, Equatable, Sendable {
     /// and secondary actions, so only libraries using it require v3.
     static func requiredVersion(for gestures: [GestureProfile]) -> Int {
         if gestures.contains(where: { profile in
+            profile.actions.contains { if case .builtin = $0 { return true }; return false }
+        }) { return Constants.builtinActionsConfigVersion }
+        if gestures.contains(where: { profile in
             profile.actions.contains { action in
                 switch action {
                 case .customWindow: return true
@@ -1303,7 +1313,7 @@ struct GestureConfigFile: Codable, Equatable, Sendable {
         [Constants.configVersion, Constants.fnShortcutConfigVersion,
          Constants.extendedActionsConfigVersion, Constants.maximizeWindowConfigVersion,
          Constants.selectionURLConfigVersion, Constants.edgeDrawingConfigVersion,
-         Constants.windowLayoutConfigVersion].contains(version)
+         Constants.windowLayoutConfigVersion, Constants.builtinActionsConfigVersion].contains(version)
             && version >= Self.requiredVersion(for: gestures)
     }
 

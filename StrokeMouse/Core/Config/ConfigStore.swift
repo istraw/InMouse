@@ -670,7 +670,7 @@ final class ConfigStore {
         case Constants.configVersion, Constants.fnShortcutConfigVersion,
              Constants.extendedActionsConfigVersion, Constants.maximizeWindowConfigVersion,
              Constants.selectionURLConfigVersion, Constants.edgeDrawingConfigVersion,
-             Constants.windowLayoutConfigVersion:
+             Constants.windowLayoutConfigVersion, Constants.builtinActionsConfigVersion:
             do {
                 let file = try decoder.decode(GestureConfigFile.self, from: data)
                 let compatibility = try decoder.decode(

@@ -63,6 +63,11 @@ struct ActionPickerView: View {
     @State private var windowActionSelection: WindowActionSelection = .window(.minimize)
     @State private var windowLayout = WindowLayout()
     @State private var systemAction = SystemAction(command: .missionControl)
+    @State private var desktopCommand: BuiltinCommand = .missionControl
+    @State private var browserCommand: BuiltinCommand = .browserBack
+    @State private var computerCommand: BuiltinCommand = .sleep
+    @State private var finderCommand: BuiltinCommand = .finderNewWindow
+    @State private var wallpaperDirectory: String?
     @State private var systemShortcutStatus = SystemShortcutStatus.unknown
     @State private var appleScriptPreset: AppleScriptPreset = .sleep
     @State private var appleScript = AppleScriptPreset.sleep.source ?? ""
@@ -145,7 +150,7 @@ struct ActionPickerView: View {
     }
 
     private var displayedShortcut: String {
-        kind == .system ? KeyCodeNames.shortcutDisplay(chord: systemAction.effectiveChord) : shortcutDisplay
+        isDesktopShortcut ? KeyCodeNames.shortcutDisplay(chord: systemAction.effectiveChord) : shortcutDisplay
     }
 
     private var shortcutRecorderControl: some View {
@@ -345,34 +350,8 @@ struct ActionPickerView: View {
 
                 shortcutRecordingStatus(helpKey: "action.shortcutHelp")
 
-            case .system:
-                Picker(L10n.string("action.systemCommand"), selection: Binding(
-                    get: { systemAction.command },
-                    set: { command in
-                        stopRecording()
-                        systemAction = SystemAction(command: command)
-                        action = .system(systemAction)
-                    }
-                )) {
-                    ForEach(SystemCommand.allCases) { command in
-                        Text(L10n.string(command.displayKey)).tag(command)
-                    }
-                }
-                .onAppear(perform: refreshSystemShortcutStatus)
-                .onChange(of: systemAction.command) { _, _ in refreshSystemShortcutStatus() }
-                // Pick up edits made in System Settings while the editor stays open.
-                .onReceive(NotificationCenter.default.publisher(
-                    for: NSApplication.didBecomeActiveNotification
-                )) { _ in refreshSystemShortcutStatus() }
-                shortcutRecorderControl
-                Button(L10n.string("action.systemResetShortcut")) {
-                    stopRecording()
-                    systemAction.shortcutOverride = nil
-                    action = .system(systemAction)
-                }
-                .disabled(systemAction.shortcutOverride == nil)
-                systemShortcutNotice
-                shortcutRecordingStatus(helpKey: "action.systemShortcutHelp")
+            case .desktop, .browser, .system, .finder:
+                builtinEditor
 
             case .openApp:
                 openAppEditor
@@ -484,6 +463,121 @@ struct ActionPickerView: View {
         }
     }
 
+    private var isDesktopShortcut: Bool {
+        kind == .desktop && desktopCommand.legacySystemCommand != nil
+    }
+
+    private var builtinGroup: BuiltinActionGroup {
+        switch kind {
+        case .desktop: return .desktop
+        case .browser: return .browser
+        case .finder: return .finder
+        default: return .system
+        }
+    }
+
+    private var builtinCommand: Binding<BuiltinCommand> {
+        Binding(get: {
+            switch kind {
+            case .desktop: return desktopCommand
+            case .browser: return browserCommand
+            case .finder: return finderCommand
+            default: return computerCommand
+            }
+        }, set: { command in
+            stopRecording()
+            switch command.group {
+            case .desktop: desktopCommand = command
+            case .browser: browserCommand = command
+            case .system: computerCommand = command
+            case .finder: finderCommand = command
+            }
+            if let legacy = command.legacySystemCommand {
+                systemAction = SystemAction(command: legacy)
+                refreshSystemShortcutStatus()
+                action = .system(systemAction)
+            } else {
+                applyBuiltin(command)
+            }
+        })
+    }
+
+    private func applyBuiltin(_ command: BuiltinCommand) {
+        action = BuiltinAction(command: command,
+            wallpaperDirectory: command == .randomWallpaper ? wallpaperDirectory : nil).gestureAction
+    }
+
+    @ViewBuilder
+    private var builtinEditor: some View {
+        Picker(L10n.string("builtin.command"), selection: builtinCommand) {
+            ForEach(builtinGroup.commands) { command in
+                Text(L10n.string(command.displayKey)).tag(command)
+            }
+        }
+        if isDesktopShortcut {
+            desktopShortcutEditor
+        }
+        if builtinGroup == .browser {
+            Text(L10n.string("builtin.browserHint"))
+                .font(.caption).foregroundStyle(.secondary)
+        }
+        if builtinGroup == .finder {
+            Text(L10n.string("builtin.finderHint"))
+                .font(.caption).foregroundStyle(.secondary)
+        }
+        if [.showDesktopFiles, .hideDesktopFiles].contains(builtinCommand.wrappedValue) {
+            Text(L10n.string("builtin.desktopFilesHint"))
+                .font(.caption).foregroundStyle(.secondary)
+        }
+        if [.stayAwake, .allowSleep].contains(builtinCommand.wrappedValue) {
+            Text(L10n.string("builtin.awakeHint"))
+                .font(.caption).foregroundStyle(.secondary)
+        }
+        if builtinCommand.wrappedValue.requiresConfirmation {
+            Text(L10n.string("builtin.confirmationHint"))
+                .font(.caption).foregroundStyle(.secondary)
+        }
+        if builtinCommand.wrappedValue == .randomWallpaper {
+            Button(L10n.string("builtin.chooseWallpaperFolder"), systemImage: "folder") {
+                let panel = NSOpenPanel()
+                panel.canChooseDirectories = true
+                panel.canChooseFiles = false
+                panel.allowsMultipleSelection = false
+                panel.begin { response in
+                    if response == .OK, let url = panel.url {
+                        wallpaperDirectory = url.path
+                        applyBuiltin(.randomWallpaper)
+                    }
+                }
+            }
+            if let wallpaperDirectory {
+                Text(wallpaperDirectory)
+                    .font(.caption).foregroundStyle(.secondary).textSelection(.enabled)
+            }
+            Text(L10n.string("builtin.wallpaperFolderHint"))
+                .font(.caption).foregroundStyle(.secondary)
+        }
+    }
+
+    @ViewBuilder
+    private var desktopShortcutEditor: some View {
+        Group {
+            shortcutRecorderControl
+            Button(L10n.string("action.systemResetShortcut")) {
+                stopRecording()
+                systemAction.shortcutOverride = nil
+                action = .system(systemAction)
+            }
+            .disabled(systemAction.shortcutOverride == nil)
+            systemShortcutNotice
+            shortcutRecordingStatus(helpKey: "action.systemShortcutHelp")
+        }
+        .onAppear(perform: refreshSystemShortcutStatus)
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+            refreshSystemShortcutStatus()
+        }
+    }
+
     private func applyOpenApp(_ app: AppInfoLookup.Info) {
         appBundleId = app.bundleId
         appName = app.name
@@ -563,7 +657,7 @@ struct ActionPickerView: View {
             shortcutLivePreview = display
         }
         tap.onCapture = { chord, display in
-            if kind == .system {
+            if isDesktopShortcut {
                 systemAction.shortcutOverride = chord
                 action = .system(systemAction)
                 stopRecording()
@@ -681,6 +775,15 @@ struct ActionPickerView: View {
             windowActionSelection = .applicationSwitch(command)
         case .system(let system):
             systemAction = system
+            desktopCommand = BuiltinCommand.from(system.command)
+        case .builtin(let builtin):
+            switch builtin.command.group {
+            case .desktop: desktopCommand = builtin.command
+            case .browser: browserCommand = builtin.command
+            case .system: computerCommand = builtin.command
+            case .finder: finderCommand = builtin.command
+            }
+            wallpaperDirectory = builtin.wallpaperDirectory
         case .shortcutSequence(let chords):
             guard let first = chords.first else { break }
             orderedChord = first
@@ -715,8 +818,12 @@ struct ActionPickerView: View {
             action = .media(mediaCommand)
         case .window:
             action = windowActionSelection == .customWindow ? .customWindow(windowLayout) : windowActionSelection.action
-        case .system:
-            action = .system(systemAction)
+        case .desktop:
+            if desktopCommand.legacySystemCommand != nil { action = .system(systemAction) }
+            else { applyBuiltin(desktopCommand) }
+        case .browser: applyBuiltin(browserCommand)
+        case .system: applyBuiltin(computerCommand)
+        case .finder: applyBuiltin(finderCommand)
         case .appleScript:
             applyAppleScriptPreset(appleScriptPreset)
         }

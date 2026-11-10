@@ -17,6 +17,7 @@ enum Constants {
     static let selectionURLConfigVersion = 6
     static let edgeDrawingConfigVersion = 7
     static let windowLayoutConfigVersion = 8
+    static let builtinActionsConfigVersion = 9
 
     /// Personal releases use an independent signed Sparkle update feed.
     static let usesManualUpdates = false

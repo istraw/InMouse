@@ -416,6 +416,43 @@ final class ActionExecutorTests: XCTestCase {
                                                  ShortcutChord(modifiers: [.command], keyCode: 0)))
     }
 
+    func testBrowserActionsUseFrozenBrowserWindowAndRejectNonBrowsers() async throws {
+        let platform = RecordingGestureTargetActionPlatform()
+        var routedBuiltins: [BuiltinAction] = []
+        let executor = ActionExecutor(targetPlatform: platform,
+            builtinPerformer: { routedBuiltins.append($0) })
+        for command in BuiltinActionGroup.browser.commands {
+            try await executor.execute(.builtin(BuiltinAction(command: command)),
+                target: .resolved(makeTargetContext()))
+            XCTAssertEqual(platform.shortcuts.last?.target.processIdentifier, 101)
+            XCTAssertEqual(platform.shortcuts.last?.orderedChord, command.browserChord)
+        }
+        XCTAssertEqual(platform.shortcuts.count, 8)
+        XCTAssertTrue(routedBuiltins.isEmpty)
+        let nonBrowser = GestureTargetContext(policy: .windowUnderPointer,
+            identity: GestureTargetIdentity(processIdentifier: 202, bundleIdentifier: "com.apple.TextEdit"),
+            application: nil, window: nil)
+        do {
+            try await executor.execute(.builtin(BuiltinAction(command: .browserCloseTab)), target: .resolved(nonBrowser))
+            XCTFail("Must not send close-tab to a non-browser")
+        } catch BuiltinActionError.unsupportedBrowser {}
+        XCTAssertEqual(platform.shortcuts.count, 8)
+        XCTAssertNotNil(executor.lastError)
+    }
+
+    func testBuiltinSystemActionsNeedNoCapturedTargetButBrowserActionsDo() async throws {
+        var performed: [BuiltinAction] = []
+        let executor = ActionExecutor(builtinPerformer: { performed.append($0) })
+        let awake = BuiltinAction(command: .stayAwake)
+        try await executor.executeForTesting(.builtin(awake))
+        XCTAssertEqual(performed, [awake])
+        do {
+            try await executor.executeForTesting(.builtin(BuiltinAction(command: .browserNewTab)))
+            XCTFail("Expected a captured browser target")
+        } catch ActionExecutionError.targetRequiredForTest {}
+        XCTAssertEqual(performed, [awake])
+    }
+
     private func makeTargetContext(withWindow: Bool = true) -> GestureTargetContext {
         GestureTargetContext(
             policy: .frontmostWindow,

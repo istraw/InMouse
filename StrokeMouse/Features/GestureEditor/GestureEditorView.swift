@@ -18,7 +18,7 @@ struct GestureEditorView: View {
     var onCancel: () -> Void
 
     enum ActionKind: String, CaseIterable, Identifiable {
-        case none, shortcut, system, openApp, openURL, shell, media, window, appleScript
+        case none, desktop, browser, system, finder, window, shortcut, openApp, openURL, media, shell, appleScript
         var id: String { rawValue }
         var titleKey: String { "action.\(rawValue)" }
     }
@@ -224,6 +224,7 @@ struct GestureEditorView: View {
 
     private func postsToCapturedTarget(_ action: GestureAction) -> Bool {
         if case .openURLWithSelection = action { return true }
+        if case .builtin(let builtin) = action { return builtin.command.group == .browser }
         if case .system(let system) = action { return system.command.requiresCapturedTarget }
         return false
     }
@@ -322,6 +323,11 @@ struct GestureEditorView: View {
         if !isDragScroll {
             let actions = isSecondaryActionEnabled && GestureProfile.supportsSecondaryAction(profile.input)
                 ? [profile.action, secondaryActionDraft] : [profile.action]
+            for case .builtin(let builtin) in actions where builtin.command == .randomWallpaper {
+                if builtin.wallpaperDirectory?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty != false {
+                    return L10n.string("builtin.error.noWallpaperImages")
+                }
+            }
             for case .customWindow(let layout) in actions where !layout.isValid {
                 return L10n.string("window.error.invalidLayout")
             }
@@ -373,7 +379,14 @@ private extension GestureEditorView.ActionKind {
         switch action {
         case .none: return .none
         case .shortcut, .shortcutSequence: return .shortcut
-        case .system: return .system
+        case .system: return .desktop
+        case .builtin(let builtin):
+            switch builtin.command.group {
+            case .desktop: return .desktop
+            case .browser: return .browser
+            case .system: return .system
+            case .finder: return .finder
+            }
         case .openApp: return .openApp
         case .openURL, .openURLWithSelection: return .openURL
         case .shell: return .shell
