@@ -6,9 +6,9 @@ usage() {
 Usage: bump.sh -v x.y.z [-p] [--force|-f]
 
   -v x.y.z     Target marketing version (required)
-  -p           Push branch + tag to origin after tagging
+  -p           Push branch + tag to fork (or RELEASE_REMOTE) after tagging
   -f, --force  Allow re-tagging the same version when files are already
-               aligned (build need not increase). Deletes an existing
+               aligned. The internal build still increases. Deletes an existing
                local/remote tag for that version, retags HEAD, and pushes
                (implies -p). Use when re-releasing or recovering a tag.
 
@@ -91,18 +91,17 @@ IFS=. read -r MAJOR MINOR PATCH <<<"$VERSION"
 BUILD=$((10#$MAJOR * 1000000 + 10#$MINOR * 1000 + 10#$PATCH))
 TAG="v$VERSION"
 
-if (( BUILD > CURRENT_BUILD )); then
-  :
-elif (( FORCE )); then
-  echo "Force: allowing non-increasing build (current=$CURRENT_BUILD requested=$BUILD)."
-else
-  echo "Build number must increase: current=$CURRENT_BUILD requested=$BUILD" >&2
-  echo "Hint: use --force to re-tag / re-push the same or lower formula build." >&2
-  exit 1
+# Marketing versions may be consolidated; Sparkle still needs a strictly newer build.
+if (( BUILD <= CURRENT_BUILD )); then
+  BUILD=$((CURRENT_BUILD + 1))
 fi
 
+REMOTE="${RELEASE_REMOTE:-fork}"
+if ! git remote get-url "$REMOTE" >/dev/null 2>&1 && [[ -z "${RELEASE_REMOTE:-}" ]]; then
+  REMOTE=origin
+fi
 HAS_REMOTE=0
-if git remote get-url origin >/dev/null 2>&1; then
+if git remote get-url "$REMOTE" >/dev/null 2>&1; then
   HAS_REMOTE=1
 fi
 
@@ -113,7 +112,7 @@ fi
 
 REMOTE_TAG_EXISTS=0
 if (( HAS_REMOTE )); then
-  REMOTE_TAG="$(git ls-remote --tags origin "refs/tags/$TAG" 2>/dev/null || true)"
+  REMOTE_TAG="$(git ls-remote --tags "$REMOTE" "refs/tags/$TAG" 2>/dev/null || true)"
   [[ -z "$REMOTE_TAG" ]] || REMOTE_TAG_EXISTS=1
 fi
 
@@ -176,20 +175,20 @@ echo "Tagged $TAG -> $(git rev-parse --short HEAD)"
 
 if [[ "$PUSH" -eq 1 ]]; then
   if (( !HAS_REMOTE )); then
-    echo "No origin remote; skip push." >&2
+    echo "No release remote; skip push." >&2
     exit 1
   fi
 
   # Move remote tag to the new commit: delete first if present, then push.
   if (( REMOTE_TAG_EXISTS )) || (( FORCE )); then
-    if git ls-remote --tags origin "refs/tags/$TAG" | grep -q .; then
+    if git ls-remote --tags "$REMOTE" "refs/tags/$TAG" | grep -q .; then
       echo "Force: deleting remote tag $TAG."
-      git push origin ":refs/tags/$TAG"
+      git push "$REMOTE" ":refs/tags/$TAG"
     fi
   fi
 
-  git push --atomic origin "$BRANCH" "$TAG"
-  echo "Pushed $BRANCH and $TAG to origin."
+  git push --atomic "$REMOTE" "$BRANCH" "$TAG"
+  echo "Pushed $BRANCH and $TAG to $REMOTE."
 fi
 
 if (( CREATED_COMMIT )); then
@@ -199,5 +198,5 @@ else
 fi
 
 if [[ "$PUSH" -eq 0 ]]; then
-  echo "Push atomically with: git push --atomic origin HEAD $TAG"
+  echo "Push atomically with: git push --atomic $REMOTE HEAD $TAG"
 fi

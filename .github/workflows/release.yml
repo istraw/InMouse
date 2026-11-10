@@ -25,10 +25,8 @@ jobs:
             echo "Tag $GITHUB_REF_NAME does not match project version $version"
             exit 1
           }
-          IFS=. read -r major minor patch <<<"$version"
-          expected_build=$((10#$major * 1000000 + 10#$minor * 1000 + 10#$patch))
-          test "$build" = "$expected_build" || {
-            echo "Build $build does not match version-derived build $expected_build"
+          [[ "$build" =~ ^[1-9][0-9]*$ ]] || {
+            echo "Build must be a positive, monotonically increasing integer: $build"
             exit 1
           }
       - name: Install XcodeGen

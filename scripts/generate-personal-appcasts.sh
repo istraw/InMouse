@@ -9,7 +9,7 @@ for arch in arm64 x86_64; do
   directory="$ROOT/dist/appcast-$arch"
   mkdir -p "$directory"
   cp "$ROOT/dist/InMouse-macos-$arch.zip" "$directory/"
-  "$TOOL" --account "$ACCOUNT" \
+  "$TOOL" --account "$ACCOUNT" --maximum-versions 1 \
     --download-url-prefix "https://github.com/istraw/InMouse/releases/download/v$VERSION/" \
     --link "https://github.com/istraw/InMouse/releases/tag/v$VERSION" \
     -o "$ROOT/dist/appcast-$arch.xml" "$directory"

@@ -9,13 +9,13 @@ InMouse 使用独立的 Sparkle Ed25519 更新签名、公钥及 `com.istraw.inm
 - `https://github.com/istraw/InMouse/releases/latest/download/appcast-arm64.xml`
 - `https://github.com/istraw/InMouse/releases/latest/download/appcast-x86_64.xml`
 
-0.0.41 的旧版本仍是手动更新入口，需先手动安装 0.1.0；后续版本可以检查、下载并安装更新。相同版本会提示已是最新版本。
+0.0.41 的旧版本仍是手动更新入口，需先手动安装 0.1.0；后续构建可以检查、下载并安装更新，是否有更新以内部 build 为准，同一展示版本也可以更新到更高的 build。
 
 更新签名私钥保存在本机登录钥匙串中，Sparkle account 为 `inmouse-istraw`。项目只保存公钥，禁止提交或上传私钥到公开仓库。未来发布须使用同一密钥，换电脑前可用 Sparkle 的 `generate_keys --account inmouse-istraw -x <安全文件>` 导出并妥善备份。
 
 ## 本机构建
 
-在 `project.yml` 更新 `MARKETING_VERSION` 与 `CURRENT_PROJECT_VERSION` 后生成工程。Build 必须递增，使用 `major * 1000000 + minor * 1000 + patch`，例如 0.1.0 对应 1000。
+在 `project.yml` 更新 `MARKETING_VERSION` 与 `CURRENT_PROJECT_VERSION` 后生成工程。Build 独立于展示版本，必须高于所有已发布构建号。今天的改动统一为 0.1.0（build 1003），高于之前 0.1.2 的 build 1002，因此已安装用户仍可正常更新。日常修改默认不自动发版，待用户明确要求后再统一发布。
 
 ```bash
 ./scripts/generate_project.sh
@@ -35,6 +35,6 @@ SPARKLE_PUBLIC_KEY='<项目公钥>' CODE_SIGN_IDENTITY='<签名证书>' ARCH=x86
 
 若需要常规对外分发体验，后续须配置 Developer ID Application 证书与公证凭据，并保留现有 Sparkle 密钥。现有 GitHub Actions Release 工作流改为手动触发，仅在对应发布证书／公证 secrets 配好后使用；本地发布不导出 Apple 证书私钥到 GitHub。
 
-## 0.1.1 状态栏模式
+## 0.1.0 整合版：状态栏模式
 
 升级后首次启动会启用“隐藏 Dock 图标”，保持状态栏入口可见，并选用新的鼠标＋环绕轨迹单色模板图标。打开设置时 Dock 图标临时显示，关闭设置后自动隐藏，应用与手势继续运行；从状态栏菜单可以重新打开设置或退出。之后可在通用设置自行调整，后续启动不会反复覆盖选择。
