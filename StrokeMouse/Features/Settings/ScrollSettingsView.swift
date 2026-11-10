@@ -47,115 +47,122 @@ struct ScrollSettingsView: View {
                     .onChange(of: enabled) { _, _ in
                         appState.applyScrollConfiguration()
                     }
-                LabeledContent(L10n.string("scroll.status")) {
-                    Text(L10n.string(appState.scrollEngine.status.messageKey))
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.trailing)
+                if enabled {
+                    LabeledContent(L10n.string("scroll.status")) {
+                        Text(L10n.string(appState.scrollEngine.status.messageKey))
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
+                    }
                 }
             } header: {
                 Text(L10n.string("scroll.section.main"))
             } footer: {
-                Text(L10n.string("scroll.main.footer"))
+                if enabled {
+                    Text(L10n.string("scroll.main.footer"))
+                }
             }
 
-            Section {
-                reverseGroup(
-                    title: L10n.string("scroll.group.mouse"),
-                    vertical: $reverseMouseVertical,
-                    horizontal: $reverseMouseHorizontal
-                )
-                reverseGroup(
-                    title: L10n.string("scroll.group.trackpad"),
-                    vertical: $reverseTrackpadVertical,
-                    horizontal: $reverseTrackpadHorizontal
-                )
-            } header: {
-                Text(L10n.string("scroll.section.reverse"))
-            } footer: {
-                Text(L10n.string("scroll.reverse.footer"))
-            }
+            if enabled {
+                Section {
+                    reverseGroup(
+                        title: L10n.string("scroll.group.mouse"),
+                        vertical: $reverseMouseVertical,
+                        horizontal: $reverseMouseHorizontal
+                    )
+                    reverseGroup(
+                        title: L10n.string("scroll.group.trackpad"),
+                        vertical: $reverseTrackpadVertical,
+                        horizontal: $reverseTrackpadHorizontal
+                    )
+                } header: {
+                    Text(L10n.string("scroll.section.reverse"))
+                } footer: {
+                    Text(L10n.string("scroll.reverse.footer"))
+                }
 
-            Section {
-                Toggle(L10n.string("scroll.smooth.enabled"), isOn: $smoothEnabled)
-                    .onChange(of: smoothEnabled) { _, _ in
+                Section {
+                    Toggle(L10n.string("scroll.smooth.enabled"), isOn: $smoothEnabled)
+                        .onChange(of: smoothEnabled) { _, _ in
+                            appState.applyScrollConfiguration()
+                        }
+                    AdaptiveSegmentedPicker(
+                        L10n.string("scroll.preset"),
+                        selection: $presetRaw,
+                        formRow: true
+                    ) {
+                        ForEach(ScrollSmoothPreset.allCases, id: \.rawValue) { item in
+                            Text(L10n.string(item.displayKey)).tag(item.rawValue)
+                        }
+                    }
+                    .disabled(!smoothEnabled)
+                    .onChange(of: presetRaw) { _, _ in
                         appState.applyScrollConfiguration()
                     }
-                AdaptiveSegmentedPicker(
-                    L10n.string("scroll.preset"),
-                    selection: $presetRaw,
-                    formRow: true
-                ) {
-                    ForEach(ScrollSmoothPreset.allCases, id: \.rawValue) { item in
-                        Text(L10n.string(item.displayKey)).tag(item.rawValue)
+
+                    DisclosureGroup(L10n.string("scroll.advanced")) {
+                        sliderRow(
+                            title: L10n.string("scroll.step"),
+                            valueText: valueText(effectiveParameters.stepPixels, unit: "scroll.unit.px"),
+                            value: stepBinding,
+                            range: Constants.scrollStepRange,
+                            step: Constants.scrollStepIncrement
+                        )
+                        sliderRow(
+                            title: L10n.string("scroll.duration"),
+                            valueText: valueText(effectiveParameters.durationMs, unit: "scroll.unit.ms"),
+                            value: durationBinding,
+                            range: Constants.scrollDurationRangeMs,
+                            step: Constants.scrollDurationIncrementMs
+                        )
+                        sliderRow(
+                            title: L10n.string("scroll.acceleration"),
+                            valueText: String(format: "%.2f", effectiveParameters.acceleration),
+                            value: accelerationBinding,
+                            range: Constants.scrollAccelerationRange,
+                            step: Constants.scrollAccelerationIncrement
+                        )
                     }
-                }
-                .disabled(!smoothEnabled)
-                .onChange(of: presetRaw) { _, _ in
-                    appState.applyScrollConfiguration()
+                    .disabled(!smoothEnabled)
+                } header: {
+                    Text(L10n.string("scroll.section.smooth"))
+                } footer: {
+                    Text(L10n.string("scroll.smooth.footer"))
                 }
 
-                DisclosureGroup(L10n.string("scroll.advanced")) {
-                    sliderRow(
-                        title: L10n.string("scroll.step"),
-                        valueText: valueText(effectiveParameters.stepPixels, unit: "scroll.unit.px"),
-                        value: stepBinding,
-                        range: Constants.scrollStepRange,
-                        step: Constants.scrollStepIncrement
-                    )
-                    sliderRow(
-                        title: L10n.string("scroll.duration"),
-                        valueText: valueText(effectiveParameters.durationMs, unit: "scroll.unit.ms"),
-                        value: durationBinding,
-                        range: Constants.scrollDurationRangeMs,
-                        step: Constants.scrollDurationIncrementMs
-                    )
-                    sliderRow(
-                        title: L10n.string("scroll.acceleration"),
-                        valueText: String(format: "%.2f", effectiveParameters.acceleration),
-                        value: accelerationBinding,
-                        range: Constants.scrollAccelerationRange,
-                        step: Constants.scrollAccelerationIncrement
-                    )
-                }
-                .disabled(!smoothEnabled)
-            } header: {
-                Text(L10n.string("scroll.section.smooth"))
-            } footer: {
-                Text(L10n.string("scroll.smooth.footer"))
-            }
-
-            Section {
-                if excludedApps.isEmpty {
-                    Text(L10n.string("scroll.exclude.empty"))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                } else {
-                    SelectedAppsCard {
-                        VStack(spacing: 0) {
-                            ForEach(Array(excludedApps.enumerated()), id: \.element.id) { index, app in
-                                SelectedAppRow(app: app) {
-                                    removeExcluded(app.bundleId)
-                                }
-                                if index < excludedApps.count - 1 {
-                                    Divider().padding(.leading, 40)
+                Section {
+                    if excludedApps.isEmpty {
+                        Text(L10n.string("scroll.exclude.empty"))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    } else {
+                        SelectedAppsCard {
+                            VStack(spacing: 0) {
+                                ForEach(Array(excludedApps.enumerated()), id: \.element.id) { index, app in
+                                    SelectedAppRow(app: app) {
+                                        removeExcluded(app.bundleId)
+                                    }
+                                    if index < excludedApps.count - 1 {
+                                        Divider().padding(.leading, 40)
+                                    }
                                 }
                             }
                         }
                     }
+                    Button {
+                        showPicker = true
+                    } label: {
+                        Label(L10n.string("scroll.exclude.add"), systemImage: "plus.circle")
+                    }
+                } header: {
+                    Text(L10n.string("scroll.section.excluded"))
+                } footer: {
+                    Text(L10n.string("scroll.exclude.footer"))
                 }
-                Button {
-                    showPicker = true
-                } label: {
-                    Label(L10n.string("scroll.exclude.add"), systemImage: "plus.circle")
-                }
-            } header: {
-                Text(L10n.string("scroll.section.excluded"))
-            } footer: {
-                Text(L10n.string("scroll.exclude.footer"))
             }
         }
         .formStyle(.grouped)
+        .animation(.easeInOut(duration: 0.2), value: enabled)
         .padding()
         .id("scroll-settings-\(epoch)")
         .sheet(isPresented: $showPicker) {
