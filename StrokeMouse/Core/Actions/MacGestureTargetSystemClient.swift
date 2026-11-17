@@ -8,6 +8,7 @@ final class MacGestureTargetSystemClient: GestureTargetSystemClient {
     var frameOperations = WindowFrameOperationQueue()
     var frameResizer = WindowMaximizer()
     var previousFrames: [(window: AXUIElement, frame: CGRect)] = []
+    var nativeFilledWindows: [AXUIElement] = []
     var acceptedLayoutSizes: [(window: AXUIElement, requested: CGSize, accepted: CGSize)] = []
 
     func validateWindow(_ target: GestureTargetContext) throws {

@@ -27,8 +27,10 @@ extension MacGestureTargetSystemClient {
             try await restoreWindowFrame(window)
             return
         }
-        try await performFrameChange(window) { current in
+        try await performFrameChange(window, nativeLayout: command.nativeLayoutIdentifier != nil ? command : nil) { current in
             let geometry = try self.screenGeometry(for: current)
+            if let layout = command.fallbackLayout { return try layout.frame(in: geometry.usable) }
+            if command.arrangesMultipleWindows { return current }
             var destination = current
             switch command {
             case .maximizeHeight:
@@ -60,7 +62,7 @@ extension MacGestureTargetSystemClient {
     }
 
     func restoreWindowFrame(_ window: AXUIElement, using resizer: WindowMaximizer? = nil) async throws {
-        try await performFrameChange(window, using: resizer) { _ in
+        try await performFrameChange(window, using: resizer, restoring: true) { _ in
             guard let saved = self.previousFrames.last(where: { CFEqual($0.window, window) }) else {
                 throw WindowLayoutError.noPreviousFrame
             }

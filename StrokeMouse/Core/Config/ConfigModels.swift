@@ -546,6 +546,52 @@ enum WindowCommand: String, Codable, CaseIterable, Identifiable, Sendable {
     case maximizeHeight
     case maximizeWidth
     case nextScreen
+    case tileLeft, tileRight, tileTop, tileBottom
+    case tileTopLeft, tileTopRight, tileBottomLeft, tileBottomRight
+    case arrangeLeftAndRight, arrangeRightAndLeft, arrangeTopAndBottom, arrangeBottomAndTop
+    case arrangeLeftThreeUp, arrangeRightThreeUp, arrangeTopThreeUp, arrangeBottomThreeUp
+    case arrangeQuarters
+
+    var nativeLayoutIdentifier: String? {
+        switch self {
+        case .tileLeft: return "_zoomLeft:"
+        case .tileRight: return "_zoomRight:"
+        case .tileTop: return "_zoomTop:"
+        case .tileBottom: return "_zoomBottom:"
+        case .tileTopLeft: return "_zoomTopLeft:"
+        case .tileTopRight: return "_zoomTopRight:"
+        case .tileBottomLeft: return "_zoomBottomLeft:"
+        case .tileBottomRight: return "_zoomBottomRight:"
+        case .arrangeLeftAndRight: return "_zoomLeftAndRight:"
+        case .arrangeRightAndLeft: return "_zoomRightAndLeft:"
+        case .arrangeTopAndBottom: return "_zoomTopAndBottom:"
+        case .arrangeBottomAndTop: return "_zoomBottomAndTop:"
+        case .arrangeLeftThreeUp: return "_zoomLeftThreeUp:"
+        case .arrangeRightThreeUp: return "_zoomRightThreeUp:"
+        case .arrangeTopThreeUp: return "_zoomTopThreeUp:"
+        case .arrangeBottomThreeUp: return "_zoomBottomThreeUp:"
+        case .arrangeQuarters: return "_zoomQuarters:"
+        default: return nil
+        }
+    }
+
+    /// Single-window layouts have a geometric fallback for background windows
+    /// and macOS 14; multi-window arrangements always belong to the system.
+    var fallbackLayout: WindowLayout? {
+        switch self {
+        case .tileLeft: return .init(x: 0, y: 0, width: 50, height: 100)
+        case .tileRight: return .init(x: 50, y: 0, width: 50, height: 100)
+        case .tileTop: return .init(x: 0, y: 0, width: 100, height: 50)
+        case .tileBottom: return .init(x: 0, y: 50, width: 100, height: 50)
+        case .tileTopLeft: return .init(x: 0, y: 0, width: 50, height: 50)
+        case .tileTopRight: return .init(x: 50, y: 0, width: 50, height: 50)
+        case .tileBottomLeft: return .init(x: 0, y: 50, width: 50, height: 50)
+        case .tileBottomRight: return .init(x: 50, y: 50, width: 50, height: 50)
+        default: return nil
+        }
+    }
+
+    var arrangesMultipleWindows: Bool { nativeLayoutIdentifier != nil && fallbackLayout == nil }
 
     var isExtended: Bool {
         [.restoreFrame, .restoreMinimized, .minimizeAll, .restoreAllMinimized,
@@ -1256,6 +1302,12 @@ struct GestureConfigFile: Codable, Equatable, Sendable {
     /// and secondary actions, so only libraries using it require v3.
     static func requiredVersion(for gestures: [GestureProfile]) -> Int {
         if gestures.contains(where: { profile in
+            profile.actions.contains { action in
+                if case .window(let command) = action { return command.nativeLayoutIdentifier != nil }
+                return false
+            }
+        }) { return Constants.nativeWindowLayoutsConfigVersion }
+        if gestures.contains(where: { profile in
             profile.actions.contains { if case .builtin = $0 { return true }; return false }
         }) { return Constants.builtinActionsConfigVersion }
         if gestures.contains(where: { profile in
@@ -1313,7 +1365,8 @@ struct GestureConfigFile: Codable, Equatable, Sendable {
         [Constants.configVersion, Constants.fnShortcutConfigVersion,
          Constants.extendedActionsConfigVersion, Constants.maximizeWindowConfigVersion,
          Constants.selectionURLConfigVersion, Constants.edgeDrawingConfigVersion,
-         Constants.windowLayoutConfigVersion, Constants.builtinActionsConfigVersion].contains(version)
+         Constants.windowLayoutConfigVersion, Constants.builtinActionsConfigVersion,
+         Constants.nativeWindowLayoutsConfigVersion].contains(version)
             && version >= Self.requiredVersion(for: gestures)
     }
 

@@ -39,7 +39,7 @@ final class WindowMaximizerTests: XCTestCase {
                 XCTAssertEqual(operation, attribute == kAXPositionAttribute ? .setPosition : .setSize)
             } catch { XCTFail("Unexpected error: \(error)") }
             XCTAssertEqual(ax.writes, attribute == kAXPositionAttribute
-                ? [kAXPositionAttribute] : [kAXPositionAttribute, kAXSizeAttribute])
+                ? [kAXSizeAttribute, kAXPositionAttribute] : [kAXSizeAttribute])
             XCTAssertEqual(ax.readCount, 1)
         }
     }
@@ -51,14 +51,14 @@ final class WindowMaximizerTests: XCTestCase {
         try await action.maximize(ax.window, to: destination)
 
         XCTAssertEqual(ax.frame, destination)
-        XCTAssertEqual(ax.writes, [kAXPositionAttribute, kAXSizeAttribute])
+        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute])
         XCTAssertTrue(ax.receivedWindows.allSatisfy { CFEqual($0, ax.window) })
     }
 
-    func testLayoutReappliesPositionAfterResizingForDisplayConstraints() async throws {
+    func testFallbackWritesSizeOnBothSidesOfMoveForDisplayConstraints() async throws {
         let ax = RecordingWindowAX()
-        try await maximizer(ax).maximize(ax.window, to: destination, correctPositionAfterResize: true)
-        XCTAssertEqual(ax.writes, [kAXPositionAttribute, kAXSizeAttribute, kAXPositionAttribute])
+        try await maximizer(ax).maximize(ax.window, to: destination)
+        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute])
         XCTAssertEqual(ax.frame, destination)
     }
 
@@ -70,14 +70,133 @@ final class WindowMaximizerTests: XCTestCase {
             XCTFail("Expected constrained window to fail verification")
         } catch GestureTargetError.windowMaximizeFailed {
         } catch { XCTFail("Unexpected error: \(error)") }
-        XCTAssertEqual(ax.writes, [kAXPositionAttribute, kAXSizeAttribute])
+        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute])
+    }
+
+    func testNativeFillUsesOneCommandAndNeverWritesIntermediateFrames() async throws {
+        let ax = RecordingWindowAX()
+        var action = maximizer(ax)
+        var commands: [String] = []
+        action.nativeCommand = { window, command in
+            XCTAssertTrue(CFEqual(window, ax.window))
+            commands.append(command)
+            ax.frame = self.destination
+            return true
+        }
+        try await action.maximize(ax.window, to: destination)
+        XCTAssertEqual(commands, ["_zoomFill:"])
+        XCTAssertTrue(ax.writes.isEmpty)
+        XCTAssertEqual(ax.frame, destination)
+    }
+
+    func testSystemLayoutUsesNativeCommandWithoutGeometryWrites() async throws {
+        let ax = RecordingWindowAX()
+        var action = maximizer(ax)
+        var identifier: String?
+        action.nativeCommand = { window, command in
+            XCTAssertTrue(CFEqual(window, ax.window))
+            identifier = command
+            ax.frame = self.destination
+            return true
+        }
+        try await action.applySystemLayout(ax.window, command: .arrangeLeftThreeUp, to: destination)
+        XCTAssertEqual(identifier, "_zoomLeftThreeUp:")
+        XCTAssertTrue(ax.writes.isEmpty)
+    }
+
+    func testUnsupportedMultiWindowArrangementNeverFallsBackToMovingOneWindow() async {
+        let ax = RecordingWindowAX()
+        let original = ax.frame
+        do {
+            try await maximizer(ax).applySystemLayout(ax.window, command: .arrangeQuarters, to: destination)
+            XCTFail("An unavailable system arrangement must fail explicitly")
+        } catch GestureTargetError.windowControlUnavailable(.arrangeQuarters) {
+        } catch { XCTFail("Unexpected error: \(error)") }
+        XCTAssertEqual(ax.frame, original)
+        XCTAssertTrue(ax.writes.isEmpty)
+    }
+
+    func testBackgroundSingleWindowLayoutHasGeometricFallback() async throws {
+        let ax = RecordingWindowAX()
+        let native = try await maximizer(ax).applySystemLayout(ax.window, command: .tileTopLeft, to: destination)
+        XCTAssertFalse(native)
+        XCTAssertEqual(ax.frame, destination)
+    }
+
+    func testNativeFillAndRestoreKeepOriginalFrame() async throws {
+        let ax = RecordingWindowAX()
+        let original = ax.frame
+        let system = MacGestureTargetSystemClient()
+        var action = maximizer(ax)
+        var commands: [String] = []
+        action.nativeCommand = { _, command in
+            commands.append(command)
+            ax.frame = command == "_zoomFill:" ? self.destination : original
+            return true
+        }
+        try await system.maximizeWindow(ax.window, to: destination, using: action)
+        try await system.maximizeWindow(ax.window, to: destination, using: action)
+        XCTAssertEqual(system.previousFrames.first?.frame, original)
+        try await system.restoreWindowFrame(ax.window, using: action)
+        XCTAssertEqual(commands, ["_zoomFill:", "_zoomUntile:"])
+        XCTAssertEqual(ax.frame, original)
+        XCTAssertTrue(ax.writes.isEmpty)
+    }
+
+    func testNativeRestoreOfDifferentFrameFallsBackToSavedGeometry() async throws {
+        let ax = RecordingWindowAX()
+        let original = ax.frame
+        var action = maximizer(ax)
+        action.nativeCommand = { _, _ in ax.frame = self.destination; return true }
+        try await action.restore(ax.window, to: original)
+        XCTAssertEqual(ax.frame, original)
+        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute])
+    }
+
+    func testImmediateChangeRestoresModeEvenWhenWriteFails() async {
+        let ax = RecordingWindowAX()
+        ax.failedWriteAttribute = kAXPositionAttribute
+        var action = maximizer(ax)
+        var events: [String] = []
+        action.beginImmediateChange = { _ in
+            events.append("begin")
+            return { events.append("end") }
+        }
+        do {
+            try await action.maximize(ax.window, to: destination)
+            XCTFail("Expected failed position write")
+        } catch { }
+        XCTAssertEqual(events, ["begin", "end"])
+    }
+
+    func testTransientFrameMatchDoesNotCountAsCompletedResize() async {
+        let ax = RecordingWindowAX()
+        let original = ax.frame
+        var action = maximizer(ax)
+        action.completionTimeout = .milliseconds(30)
+        action.frameStabilityInterval = .milliseconds(5)
+        action.pollInterval = .milliseconds(1)
+        var readsAfterWrite = 0
+        action.ax.readFrame = { _ in
+            if ax.writes.isEmpty { return original }
+            readsAfterWrite += 1
+            // Some applications acknowledge the requested frame before their
+            // in-flight animation restores the previous geometry.
+            return readsAfterWrite == 1 ? self.destination : original
+        }
+        do {
+            try await action.maximize(ax.window, to: destination)
+            XCTFail("A single matching read must not count as completed")
+        } catch GestureTargetError.windowMaximizeFailed {
+        } catch { XCTFail("Unexpected error: \(error)") }
+        XCTAssertGreaterThan(readsAfterWrite, 1)
     }
 
     func testReadbackAllowsOnePointRounding() async throws {
         let ax = RecordingWindowAX()
         ax.appliedFrame = CGRect(x: -1_919, y: -151, width: 1_919, height: 1_041)
         try await maximizer(ax).maximize(ax.window, to: destination)
-        XCTAssertEqual(ax.writes.count, 2)
+        XCTAssertEqual(ax.writes.count, 3)
     }
 
     func testReadbackFailurePropagatesWithoutRewriting() async {
@@ -90,7 +209,7 @@ final class WindowMaximizerTests: XCTestCase {
             XCTAssertEqual(operation, .copySize)
             XCTAssertEqual(code, .invalidUIElement)
         } catch { XCTFail("Unexpected error: \(error)") }
-        XCTAssertEqual(ax.writes.count, 2)
+        XCTAssertEqual(ax.writes.count, 3)
     }
 
     func testDelayedApplicationResponseOnlyPollsWithoutRewriting() async throws {
@@ -100,7 +219,7 @@ final class WindowMaximizerTests: XCTestCase {
         action.completionTimeout = .seconds(1)
         action.pollInterval = .milliseconds(1)
         try await action.maximize(ax.window, to: destination)
-        XCTAssertEqual(ax.writes, [kAXPositionAttribute, kAXSizeAttribute])
+        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute])
         XCTAssertGreaterThan(ax.readCount, 2)
     }
 
@@ -110,7 +229,7 @@ final class WindowMaximizerTests: XCTestCase {
         ax.appliedFrame = CGRect(x: 100, y: 100, width: 820, height: 520)
         try await maximizer(ax).applyLayout(ax.window, to: requested)
         XCTAssertEqual(ax.frame, CGRect(x: 250, y: 200, width: 820, height: 520))
-        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute])
+        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute])
     }
 
     func testLayoutWaitsForAsyncResizeBeforePositioning() async throws {
@@ -121,7 +240,7 @@ final class WindowMaximizerTests: XCTestCase {
         let requested = CGRect(x: 250, y: 200, width: 400, height: 300)
         try await action.applyLayout(ax.window, to: requested)
         XCTAssertEqual(ax.frame, requested)
-        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute])
+        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute])
     }
 
     func testLayoutDoesNotAcceptIgnoredResizeJustBecausePositionIsWritable() async {
@@ -132,7 +251,7 @@ final class WindowMaximizerTests: XCTestCase {
             XCTFail("Ignored resize must still fail")
         } catch WindowLayoutError.frameNotApplied {
         } catch { XCTFail("Unexpected error: \(error)") }
-        XCTAssertEqual(ax.writes, [kAXSizeAttribute])
+        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute])
     }
 
     func testRepeatedConstrainedLayoutCanUsePreviouslyVerifiedSize() async throws {
@@ -164,7 +283,7 @@ final class WindowMaximizerTests: XCTestCase {
             try await system.maximizeWindow(ax.window, to: destination, using: action)
             XCTAssertEqual(system.previousFrames.count, 1)
             XCTAssertEqual(system.previousFrames.first?.frame, original)
-            XCTAssertEqual(ax.writes.count, 2, "Repeated maximize should not write again")
+            XCTAssertEqual(ax.writes.count, 3, "Repeated maximize should not write again")
             try await system.restoreWindowFrame(ax.window, using: action)
             XCTAssertEqual(ax.frame, original)
         }
@@ -196,7 +315,7 @@ final class WindowMaximizerTests: XCTestCase {
         try await system.maximizeWindow(ax.window, to: destination, using: action)
         try await first.value
         XCTAssertEqual(system.previousFrames.first?.frame, original)
-        XCTAssertEqual(ax.writes.count, 2)
+        XCTAssertEqual(ax.writes.count, 3)
         try await system.restoreWindowFrame(ax.window, using: action)
         XCTAssertEqual(ax.frame, original)
     }
@@ -204,7 +323,10 @@ final class WindowMaximizerTests: XCTestCase {
     private func maximizer(_ recording: RecordingWindowAX) -> WindowMaximizer {
         var action = WindowMaximizer()
         action.ax = recording.client
+        action.nativeCommand = { _, _ in false }
+        action.beginImmediateChange = { _ in {} }
         action.completionTimeout = .zero
+        action.frameStabilityInterval = .zero
         return action
     }
 }
@@ -261,7 +383,7 @@ final class RecordingWindowAX {
                 } else {
                     var size = CGSize.zero
                     guard AXValueGetValue(value, .cgSize, &size) else { return .illegalArgument }
-                    self.pendingFrame = self.appliedFrame ?? CGRect(origin: self.frame.origin, size: size)
+                    self.pendingFrame = CGRect(origin: self.frame.origin, size: self.appliedFrame?.size ?? size)
                 }
                 return .success
             }

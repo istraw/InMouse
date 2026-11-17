@@ -110,7 +110,7 @@ final class WindowFrameTransactionTests: XCTestCase {
         try await second.value
         XCTAssertEqual(ax.frame, maximized)
         XCTAssertEqual(system.previousFrames.last?.frame, layout)
-        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXPositionAttribute, kAXSizeAttribute])
+        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute])
     }
 
     func testMaximizePreflightFailurePreservesEarlierRestorePoint() async throws {
@@ -156,7 +156,7 @@ final class WindowFrameTransactionTests: XCTestCase {
         await fulfillment(of: [started], timeout: 1)
         try await system.applyFrame(maximized, window: otherAX.window, using: resizer(otherAX))
         XCTAssertEqual(otherAX.frame, maximized)
-        XCTAssertEqual(firstAX.writes, [kAXSizeAttribute], "Other windows must not wait for this resize")
+        XCTAssertEqual(firstAX.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute], "Other windows must not wait for this resize")
         firstAX.holdsResize = false
         try await first.value
     }
@@ -188,7 +188,7 @@ final class WindowFrameTransactionTests: XCTestCase {
         try await first.value
         try await restore.value
         XCTAssertEqual(ax.frame, original)
-        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute, kAXPositionAttribute])
+        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute, kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute])
     }
 
     func testCenterQueuesAfterLayoutAndRestoresCompletedLayout() async throws {
@@ -212,7 +212,7 @@ final class WindowFrameTransactionTests: XCTestCase {
         try await center.value
         XCTAssertEqual(ax.frame.size, layout.size)
         XCTAssertEqual(system.previousFrames.last?.frame, layout)
-        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXPositionAttribute])
+        XCTAssertEqual(ax.writes, [kAXSizeAttribute, kAXPositionAttribute, kAXSizeAttribute, kAXPositionAttribute])
         try await system.restoreWindowFrame(ax.window, using: action)
         XCTAssertEqual(ax.frame, layout)
     }
@@ -220,7 +220,10 @@ final class WindowFrameTransactionTests: XCTestCase {
     private func resizer(_ ax: RecordingWindowAX) -> WindowMaximizer {
         var resizer = WindowMaximizer()
         resizer.ax = ax.client
+        resizer.nativeCommand = { _, _ in false }
+        resizer.beginImmediateChange = { _ in {} }
         resizer.completionTimeout = .zero
+        resizer.frameStabilityInterval = .zero
         resizer.pollInterval = .milliseconds(1)
         return resizer
     }

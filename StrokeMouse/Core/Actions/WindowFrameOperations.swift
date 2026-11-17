@@ -62,6 +62,8 @@ extension MacGestureTargetSystemClient {
         _ window: AXUIElement,
         using suppliedResizer: WindowMaximizer? = nil,
         maximize: Bool = false,
+        restoring: Bool = false,
+        nativeLayout: WindowCommand? = nil,
         destination: (CGRect) throws -> CGRect
     ) async throws {
         try await frameOperations.acquire(window)
@@ -75,15 +77,31 @@ extension MacGestureTargetSystemClient {
             CFEqual($0.window, window) && $0.requested == requested.size
         }?.accepted
         let expected = CGRect(origin: requested.origin, size: knownSize ?? requested.size)
-        guard !WindowMaximizer.framesMatch(current, expected) else { return }
+        guard nativeLayout != nil || !WindowMaximizer.framesMatch(current, expected) else { return }
         do {
-            if maximize {
-                try await resizer.maximize(window, to: requested)
+            if let nativeLayout {
+                let native = try await resizer.applySystemLayout(window, command: nativeLayout, to: requested)
+                nativeFilledWindows.removeAll { CFEqual($0, window) }
+                if native {
+                    nativeFilledWindows.append(window)
+                    if nativeFilledWindows.count > 100 { nativeFilledWindows.removeFirst() }
+                }
+            } else if maximize {
+                let native = try await resizer.maximize(window, to: requested)
+                nativeFilledWindows.removeAll { CFEqual($0, window) }
+                if native {
+                    nativeFilledWindows.append(window)
+                    if nativeFilledWindows.count > 100 { nativeFilledWindows.removeFirst() }
+                }
+            } else if restoring && nativeFilledWindows.contains(where: { CFEqual($0, window) }) {
+                try await resizer.restore(window, to: requested)
+                nativeFilledWindows.removeAll { CFEqual($0, window) }
             } else {
                 let applied = try await resizer.applyLayout(window, to: requested, knownAcceptedSize: knownSize)
                 acceptedLayoutSizes.removeAll { CFEqual($0.window, window) }
                 acceptedLayoutSizes.append((window, requested.size, applied.size))
                 if acceptedLayoutSizes.count > 100 { acceptedLayoutSizes.removeFirst() }
+                nativeFilledWindows.removeAll { CFEqual($0, window) }
             }
             try rememberChangedFrame(window, original: current, ax: resizer.ax)
         } catch {

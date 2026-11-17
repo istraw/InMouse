@@ -64,6 +64,12 @@ struct WindowActions: GestureTargetActionPlatform {
         }
 
         switch command {
+        case .tileLeft, .tileRight, .tileTop, .tileBottom,
+             .tileTopLeft, .tileTopRight, .tileBottomLeft, .tileBottomRight,
+             .arrangeLeftAndRight, .arrangeRightAndLeft, .arrangeTopAndBottom, .arrangeBottomAndTop,
+             .arrangeLeftThreeUp, .arrangeRightThreeUp, .arrangeTopThreeUp, .arrangeBottomThreeUp,
+             .arrangeQuarters:
+            try await system.performExtendedWindow(command, target: target)
         case .hide:
             try system.hideApplication(target)
         case .maximize:

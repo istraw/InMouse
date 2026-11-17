@@ -1,15 +1,27 @@
 import AppKit
 import SwiftUI
 
-private enum WindowActionSelection: Hashable, Identifiable {
+enum WindowActionSelection: Hashable, Identifiable {
     case window(WindowCommand)
     case applicationSwitch(ApplicationSwitchCommand)
     case customWindow
 
-    static let allCases: [WindowActionSelection] =
-        WindowCommand.allCases.map(WindowActionSelection.window)
-        + [.customWindow]
-        + ApplicationSwitchCommand.allCases.map(WindowActionSelection.applicationSwitch)
+    static var allCases: [WindowActionSelection] { WindowActionGroup.allCases.flatMap(\.selections) }
+
+    var group: WindowActionGroup {
+        switch self {
+        case .customWindow: return .layouts
+        case .applicationSwitch: return .applications
+        case .window(let command):
+            if command.nativeLayoutIdentifier != nil { return command.arrangesMultipleWindows ? .arrangements : .layouts }
+            switch command {
+            case .center: return .layouts
+            case .maximizeHeight, .maximizeWidth, .nextScreen: return .screen
+            case .restoreMinimized, .minimizeAll, .restoreAllMinimized: return .applications
+            default: return .basic
+            }
+        }
+    }
 
     var id: String {
         switch self {
@@ -38,6 +50,31 @@ private enum WindowActionSelection: Hashable, Identifiable {
         case .customWindow: return .customWindow(WindowLayout())
         case .applicationSwitch(let command):
             return .applicationSwitch(command)
+        }
+    }
+}
+
+enum WindowActionGroup: String, CaseIterable, Identifiable {
+    case basic, layouts, arrangements, screen, applications
+    var id: String { rawValue }
+    var displayKey: String { "window.group.\(rawValue)" }
+    var selections: [WindowActionSelection] {
+        switch self {
+        case .basic:
+            return [WindowCommand.maximize, .restoreFrame, .minimize, .close, .fullscreen, .zoom, .hide].map { .window($0) }
+        case .layouts:
+            return [WindowCommand.tileLeft, .tileRight, .tileTop, .tileBottom,
+                    .tileTopLeft, .tileTopRight, .tileBottomLeft, .tileBottomRight, .center]
+                .map { .window($0) } + [.customWindow]
+        case .arrangements:
+            return [WindowCommand.arrangeLeftAndRight, .arrangeRightAndLeft, .arrangeTopAndBottom, .arrangeBottomAndTop,
+                    .arrangeLeftThreeUp, .arrangeRightThreeUp, .arrangeTopThreeUp, .arrangeBottomThreeUp,
+                    .arrangeQuarters].map { .window($0) }
+        case .screen:
+            return [WindowCommand.maximizeHeight, .maximizeWidth, .nextScreen].map { .window($0) }
+        case .applications:
+            return [WindowCommand.restoreMinimized, .minimizeAll, .restoreAllMinimized].map { .window($0) }
+                + ApplicationSwitchCommand.allCases.map { .applicationSwitch($0) }
         }
     }
 }
@@ -386,13 +423,28 @@ struct ActionPickerView: View {
                 }
 
             case .window:
+                Picker(L10n.string("window.category"), selection: Binding(
+                    get: { windowActionSelection.group },
+                    set: { group in
+                        if let first = group.selections.first { windowActionSelection = first }
+                    }
+                )) {
+                    ForEach(WindowActionGroup.allCases) { group in
+                        Text(L10n.string(group.displayKey)).tag(group)
+                    }
+                }
                 Picker(L10n.string("action.window"), selection: $windowActionSelection) {
-                    ForEach(WindowActionSelection.allCases) { selection in
+                    ForEach(windowActionSelection.group.selections) { selection in
                         Text(L10n.string(selection.displayKey)).tag(selection)
                     }
                 }
                 .onChange(of: windowActionSelection) { _, newValue in
                     action = newValue == .customWindow ? .customWindow(windowLayout) : newValue.action
+                }
+                if case .window(let command) = windowActionSelection, command.nativeLayoutIdentifier != nil {
+                    Text(L10n.string(command.arrangesMultipleWindows ? "window.arrangementsHint" : "window.nativeLayoutHint"))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
                 if windowActionSelection == .customWindow {
                     WindowLayoutEditor(layout: $windowLayout)

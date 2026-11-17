@@ -61,23 +61,81 @@ struct WindowMaximizer {
     var ax = WindowFrameAXClient()
     var completionTimeout: Duration = .milliseconds(500)
     var pollInterval: Duration = .milliseconds(25)
+    var frameStabilityInterval: Duration = .milliseconds(150)
 
-    func maximize(_ window: AXUIElement, to frame: CGRect, correctPositionAfterResize: Bool = false) async throws {
+    var nativeCommand: (AXUIElement, String) -> Bool = WindowNativeFrameCommands.perform
+    var beginImmediateChange: (AXUIElement) -> (() -> Void) = WindowNativeFrameCommands.beginImmediateChange
+
+    @discardableResult
+    func maximize(_ window: AXUIElement, to frame: CGRect) async throws -> Bool {
+        if Self.framesMatch(try ax.readFrame(window), frame) { return false }
+        if nativeCommand(window, "_zoomFill:") {
+            // Fill owns its animation and its menu-bar/Dock/margin geometry.
+            // Do not interrupt it with AX position/size writes.
+            try await waitForNativeFrame(window)
+            return true
+        }
         try ax.requireWritable(window, attribute: kAXPositionAttribute as CFString)
         try ax.requireWritable(window, attribute: kAXSizeAttribute as CFString)
-        if Self.framesMatch(try ax.readFrame(window), frame) { return }
+        try writeImmediateFrame(window, frame: frame, resize: true)
+        try await waitForFrame(window, expected: frame)
+        return false
+    }
+
+    @discardableResult
+    func applySystemLayout(_ window: AXUIElement, command: WindowCommand, to frame: CGRect) async throws -> Bool {
+        if let identifier = command.nativeLayoutIdentifier, nativeCommand(window, identifier) {
+            try await waitForNativeFrame(window)
+            return true
+        }
+        guard command.fallbackLayout != nil else {
+            throw GestureTargetError.windowControlUnavailable(command)
+        }
+        try await applyLayout(window, to: frame)
+        return false
+    }
+
+    func restore(_ window: AXUIElement, to frame: CGRect) async throws {
+        if nativeCommand(window, "_zoomUntile:") {
+            try await waitForNativeFrame(window)
+            if Self.framesMatch(try ax.readFrame(window), frame) { return }
+        }
+        try await applyLayout(window, to: frame)
+    }
+
+    private func writeImmediateFrame(_ window: AXUIElement, frame: CGRect, resize: Bool) throws {
         var origin = frame.origin
         var size = frame.size
         guard let position = AXValueCreate(.cgPoint, &origin),
               let dimensions = AXValueCreate(.cgSize, &size) else {
             throw GestureTargetError.unexpectedAXValue(operation: .setPosition)
         }
+        let finish = beginImmediateChange(window)
+        defer { finish() }
+        // A resize can be constrained by the old screen/position. Apply the
+        // destination size on both sides of the move, without polling between
+        // writes or saving intermediate animation frames as restore points.
+        if resize { try ax.write(window, attribute: kAXSizeAttribute as CFString, value: dimensions) }
         try ax.write(window, attribute: kAXPositionAttribute as CFString, value: position)
-        try ax.write(window, attribute: kAXSizeAttribute as CFString, value: dimensions)
-        if correctPositionAfterResize {
-            try ax.write(window, attribute: kAXPositionAttribute as CFString, value: position)
+        if resize { try ax.write(window, attribute: kAXSizeAttribute as CFString, value: dimensions) }
+    }
+
+    private func waitForNativeFrame(_ window: AXUIElement) async throws {
+        let clock = ContinuousClock()
+        let start = clock.now
+        let deadline = start.advanced(by: max(completionTimeout, .seconds(2)))
+        var last = try ax.readFrame(window)
+        var stableSince = clock.now
+        while true {
+            try Task.checkCancellation()
+            let actual = try ax.readFrame(window)
+            let now = clock.now
+            if actual != last { last = actual; stableSince = now }
+            if start.duration(to: now) >= .milliseconds(600),
+               stableSince.duration(to: now) >= .milliseconds(150) { return }
+            guard now < deadline else { throw GestureTargetError.windowMaximizeFailed }
+            try await Task.sleep(for: min(pollInterval, now.duration(to: deadline)))
         }
-        try await waitForFrame(window, expected: frame)
     }
 
     /// Layouts accept an application's size constraints, but still verify that
@@ -88,24 +146,12 @@ struct WindowMaximizer {
         try ax.requireWritable(window, attribute: kAXPositionAttribute as CFString)
         let original = try ax.readFrame(window)
         if Self.framesMatch(original, requested) { return original }
-        var resized = original
-        if !sizeMatches(original.size, requested.size) {
-            try ax.requireWritable(window, attribute: kAXSizeAttribute as CFString)
-            var size = requested.size
-            guard let dimensions = AXValueCreate(.cgSize, &size) else {
-                throw GestureTargetError.unexpectedAXValue(operation: .setSize)
-            }
-            try ax.write(window, attribute: kAXSizeAttribute as CFString, value: dimensions)
-            resized = try await waitForLayoutSize(window, original: original, requested: requested, knownAcceptedSize: knownAcceptedSize)
-        }
-
-        // Position must be sent after the asynchronous resize has settled;
-        // otherwise AppKit may clamp it against the window's old dimensions.
-        var origin = requested.origin
-        guard let position = AXValueCreate(.cgPoint, &origin) else {
-            throw GestureTargetError.unexpectedAXValue(operation: .setPosition)
-        }
-        try ax.write(window, attribute: kAXPositionAttribute as CFString, value: position)
+        let needsResize = !sizeMatches(original.size, requested.size)
+        if needsResize { try ax.requireWritable(window, attribute: kAXSizeAttribute as CFString) }
+        try writeImmediateFrame(window, frame: requested, resize: needsResize)
+        let resized = needsResize
+            ? try await waitForLayoutSize(window, original: original, requested: requested, knownAcceptedSize: knownAcceptedSize)
+            : original
         let accepted = CGRect(origin: requested.origin, size: resized.size)
         do {
             try await waitForFrame(window, expected: accepted)
@@ -155,9 +201,16 @@ struct WindowMaximizer {
     private func waitForFrame(_ window: AXUIElement, expected: CGRect) async throws {
         let clock = ContinuousClock()
         let deadline = clock.now.advanced(by: completionTimeout)
+        var matchingSince: ContinuousClock.Instant?
         while true {
-            if Self.framesMatch(try ax.readFrame(window), expected) { return }
+            let matches = Self.framesMatch(try ax.readFrame(window), expected)
             let now = clock.now
+            if matches {
+                if matchingSince == nil { matchingSince = now }
+                if let matchingSince, matchingSince.duration(to: now) >= frameStabilityInterval { return }
+            } else {
+                matchingSince = nil
+            }
             guard now < deadline else { throw GestureTargetError.windowMaximizeFailed }
             try await Task.sleep(for: min(pollInterval, now.duration(to: deadline)))
         }
@@ -191,5 +244,57 @@ extension MacGestureTargetSystemClient {
 
     func maximizeWindow(_ window: AXUIElement, to destination: CGRect, using maximizer: WindowMaximizer) async throws {
         try await performFrameChange(window, using: maximizer, maximize: true) { _ in destination }
+    }
+}
+
+/// Menu identifiers are AppKit selectors, independent of the user's language.
+/// Menu commands act on the focused window, so never use them for a different
+/// frozen target or activate an application merely to make the command work.
+@MainActor
+private enum WindowNativeFrameCommands {
+    static func perform(_ window: AXUIElement, identifier: String) -> Bool {
+        guard #available(macOS 15, *) else { return false }
+        var pid: pid_t = 0
+        guard AXUIElementGetPid(window, &pid) == .success,
+              NSWorkspace.shared.frontmostApplication?.processIdentifier == pid else { return false }
+        let app = AXUIElementCreateApplication(pid)
+        guard let focused = element(app, kAXFocusedWindowAttribute),
+              CFEqual(focused, window),
+              let menu = element(app, kAXMenuBarAttribute),
+              let item = find(menu, identifier: identifier, depth: 0) else { return false }
+        return AXUIElementPerformAction(item, kAXPressAction as CFString) == .success
+    }
+
+    static func beginImmediateChange(_ window: AXUIElement) -> () -> Void {
+        // Respect active assistive technologies. Scope the workaround to the
+        // synchronous writes and restore the original value even on failure.
+        guard !NSWorkspace.shared.isVoiceOverEnabled, !NSWorkspace.shared.isSwitchControlEnabled else { return {} }
+        var pid: pid_t = 0
+        guard AXUIElementGetPid(window, &pid) == .success else { return {} }
+        let app = AXUIElementCreateApplication(pid)
+        let attribute = "AXEnhancedUserInterface" as CFString
+        guard copy(app, "AXEnhancedUserInterface") as? Bool == true,
+              AXUIElementSetAttributeValue(app, attribute, kCFBooleanFalse) == .success else { return {} }
+        return { AXUIElementSetAttributeValue(app, attribute, kCFBooleanTrue) }
+    }
+
+    private static func copy(_ element: AXUIElement, _ attribute: String) -> CFTypeRef? {
+        var value: CFTypeRef?
+        guard AXUIElementCopyAttributeValue(element, attribute as CFString, &value) == .success else { return nil }
+        return value
+    }
+
+    private static func element(_ parent: AXUIElement, _ attribute: String) -> AXUIElement? {
+        guard let value = copy(parent, attribute), CFGetTypeID(value) == AXUIElementGetTypeID() else { return nil }
+        return (value as! AXUIElement)
+    }
+
+    private static func find(_ element: AXUIElement, identifier: String, depth: Int) -> AXUIElement? {
+        if copy(element, "AXIdentifier") as? String == identifier { return element }
+        guard depth < 7, let children = copy(element, kAXChildrenAttribute) as? [AXUIElement] else { return nil }
+        for child in children {
+            if let item = find(child, identifier: identifier, depth: depth + 1) { return item }
+        }
+        return nil
     }
 }
