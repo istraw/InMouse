@@ -90,7 +90,7 @@ Release、arm64、nearest-rank P95（毫秒）：
 
 ```bash
 TEST_RUNNER_STROKEMOUSE_CURVE_BENCHMARK=1 \
-xcodebuild -project StrokeMouse.xcodeproj -scheme StrokeMouse -configuration Release \
+xcodebuild -project InMouse.xcodeproj -scheme InMouse -configuration Release \
   -destination 'platform=macOS,arch=arm64' \
   -derivedDataPath /tmp/strokemouse-release-derived \
   -onlyUsePackageVersionsFromResolvedFile \

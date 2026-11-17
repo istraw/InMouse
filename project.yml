@@ -1,4 +1,4 @@
-name: StrokeMouse
+name: InMouse
 options:
   bundleIdPrefix: com.strokemouse
   deploymentTarget:
@@ -35,7 +35,7 @@ packages:
   PermissionFlow:
     path: Vendor/PermissionFlow
 targets:
-  StrokeMouse:
+  InMouse:
     type: application
     platform: macOS
     sources:
@@ -48,8 +48,8 @@ targets:
         PRODUCT_MODULE_NAME: StrokeMouse
         PRODUCT_BUNDLE_IDENTIFIER: com.strokemouse.app
         APP_DISPLAY_NAME: InMouse
-        MARKETING_VERSION: "0.1.0"
-        CURRENT_PROJECT_VERSION: "1006"
+        MARKETING_VERSION: "0.1.1"
+        CURRENT_PROJECT_VERSION: "1011"
         SPARKLE_PUBLIC_KEY: "5UKJ9bGhg6OCmFiD/m9U/jG6Cd3rEWkNDijwvz+CLhk="
         INFOPLIST_FILE: StrokeMouse/Resources/Info.plist
         SWIFT_OBJC_BRIDGING_HEADER: StrokeMouse/Core/Trackpad/MultitouchSupportBridge.h
@@ -91,7 +91,7 @@ targets:
     sources:
       - path: StrokeMouseTests
     dependencies:
-      - target: StrokeMouse
+      - target: InMouse
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.strokemouse.app.tests

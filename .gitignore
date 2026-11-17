@@ -1,6 +1,8 @@
 # Xcode
 build/
+build.noindex/
 output/
+output.noindex/
 dist/
 DerivedData/
 *.xcuserstate
@@ -15,7 +17,7 @@ xcuserdata/
 *.xcworkspace/xcuserdata/
 
 # Generated (optional keep: we commit xcodeproj after generate for convenience)
-# StrokeMouse.xcodeproj/ is generated from project.yml — regenerate with scripts/generate_project.sh
+# InMouse.xcodeproj/ is generated from project.yml — regenerate with scripts/generate_project.sh
 
 # SPM
 .swiftpm/

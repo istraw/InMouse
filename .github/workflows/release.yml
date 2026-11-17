@@ -34,13 +34,13 @@ jobs:
       - name: Verify generated Xcode project
         run: |
           ./scripts/generate_project.sh
-          git diff --exit-code -- StrokeMouse.xcodeproj
+          git diff --exit-code -- InMouse.xcodeproj
       - name: Test
         run: |
           arch="$(uname -m)"
           xcodebuild \
-            -project StrokeMouse.xcodeproj \
-            -scheme StrokeMouse \
+            -project InMouse.xcodeproj \
+            -scheme InMouse \
             -configuration Debug \
             -derivedDataPath "$RUNNER_TEMP/StrokeMouseTests" \
             -destination "platform=macOS,arch=$arch" \
@@ -116,7 +116,7 @@ jobs:
           SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
         run: |
           arch="${{ matrix.arch }}"
-          tool="build/SourcePackages/artifacts/sparkle/Sparkle/bin/generate_appcast"
+          tool="build.noindex/SourcePackages/artifacts/sparkle/Sparkle/bin/generate_appcast"
           test -x "$tool" || { echo "Sparkle generate_appcast tool not found"; exit 1; }
           mkdir -p "dist/appcast-$arch"
           cp "dist/InMouse-macos-$arch.zip" "dist/appcast-$arch/"

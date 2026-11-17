@@ -67,10 +67,10 @@ Debug는 **StrokeMouse Dev**(Bundle ID `com.strokemouse.app.dev`)로 표시되�
 
 ```bash
 ./scripts/generate_project.sh
-open StrokeMouse.xcodeproj
+open InMouse.xcodeproj
 ```
 
-Scheme **StrokeMouse** → Run.
+Scheme **InMouse** → Run.
 
 ## 코드 서명
 
@@ -100,7 +100,7 @@ SPARKLE_PUBLIC_KEY="..." ARCH=x86_64 ./scripts/package-app.sh
 ## 테스트
 
 ```bash
-xcodebuild -scheme StrokeMouse -configuration Debug test
+xcodebuild -scheme InMouse -configuration Debug test
 ```
 
 ## 의존성

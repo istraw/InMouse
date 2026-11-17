@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C1E0F1EA09733486D09FF6EF"
-               BuildableName = "StrokeMouse.app"
-               BlueprintName = "StrokeMouse"
-               ReferencedContainer = "container:StrokeMouse.xcodeproj">
+               BlueprintIdentifier = "8041A0E05E2DD1B4317A2399"
+               BuildableName = "InMouse.app"
+               BlueprintName = "InMouse"
+               ReferencedContainer = "container:InMouse.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C1E0F1EA09733486D09FF6EF"
-            BuildableName = "StrokeMouse.app"
-            BlueprintName = "StrokeMouse"
-            ReferencedContainer = "container:StrokeMouse.xcodeproj">
+            BlueprintIdentifier = "8041A0E05E2DD1B4317A2399"
+            BuildableName = "InMouse.app"
+            BlueprintName = "InMouse"
+            ReferencedContainer = "container:InMouse.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -44,10 +44,10 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7C38D18543BD1F599E387E40"
+               BlueprintIdentifier = "195DE458FA37E3BC8FA17BFA"
                BuildableName = "StrokeMouseTests.xctest"
                BlueprintName = "StrokeMouseTests"
-               ReferencedContainer = "container:StrokeMouse.xcodeproj">
+               ReferencedContainer = "container:InMouse.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -68,10 +68,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C1E0F1EA09733486D09FF6EF"
-            BuildableName = "StrokeMouse.app"
-            BlueprintName = "StrokeMouse"
-            ReferencedContainer = "container:StrokeMouse.xcodeproj">
+            BlueprintIdentifier = "8041A0E05E2DD1B4317A2399"
+            BuildableName = "InMouse.app"
+            BlueprintName = "InMouse"
+            ReferencedContainer = "container:InMouse.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -87,10 +87,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C1E0F1EA09733486D09FF6EF"
-            BuildableName = "StrokeMouse.app"
-            BlueprintName = "StrokeMouse"
-            ReferencedContainer = "container:StrokeMouse.xcodeproj">
+            BlueprintIdentifier = "8041A0E05E2DD1B4317A2399"
+            BuildableName = "InMouse.app"
+            BlueprintName = "InMouse"
+            ReferencedContainer = "container:InMouse.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>

@@ -67,10 +67,10 @@ Debug отображается как **StrokeMouse Dev** (Bundle ID `com.stroke
 
 ```bash
 ./scripts/generate_project.sh
-open StrokeMouse.xcodeproj
+open InMouse.xcodeproj
 ```
 
-Scheme **StrokeMouse** → Run.
+Scheme **InMouse** → Run.
 
 ## Подпись кода
 
@@ -100,7 +100,7 @@ SPARKLE_PUBLIC_KEY="..." ARCH=x86_64 ./scripts/package-app.sh
 ## Тесты
 
 ```bash
-xcodebuild -scheme StrokeMouse -configuration Debug test
+xcodebuild -scheme InMouse -configuration Debug test
 ```
 
 ## Зависимости

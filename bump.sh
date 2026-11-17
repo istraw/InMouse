@@ -150,7 +150,7 @@ VERSION="$VERSION" BUILD="$BUILD" perl -0pi -e '
 grep -q "MARKETING_VERSION: \"$VERSION\"" "$PROJECT_SPEC"
 grep -q "CURRENT_PROJECT_VERSION: \"$BUILD\"" "$PROJECT_SPEC"
 
-git add "$PROJECT_SPEC" StrokeMouse.xcodeproj
+git add "$PROJECT_SPEC" InMouse.xcodeproj
 
 CREATED_COMMIT=0
 if ! git diff --cached --quiet; then

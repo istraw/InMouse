@@ -158,19 +158,15 @@ struct SyncSettingsView: View {
             }
 
             TextField(L10n.string("sync.deviceName"), text: $deviceName)
-
-            HStack {
-                Button(L10n.string("sync.saveConnection")) {
-                    saveConnection(backsUpImmediately: false)
-                }
-                Button(L10n.string("sync.connectAndBackup")) {
-                    saveConnection(backsUpImmediately: true)
-                }
-                .buttonStyle(.borderedProminent)
-            }
-            .disabled(!canSaveConnection || sync.state.isBusy)
         } header: {
-            Text(L10n.string("sync.connection"))
+            HStack {
+                Text(L10n.string("sync.connection"))
+                Spacer()
+                if sync.state.connection != nil {
+                    Label(L10n.string("sync.connected"), systemImage: "checkmark.circle.fill")
+                        .foregroundStyle(.green)
+                }
+            }
         } footer: {
             Text(L10n.string("sync.singleProviderFooter"))
         }
@@ -232,6 +228,31 @@ struct SyncSettingsView: View {
             Text(L10n.string("sync.remoteGrowthWarning"))
                 .font(.caption)
                 .foregroundStyle(.secondary)
+
+            if let requirement = connectionRequirementKey {
+                Label(L10n.string(requirement), systemImage: "info.circle")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .accessibilityIdentifier("sync.connectionRequirement")
+            }
+
+            HStack {
+                if sync.state.connection != nil {
+                    Button(L10n.string("sync.saveChanges")) {
+                        saveConnection(backsUpImmediately: false)
+                    }
+                    .buttonStyle(.borderedProminent)
+                } else {
+                    Button(L10n.string("sync.saveConnection")) {
+                        saveConnection(backsUpImmediately: false)
+                    }
+                    Button(L10n.string("sync.connectAndBackup")) {
+                        saveConnection(backsUpImmediately: true)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            }
+            .disabled(!canSaveConnection || sync.state.isBusy)
         } header: {
             Text(L10n.string("sync.backupPolicy"))
         } footer: {
@@ -242,23 +263,12 @@ struct SyncSettingsView: View {
     @ViewBuilder
     private var statusSection: some View {
         Section {
-            if let connection = sync.state.connection {
-                LabeledContent(L10n.string("sync.status.connection")) {
-                    Text(providerTitle(connection.provider))
-                }
-                LabeledContent(L10n.string("sync.status.destination")) {
-                    Text(connection.destination)
-                        .lineLimit(1)
-                        .truncationMode(.middle)
-                }
-                LabeledContent(L10n.string("sync.status.secret")) {
-                    Text(connection.hasStoredProviderSecret
-                         ? L10n.string("sync.status.saved")
-                         : L10n.string("sync.status.missing"))
-                }
-            } else {
+            if sync.state.connection == nil {
                 Text(L10n.string("sync.status.disconnected"))
                     .foregroundStyle(.secondary)
+            } else if sync.state.connection?.hasStoredProviderSecret == false {
+                Label(L10n.string("sync.error.providerSecret"), systemImage: "exclamationmark.triangle")
+                    .foregroundStyle(.orange)
             }
 
             LabeledContent(L10n.string("sync.status.pending")) {
@@ -316,7 +326,7 @@ struct SyncSettingsView: View {
             }
             .disabled(sync.state.connection == nil || sync.state.isBusy)
         } header: {
-            Text(L10n.string("sync.status"))
+            Text(L10n.string("sync.backupStatus"))
         }
     }
 
@@ -683,25 +693,49 @@ struct SyncSettingsView: View {
         encryptionPassword == encryptionPasswordConfirmation
     }
 
-    private var canSaveConnection: Bool {
-        guard !deviceName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-              passwordsMatch
-        else { return false }
+    /// Keep the reason beside the actions and use the same conditions to enable them.
+    private var connectionRequirementKey: String? {
+        if sync.state.isBusy { return "sync.error.busy" }
+        if deviceName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return "sync.error.deviceName"
+        }
         if provider == .webDAV {
-            guard !webDAVURL.isEmpty, !webDAVUsername.isEmpty else { return false }
+            if normalizedWebDAVURL.isEmpty { return "sync.error.webdavURL" }
+            if webDAVUsername.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                return "sync.setup.usernameRequired"
+            }
         }
         if sync.state.connection?.hasStoredProviderSecret != true,
            providerSecret.isEmpty
         {
-            return false
+            return "sync.error.providerSecret"
         }
-        if encryption == .aes256GCM,
-           sync.state.connection?.encryption != .aes256GCM,
-           encryptionPassword.isEmpty
+        if provider == .githubGist,
+           !gistIDOrURL.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+           !confirmsGistVisibilityRisk
         {
-            return false
+            return "sync.error.confirmGistVisibility"
         }
-        return encryption == .none ? confirmsPlaintextRisk : true
+        if provider == .webDAV, isInsecureWebDAVURL,
+           !confirmsInsecureHTTP || confirmedInsecureHTTPURL != normalizedWebDAVURL
+        {
+            return "sync.error.confirmHTTP"
+        }
+        if encryption == .aes256GCM {
+            if encryptionPassword.isEmpty,
+               sync.state.connection?.encryption != .aes256GCM
+            {
+                return "sync.error.encryptionPassword"
+            }
+            if !passwordsMatch { return "sync.encryption.passwordMismatch" }
+        } else if !confirmsPlaintextRisk {
+            return "sync.error.confirmPlaintext"
+        }
+        return nil
+    }
+
+    private var canSaveConnection: Bool {
+        connectionRequirementKey == nil
     }
 
     private var filteredHistory: [RemoteBackupHistoryItem] {
@@ -928,10 +962,6 @@ struct SyncSettingsView: View {
         Task { _ = await sync.handle(.restore(request)) }
     }
 
-    private func providerTitle(_ provider: SyncProviderKind) -> String {
-        L10n.string(provider == .githubGist
-                    ? "sync.provider.gist" : "sync.provider.webdav")
-    }
 
     private func activityTitle(_ activity: SyncActivity) -> String {
         L10n.string("sync.activity.\(activity.rawValue)")

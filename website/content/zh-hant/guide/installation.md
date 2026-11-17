@@ -67,10 +67,10 @@ Debug 在輔助使用中顯示為 **StrokeMouse Dev**（Bundle ID `com.strokemou
 
 ```bash
 ./scripts/generate_project.sh
-open StrokeMouse.xcodeproj
+open InMouse.xcodeproj
 ```
 
-選擇 Scheme **StrokeMouse**，Run 即可。
+選擇 Scheme **InMouse**，Run 即可。
 
 ## 簽署說明
 
@@ -100,7 +100,7 @@ SPARKLE_PUBLIC_KEY="..." ARCH=x86_64 ./scripts/package-app.sh
 ## 測試
 
 ```bash
-xcodebuild -scheme StrokeMouse -configuration Debug test
+xcodebuild -scheme InMouse -configuration Debug test
 ```
 
 ## 相依

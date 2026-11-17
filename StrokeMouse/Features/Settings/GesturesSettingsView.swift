@@ -33,6 +33,7 @@ struct GesturesSettingsView: View {
     @State private var alertMessage: AlertMessage?
     @State private var pendingDeleteIDs = Set<GestureProfile.ID>()
     @State private var isConfirmingDelete = false
+    @State private var isConfirmingResetDefaults = false
     @State private var pendingRemoveAppBundleId: String?
     @State private var isConfirmingRemoveApp = false
     @State private var isConfirmingConfigRecovery = false
@@ -272,6 +273,20 @@ struct GesturesSettingsView: View {
             }
         } message: {
             Text(removeAppConfirmMessage)
+        }
+        .confirmationDialog(
+            L10n.string("gestures.resetDefaultsConfirmTitle"),
+            isPresented: $isConfirmingResetDefaults,
+            titleVisibility: .visible
+        ) {
+            Button(L10n.string("gestures.resetDefaults"), role: .destructive) {
+                selection.removeAll()
+                appState.configStore.resetToDefaults()
+                sidebarSelection = .global
+            }
+            Button(L10n.string("common.cancel"), role: .cancel) {}
+        } message: {
+            Text(L10n.string("gestures.resetDefaultsConfirmMessage"))
         }
         .confirmationDialog(
             L10n.string("gestures.configRecovery.confirmTitle"),
@@ -968,9 +983,7 @@ struct GesturesSettingsView: View {
             }
 
             Button(L10n.string("gestures.resetDefaults")) {
-                selection.removeAll()
-                appState.configStore.resetToDefaults()
-                sidebarSelection = .global
+                isConfirmingResetDefaults = true
             }
         }
         .controlSize(.small)

@@ -72,7 +72,7 @@ Live evaluation 仍然每 4 个有效采样点执行一次，并保留连续 3 �
 
 ```bash
 TEST_RUNNER_STROKEMOUSE_CURVE_BENCHMARK=1 \
-xcodebuild -project StrokeMouse.xcodeproj -scheme StrokeMouse -configuration Release \
+xcodebuild -project InMouse.xcodeproj -scheme InMouse -configuration Release \
   -destination 'platform=macOS,arch=arm64' \
   -derivedDataPath /tmp/strokemouse-curve-release-derived \
   -onlyUsePackageVersionsFromResolvedFile \

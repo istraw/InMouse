@@ -67,10 +67,10 @@ Debug は **StrokeMouse Dev**（Bundle ID `com.strokemouse.app.dev`）として�
 
 ```bash
 ./scripts/generate_project.sh
-open StrokeMouse.xcodeproj
+open InMouse.xcodeproj
 ```
 
-Scheme **StrokeMouse** → Run。
+Scheme **InMouse** → Run。
 
 ## コード署名
 
@@ -100,7 +100,7 @@ SPARKLE_PUBLIC_KEY="..." ARCH=x86_64 ./scripts/package-app.sh
 ## テスト
 
 ```bash
-xcodebuild -scheme StrokeMouse -configuration Debug test
+xcodebuild -scheme InMouse -configuration Debug test
 ```
 
 ## 依存関係

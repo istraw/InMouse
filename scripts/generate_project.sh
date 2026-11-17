@@ -9,4 +9,4 @@ if ! command -v xcodegen >/dev/null 2>&1; then
 fi
 
 xcodegen generate
-echo "Generated StrokeMouse.xcodeproj"
+echo "Generated InMouse.xcodeproj"

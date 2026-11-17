@@ -4,7 +4,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 VERSION="$(awk -F'"' '/MARKETING_VERSION:/ { print $2; exit }' project.yml)"
 ACCOUNT="${SPARKLE_KEYCHAIN_ACCOUNT:-inmouse-istraw}"
-TOOL="$ROOT/build/SourcePackages/artifacts/sparkle/Sparkle/bin/generate_appcast"
+TOOL="$ROOT/build.noindex/SourcePackages/artifacts/sparkle/Sparkle/bin/generate_appcast"
 for arch in arm64 x86_64; do
   directory="$ROOT/dist/appcast-$arch"
   mkdir -p "$directory"

@@ -95,13 +95,13 @@ brew install xcodegen
 ./scripts/generate_project.sh
 
 # 打开
-open StrokeMouse.xcodeproj
+open InMouse.xcodeproj
 
 # 构建
-xcodebuild -scheme StrokeMouse -configuration Debug build
+xcodebuild -scheme InMouse -configuration Debug build
 
 # 测试
-xcodebuild -scheme StrokeMouse -configuration Debug test
+xcodebuild -scheme InMouse -configuration Debug test
 
 # 双架构 Release 产物（Developer ID + Hardened Runtime；提供 NOTARY_* 凭据时公证并 staple）
 # 首次：钥匙串导入 Developer ID 证书；本地公证先 xcrun notarytool store-credentials，再加 NOTARY_KEYCHAIN_PROFILE=...
@@ -121,7 +121,7 @@ SPARKLE_PUBLIC_KEY="..." ARCH=x86_64 ./scripts/package-app.sh
 ./bump.sh -v 0.0.1 --force
 ```
 
-**不要**手改 `StrokeMouse.xcodeproj` 作为长期方案；改 `project.yml` 后重新 generate。
+**不要**手改 `InMouse.xcodeproj` 作为长期方案；改 `project.yml` 后重新 generate。
 
 ## 编码约定
 
@@ -206,3 +206,10 @@ SPARKLE_PUBLIC_KEY="..." ARCH=x86_64 ./scripts/package-app.sh
 - 2026-11-10 的所有修改统一到展示版本 0.1.0，内部 build 随覆盖发布递增，0.1.1、0.1.2 仅保留为历史草稿。
 - 展示版本与内部 build 独立，内部 build 必须始终高于已发布构建号，以便 Sparkle 正确识别更新；不能因合并展示版本而降低 build。
 - 个人仓库是 istraw/InMouse，主开发分支为 main，upstream 分支用于同步原作者代码；推送使用 fork remote，origin 是原作者仓库。
+- 2026-11-17 用户明确指定本次正式版为 **0.1.1（1011）**：替换旧的 v0.1.1 草稿标签，删除 v0.1.2 草稿标签；0.1.3（1012）仅为本机未发布临时构建，不创建对应发布或标签。
+
+## 本地构建产物与应用入口
+
+- 本地构建和测试使用 `build.noindex/`（显式指定 `-derivedDataPath build.noindex`），可安装产物放在 `output.noindex/`；打包脚本沿用这些不被 Spotlight 索引的目录。
+- 日常只启动 `/Applications/InMouse.app`，不要启动构建目录中的副本；覆盖安装完成后，注销并清理非正式安装路径的应用副本，避免系统应用搜索出现重复入口。
+- 不将临时 `.app` 或安装回滚副本长期留在 `/Applications`；更新成功后清理回滚副本，失败时恢复原应用。

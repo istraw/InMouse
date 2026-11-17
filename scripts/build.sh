@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Build StrokeMouse and install a stable .app under ./output
+# Build InMouse and install a stable .app under ./output.noindex
 # so Accessibility / code-sign TCC entries do not need re-grant every build.
 #
 # Usage:
-#   ./scripts/build.sh              # Debug → output/InMouse.app
+#   ./scripts/build.sh              # Debug → output.noindex/InMouse.app
 #   ./scripts/build.sh --open       # build then open
 #   ./scripts/build.sh --release    # Release configuration
 #   ./scripts/build.sh --release --open
@@ -23,8 +23,8 @@ cd "$ROOT"
 
 CONFIGURATION="${CONFIGURATION:-Debug}"
 IDENTITY="${CODE_SIGN_IDENTITY:-StrokeMouse Dev}"
-DERIVED="${DERIVED_DATA_PATH:-$ROOT/build}"
-OUTPUT_DIR="${OUTPUT_DIR:-$ROOT/output}"
+DERIVED="${DERIVED_DATA_PATH:-$ROOT/build.noindex}"
+OUTPUT_DIR="${OUTPUT_DIR:-$ROOT/output.noindex}"
 APP_NAME="InMouse.app"
 OPEN_AFTER=0
 RUN_GENERATE=1
@@ -34,7 +34,7 @@ usage() {
 Usage: ./scripts/build.sh [options]
 
 Options:
-  --open           Open output/InMouse.app after a successful build
+  --open           Open output.noindex/InMouse.app after a successful build
   --release        Build Release (default: Debug)
   --debug          Build Debug
   --no-generate    Skip xcodegen (use existing .xcodeproj)
@@ -43,8 +43,8 @@ Options:
 Environment:
   CONFIGURATION          Debug | Release (default: Debug)
   CODE_SIGN_IDENTITY     default: "StrokeMouse Dev"
-  DERIVED_DATA_PATH      default: <repo>/build
-  OUTPUT_DIR             default: <repo>/output
+  DERIVED_DATA_PATH      default: <repo>/build.noindex
+  OUTPUT_DIR             default: <repo>/output.noindex
 EOF
 }
 
@@ -91,8 +91,8 @@ if [[ "$RUN_GENERATE" -eq 1 ]]; then
   xcodegen generate
 fi
 
-if [[ ! -d "$ROOT/StrokeMouse.xcodeproj" ]]; then
-  echo "StrokeMouse.xcodeproj missing. Run without --no-generate first." >&2
+if [[ ! -d "$ROOT/InMouse.xcodeproj" ]]; then
+  echo "InMouse.xcodeproj missing. Run without --no-generate first." >&2
   exit 1
 fi
 
@@ -151,8 +151,8 @@ echo "    derived:  $DERIVED"
 echo "    output:   $OUTPUT_APP"
 
 xcodebuild \
-  -project "$ROOT/StrokeMouse.xcodeproj" \
-  -scheme StrokeMouse \
+  -project "$ROOT/InMouse.xcodeproj" \
+  -scheme InMouse \
   -configuration "$CONFIGURATION" \
   -derivedDataPath "$DERIVED" \
   -clonedSourcePackagesDirPath "$SOURCE_PACKAGES" \
@@ -238,6 +238,20 @@ fi
 
 echo "==> codesign verify"
 codesign --verify --deep --strict --verbose=2 "$OUTPUT_APP" 2>&1 | tail -5
+
+# Development copies belong in .noindex directories and must not become extra
+# application-search entries, even when Xcode or --open registers the bundle.
+unregister_build_copies() {
+  local registry="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister"
+  local app
+  [[ -x "$registry" ]] || return 0
+  for app in "$BUILT_APP" "$OUTPUT_APP"; do
+    [[ "$app" == "/Applications/InMouse.app" ]] && continue
+    "$registry" -u "$app" >/dev/null 2>&1 || true
+  done
+}
+unregister_build_copies
+
 echo
 echo "Built: $OUTPUT_APP"
 echo "  open \"$OUTPUT_APP\""
@@ -251,6 +265,7 @@ if [[ "$OPEN_AFTER" -eq 1 ]]; then
   sleep 0.8
   if pgrep -x InMouse >/dev/null 2>&1; then
     echo "    InMouse is running."
+    unregister_build_copies
   else
     echo "WARNING: InMouse did not stay running after open." >&2
     echo "  Check Console for: ASP: Security policy would not allow process" >&2

@@ -110,15 +110,15 @@
 
 ## 本地开发
 
-使用 Swift / SwiftUI、Xcode 和 XcodeGen，工程及 Scheme 名称保留为 `StrokeMouse`。
+使用 Swift / SwiftUI、Xcode 和 XcodeGen，工程、应用 Target 及 Scheme 名称均为 `InMouse`。
 
 ```bash
 brew install xcodegen
 ./scripts/generate_project.sh
-open StrokeMouse.xcodeproj
+open InMouse.xcodeproj
 ```
 
-使用本机签名身份构建到 `output/InMouse.app`：
+使用本机签名身份构建到 `output.noindex/InMouse.app`：
 
 ```bash
 CODE_SIGN_IDENTITY='<本机签名证书>' ./scripts/build.sh --release

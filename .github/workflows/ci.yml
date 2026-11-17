@@ -27,13 +27,13 @@ jobs:
       - name: Verify generated Xcode project
         run: |
           ./scripts/generate_project.sh
-          git diff --exit-code -- StrokeMouse.xcodeproj
+          git diff --exit-code -- InMouse.xcodeproj
       - name: Test
         run: |
           arch="$(uname -m)"
           xcodebuild \
-            -project StrokeMouse.xcodeproj \
-            -scheme StrokeMouse \
+            -project InMouse.xcodeproj \
+            -scheme InMouse \
             -configuration Debug \
             -derivedDataPath "$RUNNER_TEMP/StrokeMouseTests" \
             -destination "platform=macOS,arch=$arch" \

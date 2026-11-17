@@ -67,10 +67,10 @@ Après avoir modifié `project.yml` ou ajouté/supprimé des sources :
 
 ```bash
 ./scripts/generate_project.sh
-open StrokeMouse.xcodeproj
+open InMouse.xcodeproj
 ```
 
-Scheme **StrokeMouse** → Run.
+Scheme **InMouse** → Run.
 
 ## Signature du code
 
@@ -100,7 +100,7 @@ Chaque architecture produit ZIP, TAR.GZ et DMG. Le ZIP alimente aussi les mises 
 ## Tests
 
 ```bash
-xcodebuild -scheme StrokeMouse -configuration Debug test
+xcodebuild -scheme InMouse -configuration Debug test
 ```
 
 ## Dépendances

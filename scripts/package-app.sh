@@ -37,15 +37,15 @@ SIGN_IDENTITY="-"
 # missing credentials fatal.
 REQUIRE_NOTARIZATION="${REQUIRE_NOTARIZATION:-0}"
 NOTARY_ARGS=()
-DERIVED="$ROOT/build/release-$ARCH"
-SOURCE_PACKAGES="$ROOT/build/SourcePackages"
+DERIVED="$ROOT/build.noindex/release-$ARCH"
+SOURCE_PACKAGES="$ROOT/build.noindex/SourcePackages"
 DIST="$ROOT/dist"
-APP_DIR="$DIST/$ARCH"
+APP_DIR="$ROOT/build.noindex/package-$ARCH"
 APP="$APP_DIR/InMouse.app"
 ZIP="$DIST/InMouse-macos-$ARCH.zip"
 TAR_GZ="$DIST/InMouse-macos-$ARCH.app.tar.gz"
 DMG="$DIST/InMouse-macos-$ARCH.dmg"
-DMG_ROOT="$DIST/dmg-$ARCH"
+DMG_ROOT="$ROOT/build.noindex/dmg-$ARCH"
 NOTARY_ZIP="$DIST/InMouse-macos-$ARCH-notary.zip"
 ENTITLEMENTS="$ROOT/StrokeMouse/Supporting/StrokeMouse.entitlements"
 ENTITLEMENTS_DUMP=""
@@ -196,8 +196,8 @@ echo "    code sign identity: $IDENTITY"
 # Build with ad-hoc first so Xcode does not require the release identity at compile
 # time (CI builds may sign only the final bundle). Final re-sign applies IDENTITY.
 xcodebuild \
-  -project "$ROOT/StrokeMouse.xcodeproj" \
-  -scheme StrokeMouse \
+  -project "$ROOT/InMouse.xcodeproj" \
+  -scheme InMouse \
   -configuration Release \
   -derivedDataPath "$DERIVED" \
   -clonedSourcePackagesDirPath "$SOURCE_PACKAGES" \
