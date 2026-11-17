@@ -1,116 +1,122 @@
+**English** · [简体中文](README_zh-Hans.md)
+
 <div align="center">
-  <img src="StrokeMouse/Resources/Assets.xcassets/BrandAppIcon.imageset/BrandAppIcon.png" width="128" alt="InMouse 图标" />
+  <img src="StrokeMouse/Resources/Assets.xcassets/BrandAppIcon.imageset/BrandAppIcon.png" width="128" alt="InMouse icon" />
   <h1>InMouse</h1>
-  <p>用鼠标手势，完成窗口整理与日常操作。</p>
+  <p>Mouse gestures for window management and everyday actions on macOS.</p>
   <p>
-    <a href="https://github.com/istraw/InMouse/releases/latest">下载 InMouse</a> ·
-    <a href="https://github.com/istraw/InMouse/issues">反馈问题</a> ·
-    <a href="LICENSE">AGPL-3.0 许可证</a>
+    <a href="https://github.com/istraw/InMouse/releases/latest">Download InMouse</a> ·
+    <a href="https://github.com/istraw/InMouse/issues">Report an issue</a> ·
+    <a href="LICENSE">AGPL-3.0 License</a>
   </p>
 </div>
 
-**InMouse 是一款面向 macOS 的鼠标与触控板手势工具。** 按住鼠标右键绘制轨迹，就能整理窗口、执行快捷键、打开应用或控制媒体，让常用操作集中在鼠标手边。
+**InMouse is a mouse and trackpad gesture tool for macOS.** Hold the right mouse button and draw a gesture to arrange windows, run keyboard shortcuts, open apps, or control media.
 
-你可以把鼠标移到未激活的窗口上，直接用手势调整它的位置和大小、最小化或关闭；也可以为不同应用配置不同动作，建立适合自己工作习惯的手势库。InMouse 常驻状态栏，关闭设置后仍在后台运行，并支持配置导入导出和应用内更新。
+You can act on the window under your pointer, including inactive windows, and assign different actions to different apps. InMouse runs from the menu bar, keeps gestures active when Settings is closed, and supports configuration backups and in-app updates.
 
-项目基于 [Licoy/StrokeMouse](https://github.com/Licoy/StrokeMouse) 开发，在原有手势能力上重点扩展窗口控制与状态栏体验。**`main`** 是 InMouse 的主开发和默认展示分支，**`upstream`** 用于保留并同步原作者代码。
+Built on [Licoy/StrokeMouse](https://github.com/Licoy/StrokeMouse), InMouse extends the original project with additional window controls and menu bar improvements. Development takes place on **`main`**; **`upstream`** preserves and tracks the original project's code.
 
-## 下载与安装
+## Download and install
 
-要求 **macOS 14 或以上**。
+Requires **macOS 14 or later**. System window arrangements require macOS 15 or later and the focused foreground window.
 
-| Mac 类型 | 安装包 |
+| Mac | Installer |
 | --- | --- |
-| Apple Silicon（M 系列） | [下载 arm64 DMG](https://github.com/istraw/InMouse/releases/latest/download/InMouse-macos-arm64.dmg) |
-| Intel | [下载 x86_64 DMG](https://github.com/istraw/InMouse/releases/latest/download/InMouse-macos-x86_64.dmg) |
+| Apple Silicon (M series) | [Download arm64 DMG](https://github.com/istraw/InMouse/releases/latest/download/InMouse-macos-arm64.dmg) |
+| Intel | [Download x86_64 DMG](https://github.com/istraw/InMouse/releases/latest/download/InMouse-macos-x86_64.dmg) |
 
-打开 DMG，将 **InMouse.app** 拖入“应用程序”。首次打开后，在系统设置中授予辅助功能权限，即可使用全局手势和窗口操作。
+Open the DMG and drag **InMouse.app** into **Applications**. On first launch, grant Accessibility permission in System Settings to enable global gestures and window actions.
 
-当前安装包使用 Apple Development 证书签名，**尚未通过 Apple 公证**。若 macOS 拦截首次启动，可在“系统设置 → 隐私与安全性”中允许打开。
+Current builds are signed with an Apple Development certificate and **have not been notarized by Apple**. If macOS blocks the first launch, allow the app in **System Settings → Privacy & Security**.
 
-已安装正式版后，可在应用内点击 **“检查更新”**。安装包与更新列表来自本仓库，更新档案使用独立的 Sparkle Ed25519 密钥签名。
+After installing, use **Check for Updates** in the app. Installers and update feeds are hosted in this repository, and update archives are signed with a dedicated Sparkle Ed25519 key.
 
-## 适合哪些操作
+## What you can do
 
-| 使用场景 | 可以配置的操作 |
+| Task | Actions |
 | --- | --- |
-| 整理多个窗口 | 左右分屏、居中、自定义尺寸、恢复原布局、移到下一屏幕 |
-| 操作后台窗口 | 鼠标移到目标窗口后，用手势调整布局、最小化或关闭 |
-| 减少重复按键 | 用手势执行快捷键、连续按键或打开常用应用 |
-| 按应用定制习惯 | 为浏览器、编辑器和其他应用分别设置手势与按键映射 |
+| Arrange windows | Half-screen and corner layouts, maximize, center, custom sizes, restore the previous frame, or move to another display |
+| Control inactive windows | Point at a window and use a gesture to adjust its frame, minimize it, or close it |
+| Reduce repeated keystrokes | Run shortcuts, shortcut sequences, or launch apps |
+| Customize by app | Assign app-specific gestures, mouse button mappings, and actions |
 
-## 主要功能
+## Features
 
-### 更完整的窗口控制
+### Window management
 
-- 按屏幕可用区域的百分比自定义窗口 **X、Y、宽度和高度**，支持实时预览。
-- 提供左半屏、右半屏、居中 80% 等布局预设。
-- 恢复窗口前一个位置和大小，重复最大化不会覆盖原来的恢复记录。
-- 单独最大化窗口高度或宽度，移动窗口到下一个显示器。
-- 最小化目标应用的全部窗口，恢复一个或全部最小化窗口。
-- 处理应用最小尺寸等限制，减少窗口已经调整却报告失败的情况。
+- Maximize using the native macOS **Fill** command when available, and restore the window's previous position and size.
+- Choose left, right, top, or bottom halves, or any of the four corner quarters.
+- Use native two-, three-, or four-window arrangements on macOS 15 or later. These require the focused foreground window and also rearrange other windows; restoring the previous frame restores only the gesture target.
+- Set custom **X, Y, width, and height** as percentages of the screen's usable area, with a live preview.
+- Find actions by category: basic controls, single-window layouts, multiple-window arrangements, size and display, or application windows and switching.
+- Maximize width or height independently, or move a window to the next display.
+- Minimize all windows of the target app, or restore one or all of its minimized windows.
+- Preserve the original restore point when maximizing repeatedly and account for application size constraints.
 
-[窗口操作的完整行为与限制](docs/window-controls.md)
+[Window behavior and limitations (Chinese)](docs/window-controls.md)
 
-### 对鼠标下的窗口执行手势
+### Act on the window under your pointer
 
-新建手势默认选择 **“指针位置所属应用”**：把鼠标放到非激活窗口上，直接按住右键绘制，即可对该窗口执行动作。目标在按下触发键时锁定，绘制途中移到别处不会改变目标。
+New gestures default to targeting the **application under the pointer**. The target window is captured when you press the trigger button and stays fixed throughout the gesture.
 
-已有手势保留原设置，也可在编辑器的“手势目标”中切换。快捷键动作会先激活锁定的目标窗口，再发送快捷键。
+Existing gestures keep their target settings. Window frame actions can operate on inactive windows; keyboard shortcuts first activate the captured target before posting keystrokes. Native system arrangements require the focused foreground window.
 
-### 状态栏驻留
+### Menu bar operation
 
-- 关闭设置窗口后隐藏 Dock 图标，应用和手势继续运行。
-- 保留状态栏入口，可重新打开设置、暂停手势或退出应用。
-- 使用面性单色鼠标图标，自动适配 macOS 明暗背景。
-- 可在通用设置中调整 Dock 和状态栏显示偏好。
+- Close Settings to hide the Dock icon while gestures keep running.
+- Use the menu bar to reopen Settings, pause gestures, or quit.
+- The monochrome menu bar icon adapts to light and dark appearances.
+- Adjust Dock and menu bar visibility in General settings.
 
-### 应用内更新
+### In-app updates and backups
 
-在应用内点击“检查更新”，即可获取本仓库发布的版本。更新档案会经过签名校验，安装包与发布说明也可以在 [Releases 页面](https://github.com/istraw/InMouse/releases)查看。
+Use **Check for Updates** to download releases from this repository. Sparkle verifies update signatures, and [GitHub Releases](https://github.com/istraw/InMouse/releases) also provides installers and release notes.
 
-[发布与更新说明](docs/inmouse-releases.md)
-
-## 快速上手
-
-1. 安装并打开 InMouse，完成辅助功能授权。
-2. 从状态栏打开设置，在手势列表中添加或编辑手势。
-3. 录制轨迹，选择要执行的窗口操作、快捷键或其他动作，并按需设置应用范围。
-4. 将鼠标移到目标窗口上，按住触发键绘制轨迹，松开后执行动作。
-
-默认触发键为鼠标右键，也可以为手势选择中键、侧键或其他支持的输入方式。
-
-录制鼠标绘制样本时，按住右键、中键或侧键拖动画布；录制触控板绘制样本时，将指针放入画布，按住所选修饰键（如 Fn），用单指在触控板上移动，松开修饰键结束，无需按下触控板。触控板绘制使用修饰键与指针轨迹，多指轻点、滑动等则属于独立的“触控手势”。
-
-## 内置动作分类
-
-- **桌面**：调度中心、显示桌面、切换空间、程序坞和桌面文件显示。
-- **浏览器**：前进后退、到顶到底、新建／关闭标签页、切换标签页。
-- **系统**：电源与锁屏、屏幕保护、外观、废纸篓、保持唤醒及随机壁纸。
-- **访达**：窗口与目录导航、常用文件夹、隔空投送、连接服务器和图片设为壁纸。
-- **窗口操作**：布局、最大化、恢复、最小化和跨显示器移动。
-
-[动作行为、目标与限制](docs/builtin-actions.md)
-
-## 更多手势能力
-
-继承上游的鼠标绘制、鼠标按键映射、鼠标组合、触控板绘制、实验性多指触控手势、滚动增强、按应用配置、手势导入导出，以及快捷键、打开应用、媒体控制、Shell / AppleScript 等动作。
-
-实验性多指触控使用 Apple 未公开的触控接口，可能受系统更新影响。更多原版能力可参考[上游中文说明](README_zh-Hans.md)和[保留的上游英文说明](README_upstream.md)；这些是原项目文档，安装 InMouse 请使用本页的下载入口。
-
-## 配置与备份
-
-为兼容已有手势，配置文件仍保存在：
+Gesture configuration remains at the following location for compatibility:
 
 ```text
 ~/Library/Application Support/StrokeMouse/gestures.json
 ```
 
-可在应用的手势列表中点击“导出”备份。切换到 InMouse 的独立正式版后，首次需要重新确认辅助功能授权。
+Use **Export** in the gesture list to back up your configuration. Configurations containing the new window layout actions use format v10; keep a backup before opening them with older app versions. When switching to the standalone InMouse release from a development build, grant Accessibility permission to the release app.
 
-## 本地开发
+[Release and update details (Chinese)](docs/inmouse-releases.md)
 
-使用 Swift / SwiftUI、Xcode 和 XcodeGen，工程、应用 Target 及 Scheme 名称均为 `InMouse`。
+## Quick start
+
+1. Install and launch InMouse, then grant Accessibility permission.
+2. Open Settings from the menu bar and add or edit a gesture.
+3. Record a stroke, choose an action, and optionally limit it to specific apps.
+4. Point at the target window, hold the trigger button, draw, and release to run the action.
+
+The default trigger is the right mouse button. Middle and side buttons are also supported.
+
+For **Mouse Draw**, hold the chosen mouse button while drawing in the recording canvas. For **Trackpad Draw**, place the pointer in the canvas, hold one supported modifier key (Fn, Control, Option, Shift, or Command), move the pointer with one finger, and release the modifier. You do not need to press down on the trackpad. Experimental multi-finger **Touch Gestures** are a separate input type.
+
+## Action categories
+
+- **Desktop:** Mission Control, Show Desktop, Spaces, Dock, and desktop file visibility.
+- **Browser:** navigation, scrolling to the top or bottom, and tab controls.
+- **System:** sleep, lock screen, screen saver, appearance, Trash, keeping the Mac awake, and random wallpaper.
+- **Finder:** window and folder navigation, common folders, AirDrop, server connections, and setting a picture as wallpaper.
+- **Window controls:** layouts, maximize, restore, minimize, and moving between displays.
+
+[Action behavior, targets, and limitations (Chinese)](docs/builtin-actions.md)
+
+## Interface languages
+
+English, 简体中文, 繁體中文, 한국어, 日本語, Русский, and Français.
+
+## More gesture options
+
+InMouse also retains the upstream project's mouse button mappings, mouse combinations, experimental multi-finger gestures, scrolling enhancements, app-specific profiles, import and export, media controls, and Shell / AppleScript actions.
+
+Experimental multi-finger input uses an undocumented Apple touch interface and may be affected by macOS updates. The original project's documentation is preserved in [English](README_upstream.md), [Simplified Chinese](README_upstream_zh-Hans.md), [Traditional Chinese](README_zh-Hant.md), [Korean](README_ko.md), [Japanese](README_ja.md), [Russian](README_ru.md), and [French](README_fr.md). Those documents describe upstream StrokeMouse; use the download links on this page to install InMouse.
+
+## Local development
+
+InMouse uses Swift, SwiftUI, Xcode, and XcodeGen. The Xcode project, app target, and scheme are all named `InMouse`.
 
 ```bash
 brew install xcodegen
@@ -118,12 +124,12 @@ brew install xcodegen
 open InMouse.xcodeproj
 ```
 
-使用本机签名身份构建到 `output.noindex/InMouse.app`：
+Build with a local signing identity. The app is written to `output.noindex/InMouse.app`:
 
 ```bash
-CODE_SIGN_IDENTITY='<本机签名证书>' ./scripts/build.sh --release
+CODE_SIGN_IDENTITY='<your local signing identity>' ./scripts/build.sh --release
 ```
 
-## 来源与许可证
+## Credits and license
 
-感谢 [Licoy/StrokeMouse](https://github.com/Licoy/StrokeMouse) 提供原始实现。InMouse 保留原项目的 [AGPL-3.0 许可证](LICENSE) 和来源信息，InMouse 的功能修改在 `main` 分支维护，上游同步代码保留在 `upstream` 分支。
+Thanks to [Licoy/StrokeMouse](https://github.com/Licoy/StrokeMouse) for the original implementation. InMouse retains the project's [AGPL-3.0 license](LICENSE) and attribution. InMouse changes are maintained on `main`, with upstream code tracked on `upstream`.

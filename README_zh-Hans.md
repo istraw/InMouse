@@ -1,217 +1,137 @@
-[English](./README.md) · **简体中文** · [繁體中文](./README_zh-Hant.md) · [한국어](./README_ko.md) · [日本語](./README_ja.md) · [Русский](./README_ru.md) · [Français](./README_fr.md)
+[English](README.md) · **简体中文**
 
 <div align="center">
-  <img src="design/logo/stroke-mouse-app-icon.png" width="128" alt="StrokeMouse" />
-  <h1>StrokeMouse</h1>
+  <img src="StrokeMouse/Resources/Assets.xcassets/BrandAppIcon.imageset/BrandAppIcon.png" width="128" alt="InMouse 图标" />
+  <h1>InMouse</h1>
+  <p>用鼠标手势，完成窗口整理与日常操作。</p>
   <p>
-    <a href="./LICENSE"><img alt="License: AGPL-3.0" src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg" /></a>
+    <a href="https://github.com/istraw/InMouse/releases/latest">下载 InMouse</a> ·
+    <a href="https://github.com/istraw/InMouse/issues">反馈问题</a> ·
+    <a href="LICENSE">AGPL-3.0 许可证</a>
   </p>
 </div>
 
-macOS 鼠标与触控板手势自定义工具。可按住鼠标键绘制轨迹、按住单个修饰键进行触控板绘制，也可使用实验性的多指触控手势；匹配后执行快捷键、打开应用、窗口操作、媒体键、Shell / AppleScript 等。支持**全局或指定 App** 生效，手势配置可**导入导出**，本地运行、菜单栏常驻。
+**InMouse 是一款面向 macOS 的鼠标与触控板手势工具。** 按住鼠标右键绘制轨迹，就能整理窗口、执行快捷键、打开应用或控制媒体，让常用操作集中在鼠标手边。
 
-<p align="center">
-  <a href="https://strokemouse.com/video/strokemouse-promo.mp4?v=d269ecf1"><img src="website/static/video/strokemouse-promo-thumb.jpg" width="800" alt="StrokeMouse 宣传片" /></a>
-  <br />
-  <sub><a href="https://strokemouse.com/video/strokemouse-promo.mp4?v=d269ecf1">▶ 点击观看 1 分 42 秒宣传片</a></sub>
-</p>
+你可以把鼠标移到未激活的窗口上，直接用手势调整它的位置和大小、最小化或关闭；也可以为不同应用配置不同动作，建立适合自己工作习惯的手势库。InMouse 常驻状态栏，关闭设置后仍在后台运行，并支持配置导入导出和应用内更新。
 
-## 界面预览
+项目基于 [Licoy/StrokeMouse](https://github.com/Licoy/StrokeMouse) 开发，在原有手势能力上重点扩展窗口控制与状态栏体验。**`main`** 是 InMouse 的主开发和默认展示分支，**`upstream`** 用于保留并同步原作者代码。
 
-| 手势配置列表 | 手势测试 |
-|:---:|:---:|
-| <img src="website/static/screenshots/1.png" width="400" alt="手势配置列表" /> | <img src="website/static/screenshots/2.png" width="400" alt="手势测试" /> |
+## 下载与安装
 
-| 通用设置 | 权限与引擎状态 |
-|:---:|:---:|
-| <img src="website/static/screenshots/3.png" width="400" alt="通用设置" /> | <img src="website/static/screenshots/4.png" width="400" alt="权限与引擎状态" /> |
+要求 **macOS 14 或以上**。
 
-| 新建手势 · 录制轨迹 | 应用范围 |
-|:---:|:---:|
-| <img src="website/static/screenshots/5.png" width="400" alt="新建手势 · 录制轨迹" /> | <img src="website/static/screenshots/6.png" width="400" alt="应用范围" /> |
+| Mac 类型 | 安装包 |
+| --- | --- |
+| Apple Silicon（M 系列） | [下载 arm64 DMG](https://github.com/istraw/InMouse/releases/latest/download/InMouse-macos-arm64.dmg) |
+| Intel | [下载 x86_64 DMG](https://github.com/istraw/InMouse/releases/latest/download/InMouse-macos-x86_64.dmg) |
 
-## 功能
+打开 DMG，将 **InMouse.app** 拖入“应用程序”。首次打开后，在系统设置中授予辅助功能权限，即可使用全局手势和窗口操作。
 
-- **菜单栏常驻**：启停手势、打开设置、退出；图标随状态变色（正常 / 暂停 / 缺权限）；可**隐藏菜单栏图标**（与隐藏 Dock 同时开启会二次确认；隐藏后点 Dock 或再开 App 进入设置）
-- **手势库管理**：侧栏按**全局 / 各 App** 组织（新建时预填作用域）；搜索 / 筛选 / 排序；多选批量启停删除；**JSON 导入导出**（重复项可跳过或强制导入）；可在**通用 → 停用全局手势的应用**或侧栏各 App 中停用全局手势
-- **鼠标绘制**：每条手势可独立选择右键、中键或侧键，只监听已启用配置用到的按钮；可另设 **第二动作**，绘制中点击一次左键，松开后只执行第二动作
-- **鼠标组合**：按住右键并向上 / 向下滚动、点击左键或拖动滚动，也可在屏幕上下左右边缘点击右键或滚动滚轮（无需绘制轨迹），或从边缘开始绘制「右键手势」。在「手势 → 添加 → 鼠标组合」中设置，可复用所有动作和应用作用域，详见[使用说明](docs/mouse-combinations.md)。
-- **鼠标按键映射**：单击侧键或中键直接执行动作（如侧键后退 → ⌘[），无需绘制，也可要求同时按住某个修饰键（如仅 ⌘ + 侧键后退触发）；同一按键也用于鼠标绘制时，未达到最小滑动距离按单击处理、超过则识别为绘制，不会重复触发；沿用全局 / 按应用作用域，目标应用没有映射时保留原生按键行为
-- **触控板绘制**：按住一个 Fn / Control / Option / Shift / Command（默认 Fn）后移动指针绘制；必须精确按住单个支持键，额外修饰键会取消本次识别
-- **实验性触控手势**：内置触控板支持 40 类三至五指轻点 / 轻点两下 / 点按 / 点按两下 / 四向滑动，以及二至五指捏合 / 张开 / 顺逆时针旋转
-- **触控手势总开关**：可随时关闭触控手势通道而不删除已配置手势；私有后端故障只降级触控通道，不影响鼠标与触控板绘制
-- **滚动增强**：鼠标滚轮与触控板 / 妙控鼠标的纵向、横向可分别反向，普通滚轮还可选平滑滚动（柔和 / 标准 / 灵敏，或自定义速度、时长与加速）；排除列表按前台应用判断，设置只留在本机，不进入备份同步；与其他滚动工具同时运行可能被处理两次，只读取整数行增量的应用（部分游戏、虚拟机、远程桌面）请加入排除列表
-- **每条手势独立目标**：可选按下触发键时的当前前台应用或指针位置所属应用；若存在普通窗口则同时锁定精确窗口，应用范围判断与目标相关动作始终复用该目标
-- **自由轨迹识别**：每条手势可录制 1–5 个样本（建议 3 个），匹配时取最高分样本；使用弧长弹性对齐，以笔画方向为主、位置为辅，容忍曲线、抖动与端点小钩，拒绝反向、镜像、截断或明显多画的轨迹；可在通用设置调整全局匹配阈值，按住触发键时显示实时轨迹 HUD，并在笔尖旁提示此刻松手将执行的手势
-- **App 作用域**：全局，或从已安装应用中选图标添加（支持搜索 / 浏览 `.app`）
-- **多种动作**：系统动作（调度中心、应用程序窗口、上一个 / 下一个空间，可自定义绑定的系统快捷键）、快捷键（支持单独使用 Fn/地球仪或与其他按键组合，可追加依次按下的后续按键，如 ⌘V 后按回车）、打开 / 切换 App、URL、媒体键、窗口操作、Shell / AppleScript（语法高亮；AppleScript 含睡眠、锁屏、清废纸篓等预设与自定义）
-- **体验**：界面支持英语、简体中文、繁体中文、韩语、日语、俄语、法语（也可跟随系统语言），深浅色（跟随系统 / 强制）、登录启动、隐藏 Dock / 菜单栏图标、Sparkle 应用内更新（失败可回落 GitHub Releases）
+当前安装包使用 Apple Development 证书签名，**尚未通过 Apple 公证**。若 macOS 拦截首次启动，可在“系统设置 → 隐私与安全性”中允许打开。
 
-## 系统要求
+已安装正式版后，可在应用内点击 **“检查更新”**。安装包与更新列表来自本仓库，更新档案使用独立的 Sparkle Ed25519 密钥签名。
 
-- macOS 14 Sonoma 或更高
-- Xcode 16+（开发构建）
-- 鼠标或触控板均可完成绘制手势；直接多指触控优先支持 Mac 内置触控板
-- 外接 Magic Trackpad 为 best-effort 支持，可能因机型或系统版本而异
+## 适合哪些操作
 
-## 安装
+| 使用场景 | 可以配置的操作 |
+| --- | --- |
+| 整理多个窗口 | 左右分屏、居中、自定义尺寸、恢复原布局、移到下一屏幕 |
+| 操作后台窗口 | 鼠标移到目标窗口后，用手势调整布局、最小化或关闭 |
+| 减少重复按键 | 用手势执行快捷键、连续按键或打开常用应用 |
+| 按应用定制习惯 | 为浏览器、编辑器和其他应用分别设置手势与按键映射 |
 
-### Homebrew（推荐）
+## 主要功能
 
-通过 StrokeMouse 项目维护的 [Licoy Homebrew Tap](https://github.com/Licoy/homebrew-tap) 安装：
+### 更完整的窗口控制
 
-```bash
-brew install --cask licoy/tap/strokemouse
-```
+- 按屏幕可用区域的百分比自定义窗口 **X、Y、宽度和高度**，支持实时预览。
+- 提供上、下、左、右半屏及四角四分之一布局，最大化优先使用系统原生“填充”。
+- 支持系统双窗口、三窗口及四窗口排列，需 macOS 15 及以上的前台聚焦窗口，会同时调整其他窗口。
+- 窗口操作按基础操作、单窗口布局、多窗口排列、尺寸与屏幕、应用窗口与切换分类，先选分类再选动作。
+- 恢复窗口前一个位置和大小，重复最大化不会覆盖原来的恢复记录。
+- 单独最大化窗口高度或宽度，移动窗口到下一个显示器。
+- 最小化目标应用的全部窗口，恢复一个或全部最小化窗口。
+- 处理应用最小尺寸等限制，减少窗口已经调整却报告失败的情况。
 
-StrokeMouse 同时支持应用内更新；如希望通过 Homebrew 强制检查并升级，请使用：
+[窗口操作的完整行为与限制](docs/window-controls.md)
 
-```bash
-brew upgrade --cask --greedy strokemouse
-```
+### 对鼠标下的窗口执行手势
 
-卸载应用时默认保留配置，添加 `--zap` 可同时移除配置：
+新建手势默认选择 **“指针位置所属应用”**：把鼠标放到非激活窗口上，直接按住右键绘制，即可对该窗口执行动作。目标在按下触发键时锁定，绘制途中移到别处不会改变目标。
 
-```bash
-brew uninstall --cask strokemouse
-brew uninstall --cask --zap strokemouse
-```
+已有手势保留原设置，也可在编辑器的“手势目标”中切换。快捷键动作会先激活锁定的目标窗口，再发送快捷键。
 
-也可前往 [官网下载页](https://strokemouse.com/download) 手动下载对应架构的 DMG。自 0.0.40 起，发行版使用 Apple Developer ID 签名并经过 Apple 公证；从 0.0.39 及更早版本升级时需重新授权一次辅助功能：在权限页点击 **重置授权**，再重新打开 StrokeMouse 的开关即可。
+### 状态栏驻留
 
-## 权限
+- 关闭设置窗口后隐藏 Dock 图标，应用和手势继续运行。
+- 保留状态栏入口，可重新打开设置、暂停手势或退出应用。
+- 使用面性单色鼠标图标，自动适配 macOS 明暗背景。
+- 可在通用设置中调整 Dock 和状态栏显示偏好。
 
-| 权限 | 用途 |
-|------|------|
-| **辅助功能（Accessibility）** | 全局鼠标 / 修饰键 / 滚动事件监听（CGEventTap）、快捷键注入、窗口 AX 操作 |
-| **自动化（Automation）** | 可选；AppleScript 控制其他 App 时按需授权 |
+### 应用内更新
 
-首次启动或 **设置 → 权限** 可使用应用内**引导授权**：打开系统设置并拖入 StrokeMouse 完成开关。未授权时引擎不会假装在监听。
+在应用内点击“检查更新”，即可获取本仓库发布的版本。更新档案会经过签名校验，安装包与发布说明也可以在 [Releases 页面](https://github.com/istraw/InMouse/releases)查看。
 
-### 实验性触控手势
+[发布与更新说明](docs/inmouse-releases.md)
 
-触控手势通过运行时 `dlopen` / `dlsym` 加载 Apple 未公开的 `MultitouchSupport`，不静态链接该私有框架。它可能在 macOS 更新后失效；缺少框架、符号、设备或设备启动失败都会显示为触控通道故障，鼠标与触控板绘制仍可继续使用，不会模拟回退或静默重试。
+## 快速上手
 
-StrokeMouse 不会拦截触控板原生手势，因此系统手势可能与绑定动作同时发生。唯一的例外是点按：用已配置点按手势的手指数按下触控板时，这次点击由手势接管，不会再传给应用。按下过触控板的触点序列不会再识别为轻点或滑动。应用也不会保存或记录原始触点轨迹。第一次保存、启用或导入已启用的触控手势配置时会显示实验风险确认；之后可用总开关暂停触控手势而不删除配置。
+1. 安装并打开 InMouse，完成辅助功能授权。
+2. 从状态栏打开设置，在手势列表中添加或编辑手势。
+3. 录制轨迹，选择要执行的窗口操作、快捷键或其他动作，并按需设置应用范围。
+4. 将鼠标移到目标窗口上，按住触发键绘制轨迹，松开后执行动作。
 
-支持的 40 类触控手势：
+默认触发键为鼠标右键，也可以为手势选择中键、侧键或其他支持的输入方式。
 
-| 类别 | 手指数 | 变体 | 数量 |
-|------|--------|------|------|
-| 轻点 | 三 / 四 / 五指 | 轻点、轻点两下 | 6 |
-| 点按 | 三 / 四 / 五指 | 点按、点按两下 | 6 |
-| 滑动 | 三 / 四 / 五指 | 上、下、左、右 | 12 |
-| 缩放 | 二 / 三 / 四 / 五指 | 捏合、张开 | 8 |
-| 旋转 | 二 / 三 / 四 / 五指 | 逆时针、顺时针 | 8 |
-| **合计** |  |  | **40** |
+录制鼠标绘制样本时，按住右键、中键或侧键拖动画布；录制触控板绘制样本时，将指针放入画布，按住所选修饰键（如 Fn），用单指在触控板上移动，松开修饰键结束，无需按下触控板。触控板绘制使用修饰键与指针轨迹，多指轻点、滑动等则属于独立的“触控手势”。
 
-首版不支持两指轻触 / 滑动、修饰键组合、特定手指身份、连续重复动作或用户调整识别阈值。
+## 内置动作分类
 
-## 构建与运行
+- **桌面**：调度中心、显示桌面、切换空间、程序坞和桌面文件显示。
+- **浏览器**：前进后退、到顶到底、新建／关闭标签页、切换标签页。
+- **系统**：电源与锁屏、屏幕保护、外观、废纸篓、保持唤醒及随机壁纸。
+- **访达**：窗口与目录导航、常用文件夹、隔空投送、连接服务器和图片设为壁纸。
+- **窗口操作**：布局、最大化、恢复、最小化和跨显示器移动。
 
-### 依赖
+[动作行为、目标与限制](docs/builtin-actions.md)
 
-```bash
-brew install xcodegen
-```
+## 界面语言
 
-### 生成工程并打开
+支持 English、简体中文、繁體中文、한국어、日本語、Русский 和 Français。
 
-```bash
-./scripts/generate_project.sh
-open StrokeMouse.xcodeproj
-```
+## 更多手势能力
 
-或在 Xcode 中直接 **Run**（Scheme: `StrokeMouse`）。
+继承上游的鼠标绘制、鼠标按键映射、鼠标组合、触控板绘制、实验性多指触控手势、滚动增强、按应用配置、手势导入导出，以及快捷键、打开应用、媒体控制、Shell / AppleScript 等动作。
 
-### 命令行构建（推荐）
+实验性多指触控使用 Apple 未公开的触控接口，可能受系统更新影响。更多原版能力可参考[上游中文说明](README_upstream_zh-Hans.md)和[保留的上游英文说明](README_upstream.md)；这些是原项目文档，安装 InMouse 请使用本页的下载入口。
 
-固定产出到仓库下 `output/StrokeMouse.app`，路径稳定，减少重复授权辅助功能。  
-Debug 显示名为 **StrokeMouse Dev**（Bundle ID `com.strokemouse.app.dev`），与正式版 **StrokeMouse** 可同时在辅助功能中授权，互不冲突：
+## 配置与备份
 
-```bash
-./scripts/build.sh           # Debug → output/StrokeMouse.app（辅助功能中显示 StrokeMouse Dev）
-./scripts/build.sh --open    # 编译完成后自动打开
-./scripts/build.sh --release # Release（显示名 / Bundle ID 与正式包一致）
-```
-
-### 发布打包
-
-按架构生成 ZIP、TAR.GZ 和 DMG，并验证签名、entitlements 与产物完整性（默认用钥匙串中的 **Developer ID Application** 身份签名，提供公证凭据时同时公证，下载可通过 Gatekeeper，辅助功能也能跨 Sparkle 更新保留）：
-
-```bash
-# 公证：追加 NOTARY_KEYCHAIN_PROFILE=<xcrun notarytool store-credentials 保存的配置名>
-SPARKLE_PUBLIC_KEY="..." ARCH=arm64 ./scripts/package-app.sh
-SPARKLE_PUBLIC_KEY="..." ARCH=x86_64 ./scripts/package-app.sh
-```
-
-发布与 CI secrets 说明见 `RELEASING.md` / `certs/README.md`。
-
-版本发布使用 `./bump.sh -v x.y.z [-p]`；同版本重打 tag 并推送用 `./bump.sh -v x.y.z --force`。
-
-### 测试
-
-```bash
-xcodebuild -scheme StrokeMouse -configuration Debug test
-```
-
-## 使用说明
-
-1. 启动应用，菜单栏出现鼠标图标  
-2. 授予 **辅助功能** 权限，并在菜单栏选择「恢复手势」/ 确认已启用  
-3. 打开 **设置 → 手势**，查看默认手势或新建  
-4. 选择一种输入方式：按住鼠标触发键绘制、按住单个修饰键进行触控板绘制，或完成已配置的触控手势
-5. 匹配成功后执行绑定动作  
-
-> **短按 vs 手势**：触发键的按下与松开由手势引擎暂时捕获；未达到「最小滑动距离」便松开时会回放为正常点击，右键菜单仍可用。所有鼠标移动与拖动事件都会直接交给系统更新光标，手势引擎通过定时采样记录轨迹；前台 App 收不到配对的触发键按下与松开，因此绘制时不会打开或选中右键菜单。未配置为触发键的鼠标按钮不受影响；左键默认同样放行，仅当目标应用可用的手势设置了 **第二动作** 时，按住触发键期间的左键点击会被吞掉，松开后只执行匹配手势的第二动作（该手势未设置第二动作则不执行，未画出轨迹则取消）。若目标应用为该按键设置了 **鼠标按键映射**，短按改为执行映射动作，不再回放点击。按住右键时，**鼠标组合** 优先接管滚轮或左键（先于第二动作），触发后松开右键既不回放点击，也不识别轨迹。目标应用可用右键「拖动滚动」时，短按阈值改为固定的 10 点，不跟随「最小滑动距离」；指针移动不足 10 点便松开仍会回放右键点击，开始滚动后松开既不回放点击，也不识别轨迹。
-
-> **触控板绘制**：修饰键监听为 listen-only，不吞键盘事件；短路径不会执行动作。轨迹来自系统指针位置，因此可以用触控板或鼠标移动指针。StrokeMouse 不会阻止修饰键本身对当前 App 的影响。
-
-> 快捷键会先激活锁定应用；若锁定了精确窗口，也会将该窗口置前，因此可能切换焦点或桌面空间。Finder 桌面等没有普通窗口的位置仍可执行快捷键和「隐藏应用」；关闭、最小化、缩放、最大化窗口、全屏、居中仍需要精确窗口。短按不会激活目标。
-
-在手势编辑器中选择 **打开 URL → 使用选中文本**，输入 `https://www.baidu.com/s?wd={0}` 这样的模板。触发手势后，StrokeMouse 从捕获的窗口复制文本，将其留在剪贴板，并用默认浏览器打开生成的地址。
-
-默认手势示例（均默认右键触发；不同手势可绑定不同按键）：
-
-| 手势 | 动作 |
-|------|------|
-| ↑ | Mission Control（⌃↑） |
-| ↓ | 应用程序窗口（⌃↓） |
-| ↓← | 最小化窗口 |
-| ↓→ | 关闭窗口 |
-| ↑→ | 打开 Safari |
-| →← | 播放 / 暂停 |
-| ↑← | 打开 GitHub |
-
-## 配置文件
-
-路径：
+为兼容已有手势，配置文件仍保存在：
 
 ```text
 ~/Library/Application Support/StrokeMouse/gestures.json
 ```
 
-日常可用 **设置 → 手势** 多选后导出 / 导入 JSON 包。整库可复制上述文件备份或手工编辑（需保持结构合法）。设置页可「在 Finder 中显示」。
+可在应用的手势列表中点击“导出”备份。切换到 InMouse 的独立正式版后，首次需要重新确认辅助功能授权。
 
-含屏幕边缘「右键手势」的手势库、导出和备份使用手势配置 **v7**；其余配置中，「使用选中文本」需要 **v6**，最大化窗口需要 **v5**，系统动作和拖动滚动需要 **v4**，Fn 快捷键需要 **v3**，其他配置使用 **v2**。旧格式仍可读取，旧版本应用无法读取更新的格式。
+## 本地开发
 
-系统动作支持调度中心、应用程序窗口和上一个 / 下一个空间，默认使用与 macOS 一致的 ⌃↑ ⌃↓ ⌃← ⌃→，可在动作编辑器中录制其他快捷键或恢复默认，并需与系统设置保持一致；编辑器会读取「系统设置 › 键盘 › 键盘快捷键 › 调度中心」，对应的系统快捷键已关闭或与此处不一致时会提示，并可点击「改用系统快捷键」采用系统设置，StrokeMouse 不会修改系统设置；使用默认快捷键但系统中已关闭该快捷键时，执行会提示错误而不是静默无效；应用程序窗口先激活锁定的应用 / 窗口，调度中心和空间切换作用于当前桌面，不激活锁定的窗口；这些是离散命令，不提供原生四指连续动画。
+使用 Swift / SwiftUI、Xcode 和 XcodeGen，工程、应用 Target 及 Scheme 名称均为 `InMouse`。
 
-开始录制快捷键前请先松开所有修饰键，再按希望回放的顺序依次按键；Fn 需实际按下，在系统设置中改为 Fn 的按键（如大写锁定键）也可以，松开大写锁定键后大写锁定可能仍保持开启。
+```bash
+brew install xcodegen
+./scripts/generate_project.sh
+open InMouse.xcodeproj
+```
 
-## 技术栈
+使用本机签名身份构建到 `output.noindex/InMouse.app`：
 
-- Swift / SwiftUI（macOS 14+）
-- 轻量 MVVM + Service
-- `CGEventTap` 全局鼠标 / 修饰键事件
-- `dlopen` / `dlsym` 动态加载 `MultitouchSupport`（实验性触控手势，不静态链接）
-- JSON 配置持久化
-- [LaunchAtLogin-Modern](https://github.com/sindresorhus/LaunchAtLogin-Modern) 登录启动
-- [Sparkle](https://github.com/sparkle-project/Sparkle) 签名校验与应用内更新
-- XcodeGen 管理工程
+```bash
+CODE_SIGN_IDENTITY='<本机签名证书>' ./scripts/build.sh --release
+```
 
-## 许可与免责
+## 来源与许可证
 
-本项目采用 [GNU Affero General Public License v3.0 (AGPL-3.0)](./LICENSE) 开源。
-
-本地工具，全局事件与脚本动作具有系统级能力。请仅添加你信任的 Shell / AppleScript。作者不对误操作或权限滥用负责。
+感谢 [Licoy/StrokeMouse](https://github.com/Licoy/StrokeMouse) 提供原始实现。InMouse 保留原项目的 [AGPL-3.0 许可证](LICENSE) 和来源信息，InMouse 的功能修改在 `main` 分支维护，上游同步代码保留在 `upstream` 分支。

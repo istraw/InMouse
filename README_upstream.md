@@ -1,4 +1,4 @@
-**English** · [简体中文](./README_zh-Hans.md) · [繁體中文](./README_zh-Hant.md) · [한국어](./README_ko.md) · [日本語](./README_ja.md) · [Русский](./README_ru.md) · [Français](./README_fr.md)
+**English** · [简体中文](./README_upstream_zh-Hans.md) · [繁體中文](./README_zh-Hant.md) · [한국어](./README_ko.md) · [日本語](./README_ja.md) · [Русский](./README_ru.md) · [Français](./README_fr.md)
 
 <div align="center">
   <img src="design/logo/stroke-mouse-app-icon.png" width="128" alt="StrokeMouse" />
